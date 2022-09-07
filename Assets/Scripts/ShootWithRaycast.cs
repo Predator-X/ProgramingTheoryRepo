@@ -69,6 +69,8 @@ public class ShootWithRaycast : MonoBehaviour
         fpsCam = GameObject.FindGameObjectWithTag("CameraPlayer").GetComponent<Camera>();
     }
 
+
+
     void Shoot()
     {
         // Update the time when our player can fire next

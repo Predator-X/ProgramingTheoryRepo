@@ -4,42 +4,16 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    public CharacterController characterController;
+  //  public CharacterController characterController;
     public float speed = 5f;
-    public GameObject head , gun, body;
+    public GameObject head, gun, body;
 
     //health
-    public int currentHealth = 3;
+    public  int currentHealth = 3;
 
-    //CameraFallow
-    public Camera playersCam;
-    public Transform camtarget;
-    public float pLerp = .02f,
-        rLerp = .01f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        characterController.GetComponent<CharacterController>();
 
-        //CameraFallow
-     //   camtarget = transform.Find("Head").GetChild(0);
-      //  if (playersCam == null)
-      //  {
-      //      playersCam = GameObject.FindGameObjectWithTag("CameraPlayer").GetComponent<Camera>();
-    //    }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-        Move();
-    //    CameraFallow();
-
-    }
-
-    public void Damage(int damageAmount)
+    public virtual void Damage(int damageAmount)
     {
         currentHealth -= damageAmount;
 
@@ -49,7 +23,7 @@ public class Character : MonoBehaviour
         }
     }
 
-   void Move()
+  protected virtual void Move(GameObject head ,GameObject gun, GameObject body)
     {
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         transform.Translate(move * speed * Time.deltaTime, Space.Self);
@@ -62,9 +36,30 @@ public class Character : MonoBehaviour
         gun.transform.Rotate(Vector3.left * Input.GetAxis("Mouse Y") * 5f);
     }
 
-    void CameraFallow()
-    {
-         playersCam.transform.position = Vector3.Lerp(playersCam.transform.position, camtarget.position, pLerp);
-        transform.rotation = Quaternion.Lerp(playersCam.transform.rotation, camtarget.rotation, rLerp);
-    }
+
 }
+
+
+
+/*
+     //CameraFallow
+    public Camera playersCam;
+    public Transform camtarget;
+    public float pLerp = .02f,
+        rLerp = .01f;
+
+//CameraFallow
+//   camtarget = transform.Find("Head").GetChild(0);
+//  if (playersCam == null)
+//  {
+//      playersCam = GameObject.FindGameObjectWithTag("CameraPlayer").GetComponent<Camera>();
+//    }
+
+
+
+   void CameraFallow()
+{
+   playersCam.transform.position = Vector3.Lerp(playersCam.transform.position, camtarget.position, pLerp);
+   transform.rotation = Quaternion.Lerp(playersCam.transform.rotation, camtarget.rotation, rLerp);
+}
+*/
