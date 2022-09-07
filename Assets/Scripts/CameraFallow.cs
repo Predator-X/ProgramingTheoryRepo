@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera : MonoBehaviour
+public class CameraFallow : MonoBehaviour
 {
     public Transform camtarget;
-    public float pLerp = .02f ,
+    public float pLerp = .02f,
         rLerp = .01f;
-    
+
 
 
     // Update is called once per frame
