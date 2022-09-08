@@ -575,18 +575,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5870731762729094780, guid: 1e938d2246e3cb041a91ac4e2bc6a4ce, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870731763488984548, guid: 1e938d2246e3cb041a91ac4e2bc6a4ce, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870731763559875247, guid: 1e938d2246e3cb041a91ac4e2bc6a4ce, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 5870731763769773378, guid: 1e938d2246e3cb041a91ac4e2bc6a4ce, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -634,18 +622,6 @@ PrefabInstance:
     - target: {fileID: 5870731763769773391, guid: 1e938d2246e3cb041a91ac4e2bc6a4ce, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870731763769773391, guid: 1e938d2246e3cb041a91ac4e2bc6a4ce, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870731763769773391, guid: 1e938d2246e3cb041a91ac4e2bc6a4ce, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870731764406497365, guid: 1e938d2246e3cb041a91ac4e2bc6a4ce, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e938d2246e3cb041a91ac4e2bc6a4ce, type: 3}

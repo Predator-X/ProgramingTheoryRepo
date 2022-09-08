@@ -6,12 +6,15 @@ public class PlayerController : Character
 {
     public CharacterController characterController;
 
+    //Shooting
+    ShootWithRaycast attack;
+    private float nextFire;
 
- 
     // Start is called before the first frame update
     void Start()
     {
         characterController.GetComponent<CharacterController>();
+        attack = GetComponent<ShootWithRaycast>();
 
     }
 
@@ -19,7 +22,14 @@ public class PlayerController : Character
     void Update()
     {
 
+
         Move(head,gun,body);
+
+        if (Input.GetButtonDown("Fire1") && Time.time > nextFire)
+        {
+            attack.Shoot();
+        }
+      
      
 
     }
