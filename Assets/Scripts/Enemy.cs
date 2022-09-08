@@ -7,6 +7,7 @@ public class Enemy : Character
 {
    public NavMeshAgent agent;
   public  Transform player;
+    public LayerMask WhatIsGround, WhatIsPlayer;
     //Patrolling
     Vector3 walkPoint;
     bool walkPointSet;
@@ -25,8 +26,8 @@ public class Enemy : Character
 
     void Update()
     {//Check for Sight and Attack Range
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, 6);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, 6);
+        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, WhatIsPlayer);
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, WhatIsPlayer);
         
         if (!playerInSightRange & !playerInAttackRange) Patrolling();
         if (playerInSightRange & !playerInAttackRange) ChasePlayer();
@@ -56,7 +57,7 @@ public class Enemy : Character
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
         //Check if Walking Point is not outside of the map
-        if(Physics.Raycast(walkPoint, -transform.up, 2f, 3))  walkPointSet = true; 
+        if(Physics.Raycast(walkPoint, -transform.up, 2f, WhatIsGround))  walkPointSet = true; 
 
 
     }
