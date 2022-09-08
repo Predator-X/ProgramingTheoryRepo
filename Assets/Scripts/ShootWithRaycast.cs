@@ -76,11 +76,10 @@ public class ShootWithRaycast : MonoBehaviour
         // Start our ShotEffect coroutine to turn our laser line on and off
         StartCoroutine(ShotEffect());
 
-        // Create a vector at the center of our camera's viewport
-        Vector3 rayOrigin;// = fpsCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
-
-        Transform gOrgin = transform.Find("Hand").transform.Find("GunShootPosition");
-        rayOrigin = gOrgin.position;
+       
+        //Create Vector form GunPoint
+        Transform gOrgin =transform.Find("GunHolder").transform.Find("Hand").transform.Find("GunShootPosition");
+        Vector3 rayOrigin = gOrgin.position;
 
         // Declare a raycast hit to store information about what our raycast has hit
         RaycastHit hit;
@@ -149,6 +148,10 @@ public class ShootWithRaycast : MonoBehaviour
  * 
  *             // If we did not hit anything, set the end of the line to a position directly in front of the camera at the distance of weaponRange
            // laserLine.SetPosition(1, rayOrigin + (fpsCam.transform.forward * weaponRange));
+
+
+      // Create a vector at the center of our camera's viewport
+        Vector3 rayOrigin = fpsCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
 
 
  *           void Update()

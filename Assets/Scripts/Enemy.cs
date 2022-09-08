@@ -18,10 +18,16 @@ public class Enemy : Character
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange,alreadyAttacked;
 
+    //Shooting
+    ShootWithRaycast attack;
+    private float nextFire;
+
     private void Awake()
     {//Find Player
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        agent.GetComponent<NavMeshAgent>();    
+        agent.GetComponent<NavMeshAgent>();
+
+        attack = GetComponent<ShootWithRaycast>();
     }
 
     void Update()
@@ -81,8 +87,12 @@ public class Enemy : Character
 
         if (!alreadyAttacked)
         {//Attack Code Here
-         //
-         //
+            Transform pointGun = transform.Find("GunHolder");
+            pointGun.transform.LookAt(player.transform); 
+
+            attack.Shoot();
+
+            //
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
