@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class Enemy : Character
 {
    public NavMeshAgent agent;
-  public  GameObject player;
+  public  Transform player;
     //Patrolling
     Vector3 walkPoint;
     bool walkPointSet;
@@ -19,25 +19,28 @@ public class Enemy : Character
 
     private void Awake()
     {//Find Player
-        player = GameObject.FindGameObjectWithTag("Player").gameObject;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         agent.GetComponent<NavMeshAgent>();    
     }
 
-    private void Update()
+    void Update()
     {//Check for Sight and Attack Range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, 6);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, 6);
-
-        if (!playerInSightRange & !playerInAttackRange) ;
+        
+        if (!playerInSightRange & !playerInAttackRange) Patrolling();
+        if (playerInSightRange & !playerInAttackRange) ChasePlayer();
+        if (playerInSightRange && playerInAttackRange) AttackPlayer();
         
     }
 
-    private void Patrolling()
+    void Patrolling()
     {
         if (!walkPointSet) SearchWalkingPoint();
         if (walkPointSet)
         {
             agent.SetDestination(walkPoint);
+          
             //Calculate Distance to walkpoint
             Vector3 distanceToWalkPoint = transform.position - walkPoint;
             //Walkpoint reached
@@ -53,7 +56,7 @@ public class Enemy : Character
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
         //Check if Walking Point is not outside of the map
-        if(Physics.Raycast(walkPoint, -transform.up, 2f, 6))  walkPointSet = true; 
+        if(Physics.Raycast(walkPoint, -transform.up, 2f, 3))  walkPointSet = true; 
 
 
     }
@@ -61,6 +64,7 @@ public class Enemy : Character
     void ChasePlayer()
     {
         agent.SetDestination(player.transform.position);
+  
     }
 
     void ResetAttack()
@@ -69,15 +73,15 @@ public class Enemy : Character
     }
 
     void AttackPlayer()
-    {//Attack Code Here
-        //
-        //
+    {
         //Make sure enemy Does not move
         agent.SetDestination(transform.position);
         transform.LookAt(player.transform);
 
         if (!alreadyAttacked)
-        {
+        {//Attack Code Here
+         //
+         //
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
