@@ -18,7 +18,18 @@ public class ShootWithRaycast : MonoBehaviour
     private LineRenderer laserLine;                                     // Reference to the LineRenderer component which will display our laserline
     private float nextFire;                                             // Float to store the time the player will be allowed to fire again, after firing
 
-  
+    bool isItPlayer;
+
+
+    private void Awake()
+    {
+        if (this.tag == "Player")
+        {
+            isItPlayer = true;
+
+        }
+        else isItPlayer = false;
+    }
 
     void Start()
     {
@@ -76,11 +87,25 @@ public class ShootWithRaycast : MonoBehaviour
         // Start our ShotEffect coroutine to turn our laser line on and off
         StartCoroutine(ShotEffect());
 
-       
-        //Create Vector form GunPoint
-        Transform gOrgin =transform.Find("GunHolder").transform.Find("Hand").transform.Find("GunShootPosition");
-        Vector3 rayOrigin = gOrgin.position;
+        //Transform gOrgin;
+        Vector3 rayOrigin , gOrgin;
 
+       if(isItPlayer == true)
+        {
+
+            // Create a vector at the center of our camera's viewport
+            rayOrigin = fpsCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
+               gOrgin = fpsCam.transform.forward;
+        }
+        else 
+        {
+            //Create Vector form GunPoint
+            rayOrigin = transform.Find("GunHolder").transform.Find("Hand").transform.Find("GunShootPosition").transform.position;
+            gOrgin = transform.Find("GunHolder").transform.Find("Hand").transform.Find("GunShootPosition").transform.forward;
+           // rayOrigin = gOrgin;//fpsCam.transform.forward;
+        }
+       // gOrgin = transform.Find("GunHolder").transform.Find("Hand").transform.Find("GunShootPosition").transform.forward;
+      //  rayOrigin = fpsCam.transform.forward;
         // Declare a raycast hit to store information about what our raycast has hit
         RaycastHit hit;
 
@@ -88,9 +113,11 @@ public class ShootWithRaycast : MonoBehaviour
         laserLine.SetPosition(0, gunEnd.position);
 
         // Check if our raycast has hit anything
-        if (Physics.Raycast(rayOrigin, gOrgin.transform.forward//fpsCam.transform.forward
-            , out hit, weaponRange))
-        {
+       if (Physics.Raycast(rayOrigin, gOrgin//gOrgin.transform.forward// gOrgin.transform.forward//fpsCam.transform.forward
+          , out hit, weaponRange))
+
+      
+            {
             // Set the end position for our laser line 
             laserLine.SetPosition(1, hit.point);
 
@@ -114,7 +141,7 @@ public class ShootWithRaycast : MonoBehaviour
         else
         {
            //If we did not hit anything, set the end of the line to a position directly in fornt of the weapon at the distance weponRange
-            laserLine.SetPosition(1, rayOrigin + (gOrgin.transform.forward * weaponRange));
+            laserLine.SetPosition(1, rayOrigin + (gOrgin * weaponRange));
         }
     }
 
