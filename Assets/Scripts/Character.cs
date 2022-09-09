@@ -30,9 +30,10 @@ public class Character : MonoBehaviour
         // characterController.Move(move * speed * Time.deltaTime);
 
         body.transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * 5f);
-        // transform.rotation = body.transform.rotation;
-        head.transform.Rotate(Vector3.left * Input.GetAxis("Mouse Y") * 5f);
-        //  gun.transform.rotation = head.transform.rotation;
+                                                                                     // transform.rotation = body.transform.rotation;
+      //  head.transform.Rotate(Vector3.left * Input.GetAxis("Mouse Y") * 5f); this when using scirpt CameraFallow
+        transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * 5f);
+                                                                                     //  gun.transform.rotation = head.transform.rotation;
         gun.transform.Rotate(Vector3.left * Input.GetAxis("Mouse Y") * 5f);
     }
 
