@@ -246,7 +246,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2261114243981844773}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.02, y: 1.05, z: 0.14}
+  m_LocalPosition: {x: 0.02, y: 1.147, z: 0.14}
   m_LocalScale: {x: 2.5, y: 2.499999, z: 2.499999}
   m_Children: []
   m_Father: {fileID: 2261114244701852259}
@@ -268,7 +268,6 @@ GameObject:
   - component: {fileID: 1966331142}
   - component: {fileID: 270531921}
   - component: {fileID: 270531922}
-  - component: {fileID: 270531920}
   m_Layer: 0
   m_Name: EnemyA
   m_TagString: Untagged
@@ -341,11 +340,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 059f7db4bd5024740b31be4c1c3bc5ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSpeed: 0
   speed: 5
+  runSpeed: 15
   head: {fileID: 2261114242988407157}
   gun: {fileID: 2261114243981844773}
   body: {fileID: 2261114244085395773}
-  currentHealth: 10
+  maxHealth: 10
   agent: {fileID: 2261114244085395775}
   player: {fileID: 0}
   WhatIsGround:
@@ -355,7 +356,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   walkPointRange: 30
-  timeBetweenAttacks: 0.5
+  timeBetweenAttacks: 0.2
   sightRange: 50
   attackRange: 40
   playerInSightRange: 0
@@ -668,23 +669,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &270531920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2261114244085395773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a819902e9fe2c646b0179b1c6f05c37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gunDamage: 1
-  fireRate: 0.25
-  weaponRange: 50
-  hitForce: 100
-  gunEnd: {fileID: 2261114243981844774}
 --- !u!1 &2261114244701852258
 GameObject:
   m_ObjectHideFlags: 0

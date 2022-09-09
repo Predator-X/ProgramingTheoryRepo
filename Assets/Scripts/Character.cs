@@ -1,32 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
   //  public CharacterController characterController;
-    public float speed = 5f;
+    public float currentSpeed , speed = 5f , runSpeed = 15f;
     public GameObject head, gun, body;
+  //  bool isPlayer = false;
+    public bool isDead = false;
 
     //health
-    public  int currentHealth = 3;
+    public float currentHealth =10;
 
+    private void Awake()
+    {
+        currentSpeed = speed;
+       //currentHealth = maxHealth;
+   
+    }
 
 
     public virtual void Damage(int damageAmount)
     {
         currentHealth -= damageAmount;
-
-        if(currentHealth <= 0)
+        Debug.Log("Name: " + gameObject.name + " HasLife: " + currentHealth);
+        if (currentHealth <= 0)
         {
+            isDead = true;
             gameObject.SetActive(false);
+           
+
         }
+
     }
 
   protected virtual void Move(GameObject head ,GameObject gun, GameObject body)
     {
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        transform.Translate(move * speed * Time.deltaTime, Space.Self);
+        transform.Translate(move * currentSpeed * Time.deltaTime, Space.Self);
         // characterController.Move(move * speed * Time.deltaTime);
 
         body.transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * 5f);
@@ -64,3 +77,16 @@ public class Character : MonoBehaviour
    transform.rotation = Quaternion.Lerp(playersCam.transform.rotation, camtarget.rotation, rLerp);
 }
 */
+
+/*
+ *      if(this.tag == "Player")
+    {
+        isPlayer = true;
+        Scrollbar healthBar = Scrollbar.FindObjectOfType<Scrollbar>();
+
+    }
+ * 
+ * 
+ * 
+ */
+

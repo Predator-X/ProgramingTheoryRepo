@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : Character
 {
@@ -11,25 +12,29 @@ public class PlayerController : Character
     private float nextFire;
     Camera cam;
     public GameObject aimCamera, fallowCamera;
+ 
+
     //Effect on camera
     Cinemachine.CinemachineImpulseSource impulseSource;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+       
         characterController.GetComponent<CharacterController>();
         attack = GetComponent<ShootWithRaycast>();
 
         cam = GameObject.FindGameObjectWithTag("CameraPlayer").GetComponent<Camera>();
+     
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
+      
+  
         Move(head,gun,body);
+
 
         if (Input.GetButtonDown("Fire1") && Time.time > nextFire)
         {
@@ -49,15 +54,41 @@ public class PlayerController : Character
             fallowCamera.SetActive(true);
 
         }
+
+        if (Input.GetButtonDown("SpeedUp"))
+            {
+            currentSpeed = runSpeed;
+        }
+        if (Input.GetButtonUp("SpeedUp"))
+        {
+            currentSpeed = speed;
+        }
       
      
 
     }
 
+ 
+ }
 
 
-}
 
+/*
+ * 
+ * 
+ *    public override void Damage(int damageAmount)
+    {
+        currentHealth -= damageAmount;
+
+        if (currentHealth <= 0)
+        {
+            healthBar.interactable = false;
+            healthBar.size = 1;
+          
+            gameObject.SetActive(false);
+        }
+
+*/
 
 
 

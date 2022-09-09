@@ -123,6 +123,10 @@ public class ShootWithRaycast : MonoBehaviour
 
             // Get a reference to a health script attached to the collider we hit
             Character health = hit.collider.GetComponent<Character>();
+         
+            
+            
+
 
             // If there was a health script attached
             if (health != null)

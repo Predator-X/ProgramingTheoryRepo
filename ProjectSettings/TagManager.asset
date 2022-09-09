@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CameraPlayer
   - Enemy
+  - PlayersHealthBar
   layers:
   - Default
   - TransparentFX
