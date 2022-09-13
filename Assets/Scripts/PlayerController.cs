@@ -22,7 +22,7 @@ public class PlayerController : Character
     {
        
         characterController.GetComponent<CharacterController>();
-        attack = GetComponent<ShootWithRaycast>();
+        attack = this.GetComponent<ShootWithRaycast>();
 
         cam = GameObject.FindGameObjectWithTag("CameraPlayer").GetComponent<Camera>();
      
@@ -35,7 +35,6 @@ public class PlayerController : Character
   
         Move(head,gun,body);
 
-
         if (Input.GetButtonDown("Fire1") && Time.time > nextFire)
         {
             attack.Shoot();
@@ -43,7 +42,7 @@ public class PlayerController : Character
             impulseSource.GenerateImpulse(cam.transform.forward);
         }
 
-        if(Input.GetButtonDown("Fire2") && fallowCamera.activeInHierarchy)
+        if (Input.GetButtonDown("Fire2") && fallowCamera.activeInHierarchy)
         {
             fallowCamera.SetActive(false);
             aimCamera.SetActive(true);
@@ -68,8 +67,10 @@ public class PlayerController : Character
 
     }
 
- 
- }
+
+
+
+}
 
 
 

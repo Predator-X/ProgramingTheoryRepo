@@ -18,7 +18,7 @@ public class ShootWithRaycast : MonoBehaviour
     private LineRenderer laserLine;                                     // Reference to the LineRenderer component which will display our laserline
     private float nextFire;                                             // Float to store the time the player will be allowed to fire again, after firing
 
-    bool isItPlayer;
+    bool isItPlayer , isShootingAtObstacle=false;
 
 
     private void Awake()
@@ -141,11 +141,21 @@ public class ShootWithRaycast : MonoBehaviour
                 // Add force to the rigidbody we hit, in the direction from which it was hit
                 hit.rigidbody.AddForce(-hit.normal * hitForce);
             }
+
+            if(hit.transform.tag == "Wall")
+            {
+                isShootingAtObstacle = true;
+            }
+            if (hit.transform.tag != "Wall")
+            {
+                isShootingAtObstacle = false;
+            }
         }
         else
         {
            //If we did not hit anything, set the end of the line to a position directly in fornt of the weapon at the distance weponRange
             laserLine.SetPosition(1, rayOrigin + (gOrgin * weaponRange));
+            isShootingAtObstacle = false;
         }
     }
 
@@ -163,6 +173,11 @@ public class ShootWithRaycast : MonoBehaviour
 
         // Deactivate our line renderer after waiting
         laserLine.enabled = false;
+    }
+
+    public bool IsItShootingAtObstacle()
+    {
+        return isShootingAtObstacle;
     }
 
 

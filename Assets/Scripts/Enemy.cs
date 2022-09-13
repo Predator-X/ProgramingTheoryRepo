@@ -16,7 +16,7 @@ public class Enemy : Character
     public float timeBetweenAttacks;
     //States
     public float sightRange, attackRange;
-    public bool playerInSightRange, playerInAttackRange,alreadyAttacked;
+    public bool playerInSightRange, playerInAttackRange,alreadyAttacked , obstacleInWay=false;
 
     //Shooting
     ShootWithRaycast attack;
@@ -27,19 +27,41 @@ public class Enemy : Character
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent.GetComponent<NavMeshAgent>();
 
-        attack = GetComponent<ShootWithRaycast>();
+        attack = this.GetComponent<ShootWithRaycast>();
+
     }
 
     void Update()
     {//Check for Sight and Attack Range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, WhatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, WhatIsPlayer);
-        
-        if (!playerInSightRange & !playerInAttackRange) Patrolling();
-        if (playerInSightRange & !playerInAttackRange) ChasePlayer();
-        if (playerInSightRange && playerInAttackRange) AttackPlayer();
-        
+
+       
+
+        if (!playerInSightRange & !playerInAttackRange ) Patrolling();
+        if (playerInSightRange || obstacleInWay & !playerInAttackRange  ) ChasePlayer();
+        if (playerInSightRange && playerInAttackRange & !obstacleInWay) AttackPlayer();
+
+
+        //Behafiour  when enemy standing in fornt of the wall do this ....
+
+        var ray = new Ray(this.transform.position, this.transform.forward);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, attackRange ))
+        {
+            Debug.Log(hit.transform.gameObject);
+            if (hit.transform.tag == "Wall")
+            {
+                obstacleInWay = true;
+            }
+            else if (hit.transform.tag != "Wall") { obstacleInWay = false; }
+        }
+  
+
+
     }
+
+
 
     void Patrolling()
     {
@@ -51,7 +73,7 @@ public class Enemy : Character
             //Calculate Distance to walkpoint
             Vector3 distanceToWalkPoint = transform.position - walkPoint;
             //Walkpoint reached
-            if (distanceToWalkPoint.magnitude < 1f) walkPointSet = false;
+            if (distanceToWalkPoint.magnitude < 1f) walkPointSet = false; obstacleInWay = false;
         }
     }
 
@@ -99,3 +121,34 @@ public class Enemy : Character
 
     }
 }
+
+
+/*
+ * 
+ *        //Behafiour  when enemy standing in fornt of the wall do this ....
+        
+        var ray = new Ray(this.transform.position, this.transform.forward);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 7))
+        {
+            Debug.Log(hit.transform.gameObject);
+            if (hit.transform.tag == "Wall")
+            {
+                obstacleInWay = true;
+                Patrolling();
+                AttackPlayer();
+            }
+            else { obstacleInWay = false; }
+        }
+        if (attack.IsItShootingAtObstacle() && playerInSightRange)
+        {
+            obstacleInWay = true;
+            Patrolling();
+            ChasePlayer();
+            //  Invoke("AttackPlayer", Time.deltaTime * 3f);
+        }
+        if (!attack.IsItShootingAtObstacle())
+        {
+            obstacleInWay = false;
+        }
+*/
