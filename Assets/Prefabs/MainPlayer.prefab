@@ -279,13 +279,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSpeed: 0
-  speed: 5
+  speed: 8
   runSpeed: 15
   head: {fileID: 6502597803476996891}
   gun: {fileID: 6502597803585837270}
   body: {fileID: 6502597805480488458}
   isDead: 0
-  currentHealth: 10
+  currentHealth: 20
   characterController: {fileID: 6502597803799071122}
   aimCamera: {fileID: 0}
   fallowCamera: {fileID: 0}

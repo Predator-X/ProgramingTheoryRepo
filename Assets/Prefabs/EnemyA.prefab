@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 270531922}
   m_Layer: 0
   m_Name: EnemyA
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -341,12 +341,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSpeed: 0
-  speed: 5
+  speed: 7
   runSpeed: 15
   head: {fileID: 2261114242988407157}
   gun: {fileID: 2261114243981844773}
   body: {fileID: 2261114244085395773}
-  maxHealth: 10
+  isDead: 0
+  currentHealth: 10
   agent: {fileID: 2261114244085395775}
   player: {fileID: 0}
   WhatIsGround:
@@ -362,6 +363,7 @@ MonoBehaviour:
   playerInSightRange: 0
   playerInAttackRange: 0
   alreadyAttacked: 0
+  obstacleInWay: 0
 --- !u!82 &1966331144
 AudioSource:
   m_ObjectHideFlags: 0

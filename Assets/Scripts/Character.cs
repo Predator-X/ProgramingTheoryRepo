@@ -28,9 +28,31 @@ public class Character : MonoBehaviour
         Debug.Log("Name: " + gameObject.name + " HasLife: " + currentHealth);
         if (currentHealth <= 0)
         {
-            isDead = true;
-            gameObject.SetActive(false);
-           
+          
+
+            
+
+            if (this.tag == "Enemy")
+            {
+                Transform head = transform.GetChild(1);
+                head.parent = null;
+                head.gameObject.SetActive(true);
+              //  DeadDellay(head.gameObject);
+                head.gameObject.AddComponent<Rigidbody>();
+              //  head.gameObject.AddComponent < Enemy > ().DeadDellay(head.gameObject); 
+
+                isDead = true;
+               gameObject.SetActive(false);
+
+             
+
+            }
+            else
+            {
+                isDead = true;
+                gameObject.SetActive(false);
+            }
+
 
         }
 
@@ -50,7 +72,18 @@ public class Character : MonoBehaviour
         gun.transform.Rotate(Vector3.left * Input.GetAxis("Mouse Y") * 5f);
     }
 
+    public virtual void Heal(float healAmount)
+    {
+        currentHealth += healAmount; 
+    }
 
+    IEnumerator DeadDellay(GameObject g)
+    {
+        Destroy(g);
+        Destroy(gameObject);
+
+        yield return new WaitForSeconds(4);
+    }
 }
 
 
@@ -86,6 +119,23 @@ public class Character : MonoBehaviour
 
     }
  * 
+ * 
+ * // detach head on dead 
+           
+            if (this.tag == "Enemy")
+            {
+                Transform head = transform.GetChild(1);
+                head.parent = null;
+                head.gameObject.SetActive(true);
+                isDead = true;
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                isDead = true;
+                gameObject.SetActive(false);
+            }
+
  * 
  * 
  */
