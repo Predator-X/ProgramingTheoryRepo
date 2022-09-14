@@ -12,7 +12,11 @@ public class PlayerController : Character
     private float nextFire;
     Camera cam;
     public GameObject aimCamera, fallowCamera;
- 
+    public int score;
+
+    //Timer
+    float currentTime = 0;
+    string text;
 
     //Effect on camera
     Cinemachine.CinemachineImpulseSource impulseSource;
@@ -67,7 +71,25 @@ public class PlayerController : Character
 
     }
 
+    public void AddScore(int sc)
+    {
+        score += sc;
+    }
 
+    public int GetScore()
+    {
+        return score;
+    }
+
+    public string updateTimer()
+    {
+        currentTime += 1;
+
+        float minutes = Mathf.FloorToInt(currentTime / 60);
+        float seconds = Mathf.FloorToInt(currentTime % 60);
+
+       return string.Format("{0:00} : {1:00}", minutes, seconds);
+    }
 
 
 }

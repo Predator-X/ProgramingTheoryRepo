@@ -22,6 +22,9 @@ public class Enemy : Character
     ShootWithRaycast attack;
     private float nextFire;
 
+    //Dead effect
+  public bool  enemyIsHitOnHead=false;
+
     private void Awake()
     {//Find Player
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -56,11 +59,62 @@ public class Enemy : Character
             }
             else if (hit.transform.tag != "Wall") { obstacleInWay = false; }
         }
-  
-
 
     }
 
+
+    public override void Damage(int damageAmount)
+    {
+        currentHealth -= damageAmount;
+        Debug.Log("Name: " + gameObject.name + " HasLife: " + currentHealth);
+
+        if (currentHealth <= 0 && enemyIsHitOnHead)
+        {
+            GameObject b, g, h;
+            b = this.transform.Find("Body").gameObject;
+            b.GetComponent<DisActivateAfter>().enabled = true;
+            b.AddComponent<Rigidbody>();
+            b.transform.parent = null;
+         
+
+            g = this.transform.Find("GunHolder").gameObject;
+            g.GetComponent<DisActivateAfter>().enabled = true;
+            g.AddComponent<Rigidbody>();
+            g.transform.parent = null;
+
+            h = this.transform.Find("Head").gameObject;
+            h.GetComponent<DisActivateAfter>().enabled = true;
+            h.AddComponent<Rigidbody>();
+            h.transform.parent = null;
+
+           // PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+           
+            //StartCoroutine(player.DeadDellay(b));
+            //StartCoroutine(player.DeadDellay(h));
+
+        
+            
+            
+
+            isDead = true;
+
+ 
+            gameObject.SetActive(false);
+
+
+        }
+        else if(currentHealth <=0 && enemyIsHitOnHead == false)
+        {
+            isDead = true;
+            gameObject.SetActive(false);
+        }
+
+    }
+
+    protected virtual void EnemyIsHitOnHead(bool gotHit)
+    {
+        enemyIsHitOnHead = gotHit;
+    }
 
 
     void Patrolling()

@@ -6,7 +6,7 @@ public class ShootWithRaycast : MonoBehaviour
 
 
 
-    public int gunDamage = 1;                                           // Set the number of hitpoints that this gun will take away from shot objects with a health script
+    public int gunDamage = 1, damageExtra=0;                                           // Set the number of hitpoints that this gun will take away from shot objects with a health script
     public float fireRate = 0.25f;                                      // Number in seconds which controls how often the player can fire
     public float weaponRange = 50f;                                     // Distance in Unity units over which the player can fire
     public float hitForce = 100f;                                       // Amount of force which will be added to objects with a rigidbody shot by the player
@@ -123,17 +123,67 @@ public class ShootWithRaycast : MonoBehaviour
 
             // Get a reference to a health script attached to the collider we hit
             Character health = hit.collider.GetComponent<Character>();
-         
-            
-            
 
+            //If script is Attachet to Player
+            if(tag == "Player")
+            {
+                Debug.Log("HitInfo :" + hit.collider.name + "  Tag Name: " + hit.transform.tag);
+               // Debug.Log("_-------------------- Name: " + hit.transform.parent.name);
+                GameObject body;
+                if (hit.collider.name == "Head")
+                {
+                    /*
+                    body = GameObject.Find(hit.transform.parent.name);
+                       body.gameObject.AddComponent<Rigidbody>();
+                       body.transform.Find("Body").transform.parent = null;
 
-            // If there was a health script attached
-            if (health != null)
+                  
+                   
+                    hit.transform.gameObject.AddComponent<Rigidbody>();
+                    hit.transform.parent = null;
+
+                    health = hit.collider.GetComponentInParent<Character>();
+                    */
+                    health = hit.collider.GetComponentInParent<Enemy>();
+                    damageExtra = 10;
+                    hit.collider.GetComponentInParent<Enemy>().enemyIsHitOnHead = true;
+
+                    if (health != null)
+                    {
+                      //  hit.collider.GetComponentInChildren<DestroyAfterTime>().StartCounting();
+                      /////  StartCoroutine(DestroyAfterTime(hit.transform.gameObject, 3));
+                        health.Damage(gunDamage + damageExtra);
+                        GetComponent<PlayerController>().AddScore(gunDamage + damageExtra);
+                        
+                    } 
+                    else if(health==null) { Debug.LogError("health: When Shoot With head Probably canot find character script in Parent!----ShootWithRayCast c#"); }
+
+                }
+
+                else if (hit.transform.name != "Head" && health !=null)
+                {
+                    damageExtra = 0;
+                   
+                    Debug.Log("GunDamage: " + gunDamage);
+
+                        // Call the damage function of that script, passing in our gunDamage variable
+                        health.Damage(gunDamage + damageExtra);
+                            GetComponent<PlayerController>().AddScore(gunDamage);
+                    
+                }
+            }
+
+            //If Script is attachet to Enemy
+            if (tag=="Enemy"&& health != null)
             {
                 // Call the damage function of that script, passing in our gunDamage variable
                 health.Damage(gunDamage);
+               
+
+
             }
+
+
 
             // Check if the object we hit has a rigidbody attached
             if (hit.rigidbody != null)
@@ -181,6 +231,12 @@ public class ShootWithRaycast : MonoBehaviour
     }
 
 
+    IEnumerator DestroyAfterTime(GameObject g , float afterTime)
+    {
+        yield return new WaitForSeconds(afterTime);
+        Destroy(g);
+        g.SetActive(false);
+    }
 
 
 }
@@ -224,4 +280,35 @@ public class ShootWithRaycast : MonoBehaviour
             Transform gOrgin = transform.Find("Hand").transform.Find("GunShootPosition");
             rayOrigin = gOrgin.position;
         }
+
+    *
+      if (hit.transform.tag == "EnemyHead" && this.tag == "Player")
+                {
+                    GetComponent<PlayerController>().AddScore(gunDamage+10);
+                }
+
+
+
+
+
+
+
+
+       else if (hit.transform.name != "Head" && health !=null)
+                {
+                    damageExtra = 0;
+                   
+                    Debug.Log("GunDamage: " + gunDamage);
+
+                    if (health != null)
+                    {
+                        // Call the damage function of that script, passing in our gunDamage variable
+                        health.Damage(gunDamage + damageExtra);
+                            GetComponent<PlayerController>().AddScore(gunDamage);
+
+
+                    }
+                }
+
+
   */

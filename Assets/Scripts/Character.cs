@@ -8,7 +8,7 @@ public class Character : MonoBehaviour
   //  public CharacterController characterController;
     public float currentSpeed , speed = 5f , runSpeed = 15f;
     public GameObject head, gun, body;
-  //  bool isPlayer = false;
+    //  bool isPlayer = false;
     public bool isDead = false;
 
     //health
@@ -26,37 +26,19 @@ public class Character : MonoBehaviour
     {
         currentHealth -= damageAmount;
         Debug.Log("Name: " + gameObject.name + " HasLife: " + currentHealth);
+
         if (currentHealth <= 0)
         {
-          
-
-            
-
-            if (this.tag == "Enemy")
-            {
-                Transform head = transform.GetChild(1);
-                head.parent = null;
-                head.gameObject.SetActive(true);
-              //  DeadDellay(head.gameObject);
-                head.gameObject.AddComponent<Rigidbody>();
-              //  head.gameObject.AddComponent < Enemy > ().DeadDellay(head.gameObject); 
-
-                isDead = true;
-               gameObject.SetActive(false);
-
-             
-
-            }
-            else
-            {
-                isDead = true;
-                gameObject.SetActive(false);
-            }
+        
+            isDead = true;
+            gameObject.SetActive(false);
 
 
         }
 
     }
+
+  
 
   protected virtual void Move(GameObject head ,GameObject gun, GameObject body)
     {
@@ -77,12 +59,13 @@ public class Character : MonoBehaviour
         currentHealth += healAmount; 
     }
 
-    IEnumerator DeadDellay(GameObject g)
+   public  IEnumerator DeadDellay(GameObject g)
     {
-        Destroy(g);
-        Destroy(gameObject);
+        
 
         yield return new WaitForSeconds(4);
+        Destroy(g);
+        Destroy(gameObject);
     }
 }
 
@@ -136,7 +119,53 @@ public class Character : MonoBehaviour
                 gameObject.SetActive(false);
             }
 
- * 
- * 
+ *      
+                        if (this.tag == "Enemy")
+                        {
+                            Transform head = transform.GetChild(1);
+                            head.parent = null;
+                            head.gameObject.SetActive(true);
+                          //  DeadDellay(head.gameObject);
+                            head.gameObject.AddComponent<Rigidbody>();
+                          //  head.gameObject.AddComponent < Enemy > ().DeadDellay(head.gameObject); 
+
+                            isDead = true;
+                           gameObject.SetActive(false);
+
+
+
+                        }
+                        else
+                        {
+                            isDead = true;
+                            gameObject.SetActive(false);
+                        }
+                      
+
+
+
+
+
+
+
+
+
+        if(this.tag == "Enemy")
+            {
+                Transform gunHolder = transform.Find("GunHolder");
+                if (gunHolder != null)
+                {
+                    gunHolder.gameObject.AddComponent<Rigidbody>();
+                    gunHolder.parent = null;
+                }
+                else { Debug.LogError("Did not find GunHolder In Character to detach on death--- Character c#"); }
+
+                isDead = true;
+                gameObject.SetActive(false);
+            }
+            else
+            {
+            }
+ *
  */
 
