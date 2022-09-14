@@ -146,8 +146,8 @@ public class ShootWithRaycast : MonoBehaviour
                     */
                     health = hit.collider.GetComponentInParent<Enemy>();
                     damageExtra = 10;
-                    hit.collider.GetComponentInParent<Enemy>().enemyIsHitOnHead = true;
-
+                    //hit.collider.GetComponentInParent<Enemy>().enemyIsHitOnHead = true;
+                    hit.collider.GetComponentInParent<Enemy>().EnemyIsHitOnHead(true);
                     if (health != null)
                     {
                       //  hit.collider.GetComponentInChildren<DestroyAfterTime>().StartCounting();

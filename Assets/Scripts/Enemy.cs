@@ -111,7 +111,7 @@ public class Enemy : Character
 
     }
 
-    protected virtual void EnemyIsHitOnHead(bool gotHit)
+    public virtual void EnemyIsHitOnHead(bool gotHit)
     {
         enemyIsHitOnHead = gotHit;
     }
