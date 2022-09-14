@@ -35,37 +35,40 @@ public class PlayerController : Character
     // Update is called once per frame
     void Update()
     {
-      
-  
-        Move(head,gun,body);
-
-        if (Input.GetButtonDown("Fire1") && Time.time > nextFire)
+        if (!PauseMenu.GameIsPaused)
         {
-            attack.Shoot();
-            impulseSource = GetComponent<Cinemachine.CinemachineImpulseSource>();
-            impulseSource.GenerateImpulse(cam.transform.forward);
-        }
+            Move(head, gun, body);
 
-        if (Input.GetButtonDown("Fire2") && fallowCamera.activeInHierarchy)
-        {
-            fallowCamera.SetActive(false);
-            aimCamera.SetActive(true);
-        }
-        if(Input.GetButtonUp("Fire2") && aimCamera.activeInHierarchy)
-        {
-            aimCamera.SetActive(false);
-            fallowCamera.SetActive(true);
-
-        }
-
-        if (Input.GetButtonDown("SpeedUp"))
+            if (Input.GetButtonDown("Fire1") && Time.time > nextFire)
             {
-            currentSpeed = runSpeed;
+                attack.Shoot();
+                impulseSource = GetComponent<Cinemachine.CinemachineImpulseSource>();
+                impulseSource.GenerateImpulse(cam.transform.forward);
+            }
+
+            if (Input.GetButtonDown("Fire2") && fallowCamera.activeInHierarchy)
+            {
+                fallowCamera.SetActive(false);
+                aimCamera.SetActive(true);
+            }
+            if (Input.GetButtonUp("Fire2") && aimCamera.activeInHierarchy)
+            {
+                aimCamera.SetActive(false);
+                fallowCamera.SetActive(true);
+
+            }
+
+            if (Input.GetButtonDown("SpeedUp"))
+            {
+                currentSpeed = runSpeed;
+            }
+            if (Input.GetButtonUp("SpeedUp"))
+            {
+                currentSpeed = speed;
+            }
         }
-        if (Input.GetButtonUp("SpeedUp"))
-        {
-            currentSpeed = speed;
-        }
+  
+       
       
      
 

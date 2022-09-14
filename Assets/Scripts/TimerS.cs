@@ -14,7 +14,7 @@ public class TimerS : MonoBehaviour
 
     void LateUpdate()
     {
-        if (player.GetComponent<PlayerController>().isDead == false)
+        if (player.GetComponent<PlayerController>().isDead == false && PauseMenu.GameIsPaused==false)
         {
             GetComponent<TextMeshProUGUI>().SetText(player.GetComponent<PlayerController>().updateTimer());
         }
