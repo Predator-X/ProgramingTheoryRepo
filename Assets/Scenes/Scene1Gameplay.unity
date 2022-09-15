@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 2f6557aaccf22f54eacf693d41bda0e5, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -719,7 +719,7 @@ GameObject:
   - component: {fileID: 224469235}
   m_Layer: 5
   m_Name: ProgressText
-  m_TagString: Untagged
+  m_TagString: LoadText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1075,7 +1075,7 @@ GameObject:
   - component: {fileID: 387655892}
   m_Layer: 5
   m_Name: Canvas2
-  m_TagString: Untagged
+  m_TagString: Canvas2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1175,6 +1175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 768164105}
+  loadLastCheckpointButton: {fileID: 412139948}
 --- !u!1 &389288996
 GameObject:
   m_ObjectHideFlags: 0
@@ -1425,7 +1426,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -1.5000305, y: 0}
   m_SizeDelta: {x: 7.0000496, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1554,6 +1555,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: LoadLevel, Assembly-CSharp
         m_MethodName: Load
         m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 387655892}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: Resume
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1840,7 +1853,7 @@ GameObject:
   - component: {fileID: 477432940}
   m_Layer: 5
   m_Name: Slider
-  m_TagString: Untagged
+  m_TagString: LoadSlider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3462,9 +3475,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1319556272}
   - component: {fileID: 1319556271}
+  - component: {fileID: 1319556273}
   m_Layer: 0
   m_Name: LevelLoader
-  m_TagString: Untagged
+  m_TagString: LevelLoader
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3498,6 +3512,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1319556273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319556270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 151a79325e0ba1c4bab7f60c5bf639ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1406320074
 GameObject:
   m_ObjectHideFlags: 0
@@ -4119,11 +4145,11 @@ GameObject:
   - component: {fileID: 1775634849}
   m_Layer: 5
   m_Name: LoadScreen
-  m_TagString: Untagged
+  m_TagString: LoadScreen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1775634849
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4690,6 +4716,10 @@ PrefabInstance:
     - target: {fileID: 6502597803799071131, guid: 208fcb5df158f974882b704febfcb7a6, type: 3}
       propertyPath: m_Name
       value: MainPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6502597803799071131, guid: 208fcb5df158f974882b704febfcb7a6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6502597803799071133, guid: 208fcb5df158f974882b704febfcb7a6, type: 3}
       propertyPath: aimCamera

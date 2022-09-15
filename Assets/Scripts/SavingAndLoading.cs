@@ -1,87 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-#if UNITY_EDITOR
-using UnityEditor; // original code to quit Unity player
-#endif
 
-public class PauseMenu : MonoBehaviour
+public class SavingAndLoading : MonoBehaviour
 {
-    public static bool GameIsPaused = false;
-
-    public GameObject pauseMenuUI;
-    public Button loadLastCheckpointButton;
+     GameObject[] onStartGameObjectsInScene;
     GameObject playerHolder;
 
-    GameObject[] onStartGameObjectsInScene;
-    GameObject levelLoader;
+    public static SavingAndLoading Instance;
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+          
+            return;
+        }
+       
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     private void Start()
     {
         onStartGameObjectsInScene = GameObject.FindGameObjectsWithTag("Enemy");
-        loadLastCheckpointButton.onClick.AddListener(TaskOnClick);
     }
 
-    void TaskOnClick()
-    {
-        levelLoader = GameObject.FindGameObjectWithTag("LevelLoader");
-       
-        if (levelLoader != null)
-        {
-            levelLoader = GameObject.FindGameObjectWithTag("LevelLoader");
-            levelLoader.GetComponent<LoadLevel>().Load(0);
-        }
-        else if (levelLoader == null)
-        {
-            Debug.LogError("LevelLoader is Empty !! in ----PauseMenu");
-        }
-               
-    }
 
-    public void SetLoadLevel()
-    {
-        levelLoader = GameObject.FindGameObjectWithTag("LevelLoader");
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (GameIsPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
-        }
-    }
 
-   public void Resume()
-    {
-        pauseMenuUI.SetActive(false);
-        Time.timeScale = 1f;
-        GameIsPaused = false;
-    }
 
-    void Pause()
-    {
-        pauseMenuUI.SetActive(true);
-        Time.timeScale = 0f;
-        GameIsPaused = true;
-    }
 
-    public void QuitGame()
-    {
-#if UNITY_EDITOR
-        EditorApplication.ExitPlaymode();
-#else
-        Application.Quit(); // original code to quit Unity player
-#endif
-    }
 
+
+    public void FindEnemys()
+    {
+            onStartGameObjectsInScene = GameObject.FindGameObjectsWithTag("Enemy");   
+    }
     public virtual void SavePlayer()
     {
         SaveSystem.SavePlayer(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>());
@@ -117,9 +72,9 @@ public class PauseMenu : MonoBehaviour
         GameObject[] enemysInScene = onStartGameObjectsInScene; //GameObject.FindGameObjectsWithTag("Enemy");
         int enemysLeft = enemysInScene.Length;
 
-     //   SaveSystem.SaveHowManyEnemysLeft(enemysLeft);
-       // Enemy[] enemysInSceneToSave;
-       if(enemysInScene.Length == 0)
+        //   SaveSystem.SaveHowManyEnemysLeft(enemysLeft);
+        // Enemy[] enemysInSceneToSave;
+        if (enemysInScene.Length == 0)
         {
             Debug.Log("There was no enemys to save ----- PauseMenu c# ");
 
@@ -129,7 +84,7 @@ public class PauseMenu : MonoBehaviour
             for (int i = 0; i != enemysInScene.Length; i++)
             {
                 // enemysInSceneToSave[i] = 
-                SaveSystem.SaveEnemys(enemysInScene[i].GetComponent<Enemy>(),i);
+                SaveSystem.SaveEnemys(enemysInScene[i].GetComponent<Enemy>(), i);
             }
         }
     }
@@ -151,7 +106,7 @@ public class PauseMenu : MonoBehaviour
         {
             for (int i = 0; i != enemysInScene.Length; i++)
             {
-                 enemysInScene[i].GetComponent<Enemy>().currentHealth =  SaveSystem.LoadEnemys(i).heath;
+                enemysInScene[i].GetComponent<Enemy>().currentHealth = SaveSystem.LoadEnemys(i).heath;
                 enemysInScene[i].SetActive(SaveSystem.LoadEnemys(i).isItActive);
                 //  enemysInScene[i].GetComponent<Enemy>().currentHealth = SaveSystem.LoadEnemys(i).heath;
                 position.x = SaveSystem.LoadEnemys(i).position[0];
@@ -162,12 +117,6 @@ public class PauseMenu : MonoBehaviour
 
             }
         }
+
     }
-
-
-
-
-
-    
-
 }

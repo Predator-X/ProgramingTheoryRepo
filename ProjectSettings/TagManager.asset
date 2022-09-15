@@ -12,6 +12,11 @@ TagManager:
   - EnemyHead
   - Body
   - EnemyBody
+  - LoadScreen
+  - LoadSlider
+  - LoadText
+  - LevelLoader
+  - Canvas2
   layers:
   - Default
   - TransparentFX
