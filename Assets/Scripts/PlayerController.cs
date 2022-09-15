@@ -15,7 +15,7 @@ public class PlayerController : Character
     public int score;
 
     //Timer
-    float currentTime = 0;
+   public float currentTime = 0;
     string text;
 
     //Effect on camera
