@@ -82,7 +82,8 @@ public class Enemy : Character
             g.AddComponent<Rigidbody>();
             g.transform.parent = null;
 
-            h = this.transform.Find("Head").gameObject;
+            //h = this.transform.Find("Head").gameObject;  HeadShooted
+            h = this.transform.Find("HeadShooted").gameObject;
             h.GetComponent<DisActivateAfter>().enabled = true;
             h.AddComponent<Rigidbody>();
             h.transform.parent = null;

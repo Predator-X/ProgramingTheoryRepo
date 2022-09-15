@@ -21,6 +21,8 @@ public class ShootWithRaycast : MonoBehaviour
     bool isItPlayer , isShootingAtObstacle=false;
 
 
+  //  string nameOfLastHeadShot = "a";
+
     private void Awake()
     {
         if (this.tag == "Player")
@@ -127,10 +129,11 @@ public class ShootWithRaycast : MonoBehaviour
             //If script is Attachet to Player
             if(tag == "Player")
             {
+              
                 Debug.Log("HitInfo :" + hit.collider.name + "  Tag Name: " + hit.transform.tag);
                // Debug.Log("_-------------------- Name: " + hit.transform.parent.name);
                 GameObject body;
-                if (hit.collider.name == "Head")
+                if (hit.collider.name == "Head" )
                 {
                     /*
                     body = GameObject.Find(hit.transform.parent.name);
@@ -144,23 +147,26 @@ public class ShootWithRaycast : MonoBehaviour
 
                     health = hit.collider.GetComponentInParent<Character>();
                     */
-                    health = hit.collider.GetComponentInParent<Enemy>();
-                    damageExtra = 10;
-                    //hit.collider.GetComponentInParent<Enemy>().enemyIsHitOnHead = true;
-                    hit.collider.GetComponentInParent<Enemy>().EnemyIsHitOnHead(true);
-                    if (health != null)
-                    {
-                      //  hit.collider.GetComponentInChildren<DestroyAfterTime>().StartCounting();
-                      /////  StartCoroutine(DestroyAfterTime(hit.transform.gameObject, 3));
-                        health.Damage(gunDamage + damageExtra);
-                        GetComponent<PlayerController>().AddScore(gunDamage + damageExtra);
-                        
-                    } 
-                    else if(health==null) { Debug.LogError("health: When Shoot With head Probably canot find character script in Parent!----ShootWithRayCast c#"); }
+                    hit.collider.name = "HeadShooted";
+                        health = hit.collider.GetComponentInParent<Enemy>();
+                        damageExtra = 10;
+                        //hit.collider.GetComponentInParent<Enemy>().enemyIsHitOnHead = true;
+                        hit.collider.GetComponentInParent<Enemy>().EnemyIsHitOnHead(true);
+                        if (health != null)
+                        {
+                            //  hit.collider.GetComponentInChildren<DestroyAfterTime>().StartCounting();
+                            /////  StartCoroutine(DestroyAfterTime(hit.transform.gameObject, 3));
+                            health.Damage(gunDamage + damageExtra);
+                            GetComponent<PlayerController>().AddScore(gunDamage + damageExtra);
+
+                        }
+                        else if (health == null) { Debug.LogError("health: When Shoot With head Probably canot find character script in Parent!----ShootWithRayCast c#"); }
+                    
+                    
 
                 }
 
-                else if (hit.transform.name != "Head" && health !=null)
+                else if (hit.transform.name != "Head" && health !=null && hit.transform.tag !="Player")
                 {
                     damageExtra = 0;
                    

@@ -404,7 +404,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -18.838593, y: -8.393448}
+  m_AnchoredPosition: {x: -40.68959, y: -18.129028}
   m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &54505398
@@ -4716,10 +4716,6 @@ PrefabInstance:
     - target: {fileID: 6502597803799071131, guid: 208fcb5df158f974882b704febfcb7a6, type: 3}
       propertyPath: m_Name
       value: MainPlayer
-      objectReference: {fileID: 0}
-    - target: {fileID: 6502597803799071131, guid: 208fcb5df158f974882b704febfcb7a6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6502597803799071133, guid: 208fcb5df158f974882b704febfcb7a6, type: 3}
       propertyPath: aimCamera

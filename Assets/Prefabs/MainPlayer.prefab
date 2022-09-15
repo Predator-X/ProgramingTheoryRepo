@@ -289,6 +289,8 @@ MonoBehaviour:
   characterController: {fileID: 6502597803799071122}
   aimCamera: {fileID: 0}
   fallowCamera: {fileID: 0}
+  score: 0
+  currentTime: 0
 --- !u!114 &6502597803799071132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,6 +304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunDamage: 1
+  damageExtra: 0
   fireRate: 0.25
   weaponRange: 50
   hitForce: 100
@@ -618,7 +621,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6502597804235355350}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.21599996, y: 1.416, z: -0.11200011}
+  m_LocalPosition: {x: -0.04, y: 1.59, z: -0.11}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 6502597803585837271}
