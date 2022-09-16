@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 #if UNITY_EDITOR
 using UnityEditor; // original code to quit Unity player
 #endif
@@ -17,6 +18,8 @@ public class PauseMenu : MonoBehaviour
     GameObject[] onStartGameObjectsInScene;
     GameObject levelLoader;
 
+    Scene scene;
+
     private void Start()
     {
         onStartGameObjectsInScene = GameObject.FindGameObjectsWithTag("Enemy");
@@ -30,7 +33,7 @@ public class PauseMenu : MonoBehaviour
         if (levelLoader != null)
         {
             levelLoader = GameObject.FindGameObjectWithTag("LevelLoader");
-            levelLoader.GetComponent<LoadLevel>().Load(0);
+            levelLoader.GetComponent<LoadLevel>().Load();//SaveSystem.LoadPlayer().sceneIndexx);
         }
         else if (levelLoader == null)
         {
@@ -42,6 +45,7 @@ public class PauseMenu : MonoBehaviour
     public void SetLoadLevel()
     {
         levelLoader = GameObject.FindGameObjectWithTag("LevelLoader");
+
     }
     // Update is called once per frame
     void Update()
@@ -84,7 +88,8 @@ public class PauseMenu : MonoBehaviour
 
     public virtual void SavePlayer()
     {
-        SaveSystem.SavePlayer(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>());
+        scene = SceneManager.GetActiveScene();
+        SaveSystem.SavePlayer(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>(),scene.buildIndex);
         SaveEnemys();
     }
 

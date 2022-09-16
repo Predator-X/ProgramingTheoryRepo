@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System.IO;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Login : MonoBehaviour
 {
@@ -11,7 +12,18 @@ public class Login : MonoBehaviour
     public TMP_InputField loginInput , passportInput;
     public TextMeshProUGUI button;
     public GameObject errorCanvas;
-    bool creatNewPressed = false; 
+    bool creatNewPressed = false;
+
+
+    //For Loading
+    public GameObject loadingSceen;
+    public Slider slider;
+    public Text progressText;
+    bool loadDone = false;
+    public int sceneIndex;
+
+
+
     //  public Button button;
     // Start is called before the first frame update
 
@@ -69,6 +81,8 @@ public class Login : MonoBehaviour
                 checkText.gameObject.active = true;
                 checkText.text = "Login Suckesfull " + loginInput.text.ToString();
                 Debug.Log("Login Suckcessfull " + loginInput.text);
+
+                Load(sceneIndex);
             }
             else if (loginInput.text != data.username || passportInput.text != data.passport)
             {
@@ -88,7 +102,42 @@ public class Login : MonoBehaviour
         {
             SaveSystem.SaveUserData(loginInput.text, passportInput.text);
             checkText.text = loginInput.text + " Your Account Created ";
+            Load(sceneIndex);
             creatNewPressed = false;
         }
+    }
+
+
+
+    public void Load(int sceneIndex)
+    {
+        loadingSceen.active = true;
+        loadDone = false;
+        StartCoroutine(LoadAsynchronously(sceneIndex));
+    }
+
+    IEnumerator LoadAsynchronously(int sceneIdnex)
+    {
+        //Time.timeScale = 0f;
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIdnex);
+        loadingSceen.SetActive(true);
+
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / .9f);
+            slider.value = progress;
+            progressText.text = progress * 100f + "%";
+            yield return null;
+        }
+        if (operation.isDone)
+        {
+            
+            loadingSceen.SetActive(false);
+
+
+            Time.timeScale = 1.0f;
+
+        }
+
     }
 }

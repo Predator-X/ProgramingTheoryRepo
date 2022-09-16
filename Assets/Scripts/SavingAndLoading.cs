@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class SavingAndLoading : MonoBehaviour
 {
      GameObject[] onStartGameObjectsInScene;
     GameObject playerHolder;
+
+    Scene scene;
+    bool sceneIsLoaded = false;
 
     public static SavingAndLoading Instance;
 
@@ -39,25 +42,47 @@ public class SavingAndLoading : MonoBehaviour
     }
     public virtual void SavePlayer()
     {
-        SaveSystem.SavePlayer(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>());
+        scene = SceneManager.GetActiveScene();
+        SaveSystem.SavePlayer(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>(),  scene.buildIndex);
         SaveEnemys();
     }
 
+   /* //checks if the scene is the same as the player last save 
+    public virtual void CheckSceneBeforePlyerLoad()
+    {
+        PlayerData data = SaveSystem.LoadPlayer();
+
+        if (scene.buildIndex != data.sceneIndexx )
+        {
+            this.GetComponent<LoadLevel>().Load();//data.sceneIndexx);
+            //sceneIsLoaded = true;
+
+
+        }// else if(scene.buildIndex == data.sceneIndexx && sceneIsLoaded)
+    }
+   */
     public virtual void LoadPlayer()
     {
         PlayerData data = SaveSystem.LoadPlayer();
-        playerHolder = GameObject.FindGameObjectWithTag("Player");
-        playerHolder.GetComponent<PlayerController>().currentHealth = data.health;
-        playerHolder.GetComponent<PlayerController>().score = data.score;
-        playerHolder.GetComponent<PlayerController>().currentTime = data.currntTime;
 
-        Vector3 position;
-        position.x = data.position[0];
-        position.y = data.position[1];
-        position.z = data.position[2];
-        playerHolder.transform.position = position;
+    
+       
+        
+            playerHolder = GameObject.FindGameObjectWithTag("Player");
+            playerHolder.GetComponent<PlayerController>().currentHealth = data.health;
+            playerHolder.GetComponent<PlayerController>().score = data.score;
+            playerHolder.GetComponent<PlayerController>().currentTime = data.currntTime;
 
-        LoadEnemys();
+            Vector3 position;
+            position.x = data.position[0];
+            position.y = data.position[1];
+            position.z = data.position[2];
+            playerHolder.transform.position = position;
+
+            LoadEnemys();
+        
+
+       
 
         /*
         Vector3 rotation;

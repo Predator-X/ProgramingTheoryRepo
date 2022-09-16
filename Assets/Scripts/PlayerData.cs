@@ -9,9 +9,10 @@ public class PlayerData
     public float currntTime;
     public float[] position;
     public float[] rotation;
-
-    public PlayerData(PlayerController player)
+    public int sceneIndexx;
+    public PlayerData(PlayerController player, int sceneIndex )
     {
+        sceneIndexx = sceneIndex;
         health = player.currentHealth;
         score = player.score;
         currntTime = player.currentTime;
@@ -25,6 +26,7 @@ public class PlayerData
         rotation[0] = player.transform.rotation.x;
         rotation[1] = player.transform.rotation.y;
         rotation[2] = player.transform.rotation.z;
+
 
     }
 
@@ -57,13 +59,35 @@ public class EnemyData
 public class UserData
 {
   public  string username, passport;
-
+    PlayerController settingPlayerContrller;
+    PlayerData playersData;
     public UserData(string userName,string passportt)
     {
         username = userName;
         passport = passportt;
+
+       
+    }
+    public void setPlayerController(PlayerController playerSettings)
+    {
+        settingPlayerContrller = playerSettings;
     }
 
+    public PlayerController getPlayerControllerSettings()
+    {
+        return settingPlayerContrller;
+    }
+
+    public void setPlayerData(PlayerData playerData)
+    {
+        playersData = playerData;
+    }
+    
+    public PlayerData returnPlayerData()
+    {
+        return playersData;
+    }
+    
 }
 
 [System.Serializable]

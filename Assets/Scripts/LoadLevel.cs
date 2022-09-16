@@ -12,6 +12,8 @@ public class LoadLevel : MonoBehaviour
 
     bool loadDone = false;
 
+    Scene scene;
+
     public static LoadLevel Instance;
 
     private void Awake()
@@ -21,23 +23,29 @@ public class LoadLevel : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
+        
+            GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
+            Instance = this;
+            DontDestroyOnLoad(gameObject);  
     }
     private void Start()
     {
+
         loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
         slider = GameObject.FindGameObjectWithTag("LoadSlider").GetComponent<Slider>();
         progressText = GameObject.FindGameObjectWithTag("LoadText").GetComponent<Text>();
         loadingSceen.SetActive(false);
     }
 
-    public void Load(int sceneIndex)
+    public void Load()//(int sceneIndex)
     {
         loadDone = false;
-        StartCoroutine(LoadAsynchronously(sceneIndex));
+     //////////  // scene = SceneManager.GetActiveScene();
+        //if(scene.buildIndex != sceneIndex)
+        //{
+        //    StartCoroutine(LoadAsynchronously(sceneIndex));
+      //  }
+        StartCoroutine(LoadAsynchronously(SaveSystem.LoadPlayer().sceneIndexx));
     }
 
     IEnumerator LoadAsynchronously(int sceneIdnex)
@@ -55,12 +63,20 @@ public class LoadLevel : MonoBehaviour
         }
         if (operation.isDone)
         {
-            loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
-            slider = GameObject.FindGameObjectWithTag("LoadSlider").GetComponent<Slider>();
-            progressText = GameObject.FindGameObjectWithTag("LoadText").GetComponent<Text>();
-            loadingSceen.SetActive(false);
+             GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
+            
+            
+              //  GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
 
-            GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
+                loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
+                slider = GameObject.FindGameObjectWithTag("LoadSlider").GetComponent<Slider>();
+                progressText = GameObject.FindGameObjectWithTag("LoadText").GetComponent<Text>();
+                loadingSceen.SetActive(false);
+            
+                    
+           
+
+           
            // this.GetComponent<SavingAndLoading>().LoadEnemys();
         
             this.GetComponent<SavingAndLoading>().FindEnemys();
