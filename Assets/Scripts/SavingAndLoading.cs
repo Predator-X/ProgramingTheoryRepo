@@ -219,8 +219,11 @@ public class SavingAndLoading : MonoBehaviour
         }
         if (operation.isDone)
         {
-         //8   GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
-
+            //8   GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
+          //  if (isLoadingMenu)
+          //  {
+             //   GameObject.FindGameObjectWithTag("Canvas2").transform.FindChild("MainMenu").gameObject.active = true;
+        //    }
 
             //  GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
             if (!isLoadingMenu && isSceneFromSaveOrAreadyPlayed)

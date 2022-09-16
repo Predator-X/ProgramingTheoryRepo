@@ -20,6 +20,9 @@ public class PauseMenu : MonoBehaviour
 
     Scene scene;
 
+    //MainMenu
+    public GameObject mainMenu;
+
     private void Start()
     {
         onStartGameObjectsInScene = GameObject.FindGameObjectsWithTag("Enemy");
@@ -77,7 +80,15 @@ public class PauseMenu : MonoBehaviour
         GameIsPaused = true;
     }
 
+    public void SetMainMenuON()
+    {
+        mainMenu.active = true;
+    }
 
+    public void SetMainMenuOf()
+    {
+        mainMenu.active = false;
+    }
 
     public void QuitGame()
     {
