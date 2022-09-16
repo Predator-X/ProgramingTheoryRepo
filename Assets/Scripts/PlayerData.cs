@@ -31,6 +31,7 @@ public class PlayerData
 
 }
 
+
 [System.Serializable]
 public class EnemyData
 {
@@ -50,6 +51,19 @@ public class EnemyData
         position[1] = enemy.transform.position.y;
         position[2] = enemy.transform.position.z;
     }
+}
+
+[System.Serializable]
+public class UserData
+{
+  public  string username, passport;
+
+    public UserData(string userName,string passportt)
+    {
+        username = userName;
+        passport = passportt;
+    }
+
 }
 
 [System.Serializable]
