@@ -167,9 +167,19 @@ public class SavingAndLoading : MonoBehaviour
         //  }
         //  loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
         //  loadingSceen.SetActive(true);
-
+        isLoadingMenu = false;
         isSceneFromSaveOrAreadyPlayed = true;
+       
         StartCoroutine(LoadAsynchronously(SaveSystem.LoadPlayer().sceneIndexx));
+    }
+
+    //LoadsNextSceneFromCurrentWone
+    public void LoadNextScene()
+    {
+        loadingSceen.active = true;
+        Scene scene = SceneManager.GetActiveScene();
+        isSceneFromSaveOrAreadyPlayed = false;
+        StartCoroutine(LoadAsynchronously(scene.buildIndex + 1));
     }
 
     public void LoadSpecificScene(int sceneIndex,bool isSceneFromSave)
@@ -180,7 +190,7 @@ public class SavingAndLoading : MonoBehaviour
         StartCoroutine(LoadAsynchronously(sceneIndex));
     }
 
-
+  
     public void LoadMenu()
     {
         /////////////8 GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
@@ -219,7 +229,7 @@ public class SavingAndLoading : MonoBehaviour
                 this.GetComponent<SavingAndLoading>().LoadPlayer();
 
             }
-            if (!isSceneFromSaveOrAreadyPlayed)
+            if (!isSceneFromSaveOrAreadyPlayed && !isLoadingMenu)
             {
                if(GameObject.FindGameObjectWithTag("Player").gameObject ==null || GameObject.FindGameObjectWithTag("PlayerSpawnPoint").gameObject == null)
                 {
