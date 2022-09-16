@@ -10,15 +10,19 @@ public class Login : MonoBehaviour
     public TMP_Text checkText;
     public TMP_InputField loginInput , passportInput;
     public TextMeshProUGUI button;
+    public GameObject errorCanvas;
+    bool creatNewPressed = false; 
     //  public Button button;
     // Start is called before the first frame update
 
     private void Awake()
     {
         checkText.gameObject.active = false;
+        errorCanvas.active = false;
     }
     private void Update()
     {
+        /*
         if(loginInput.text != null){
             string path = Application.persistentDataPath + "/" + loginInput.text + ".save";
             if (File.Exists(path))
@@ -32,11 +36,28 @@ public class Login : MonoBehaviour
                 button.text = "Sign IN ";
             }
         }
-        
+        */
        // checkText.text = "Welcome " + loginInput.text;
     }
 
-  public  void OnLoginClicked()
+    public void TryAgainButtonOnClick()
+    {
+        errorCanvas.active = false;
+    }
+
+    public void CreateNewUserOnClick()
+    {
+        creatNewPressed = true;
+        checkText.gameObject.active = true;
+        checkText.text = "Creat New Account";
+        button.text = "Sign In";
+        errorCanvas.active = false;
+       
+
+      
+    }
+
+    public  void OnLoginClicked()
     {
         string path = Application.persistentDataPath + "/" + loginInput.text + ".save";
         if (File.Exists(path))
@@ -49,18 +70,25 @@ public class Login : MonoBehaviour
                 checkText.text = "Login Suckesfull " + loginInput.text.ToString();
                 Debug.Log("Login Suckcessfull " + loginInput.text);
             }
-            else if (loginInput.text != data.username && passportInput.text != data.passport)
+            else if (loginInput.text != data.username || passportInput.text != data.passport)
             {
                 checkText.gameObject.active = true;
-                checkText.text="Wrong Passport";
+                checkText.text="Wrong Passport try Again";
             }
             
         }
-        else if (!File.Exists(path))
+        else if (!File.Exists(path) && !creatNewPressed)
         {
-            checkText.gameObject.active = true;
-            checkText.text = loginInput.text+" Your Account Created ";
+            errorCanvas.active = true;
+            //checkText.gameObject.active = true;
+            //checkText.text = loginInput.text+" Your Account Created ";
+            //SaveSystem.SaveUserData(loginInput.text, passportInput.text);
+        }
+        else if(!File.Exists(path)&& creatNewPressed)
+        {
             SaveSystem.SaveUserData(loginInput.text, passportInput.text);
+            checkText.text = loginInput.text + " Your Account Created ";
+            creatNewPressed = false;
         }
     }
 }
