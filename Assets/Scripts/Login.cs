@@ -69,12 +69,14 @@ public class Login : MonoBehaviour
       
     }
 
+
+
     public  void OnLoginClicked()
     {
         string path = Application.persistentDataPath + "/" + loginInput.text + ".save";
         if (File.Exists(path))
         {
-            UserData data = SaveSystem.LoadUserData(loginInput.text);
+            UserData data = SaveSystem.LoadUserData(loginInput.text.ToString());
 
             if (loginInput.text.ToString() == data.username.ToString() && passportInput.text.ToString() == data.passport.ToString())
             {
@@ -100,7 +102,7 @@ public class Login : MonoBehaviour
         }
         else if(!File.Exists(path)&& creatNewPressed)
         {
-            SaveSystem.SaveUserData(loginInput.text, passportInput.text);
+            SaveSystem.SaveUserData(loginInput.text.ToString(), passportInput.text.ToString());
             checkText.text = loginInput.text + " Your Account Created ";
             Load(sceneIndex);
             creatNewPressed = false;

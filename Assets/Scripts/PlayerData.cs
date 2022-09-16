@@ -59,8 +59,8 @@ public class EnemyData
 public class UserData
 {
   public  string username, passport;
-    PlayerController settingPlayerContrller;
-    PlayerData playersData;
+   // PlayerController settingPlayerContrller;
+    //PlayerData playersData;
     public UserData(string userName,string passportt)
     {
         username = userName;
@@ -68,6 +68,7 @@ public class UserData
 
        
     }
+    /*
     public void setPlayerController(PlayerController playerSettings)
     {
         settingPlayerContrller = playerSettings;
@@ -87,7 +88,7 @@ public class UserData
     {
         return playersData;
     }
-    
+    */
 }
 
 [System.Serializable]
