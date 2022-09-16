@@ -165,7 +165,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6199984499488826202
 RectTransform:
   m_ObjectHideFlags: 0
@@ -593,7 +593,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6199984499960888409}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 144742109}
+        m_TargetAssemblyTypeName: SavingAndLoading, Assembly-CSharp
+        m_MethodName: LoadMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6199984500248183343}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: Resume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6199984500081068553
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,6 +937,7 @@ GameObject:
   - component: {fileID: 6199984500248183338}
   - component: {fileID: 6199984500248183339}
   - component: {fileID: 6199984500248183343}
+  - component: {fileID: 144742109}
   m_Layer: 5
   m_Name: Canvas2
   m_TagString: Canvas2
@@ -1016,6 +1041,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 6199984500628974578}
   loadLastCheckpointButton: {fileID: 6199984500306570071}
+--- !u!114 &144742109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6199984500248183348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 151a79325e0ba1c4bab7f60c5bf639ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingSceen: {fileID: 6199984499488826203}
+  slider: {fileID: 6199984500367599255}
+  progressText: {fileID: 6199984500081068552}
 --- !u!1 &6199984500258701259
 GameObject:
   m_ObjectHideFlags: 0
@@ -1049,7 +1089,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -1.5000305, y: 0}
   m_SizeDelta: {x: 7.0000496, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1212,10 +1252,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LoadLevel, Assembly-CSharp
+      - m_Target: {fileID: 144742109}
+        m_TargetAssemblyTypeName: SavingAndLoading, Assembly-CSharp
         m_MethodName: Load
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

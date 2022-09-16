@@ -39,21 +39,39 @@ public class LoadLevel : MonoBehaviour
 
     public void Load()//(int sceneIndex)
     {
+        GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
         loadDone = false;
-     //////////  // scene = SceneManager.GetActiveScene();
+        //////////  // scene = SceneManager.GetActiveScene();
         //if(scene.buildIndex != sceneIndex)
         //{
         //    StartCoroutine(LoadAsynchronously(sceneIndex));
-      //  }
+        //  }
+      //  loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
+      //  loadingSceen.SetActive(true);
         StartCoroutine(LoadAsynchronously(SaveSystem.LoadPlayer().sceneIndexx));
     }
+
+
+
+
+    public void LoadMenu()
+    {
+        GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
+        loadingSceen.active = true;
+        loadDone = false;
+        StartCoroutine(LoadAsynchronously(1));
+    }
+
 
     IEnumerator LoadAsynchronously(int sceneIdnex)
     {
         //Time.timeScale = 0f;
+       // loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
+       
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIdnex);
-        loadingSceen.SetActive(true);
 
+
+       // loadingSceen.SetActive(true);
         while (!operation.isDone)
         {
             float progress = Mathf.Clamp01(operation.progress / .9f);

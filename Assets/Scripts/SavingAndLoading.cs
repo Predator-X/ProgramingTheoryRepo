@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class SavingAndLoading : MonoBehaviour
 {
@@ -11,6 +12,14 @@ public class SavingAndLoading : MonoBehaviour
     bool sceneIsLoaded = false;
 
     public static SavingAndLoading Instance;
+
+    /// <summary>
+    /// ///////////////////////////////////////////////////////////////////
+    /// </summary>
+    public GameObject loadingSceen;
+    public Slider slider;
+    public Text progressText;
+    bool loadDone = false , isLoadingMenu=false , isLoading=false,isSceneFromSaveOrAreadyPlayed=false;
 
     private void Awake()
     {
@@ -144,4 +153,158 @@ public class SavingAndLoading : MonoBehaviour
         }
 
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void Load()//(int sceneIndex)
+    {
+      ////////////////8  GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
+        loadDone = false;
+        //////////  // scene = SceneManager.GetActiveScene();
+        //if(scene.buildIndex != sceneIndex)
+        //{
+        //    StartCoroutine(LoadAsynchronously(sceneIndex));
+        //  }
+        //  loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
+        //  loadingSceen.SetActive(true);
+
+        isSceneFromSaveOrAreadyPlayed = true;
+        StartCoroutine(LoadAsynchronously(SaveSystem.LoadPlayer().sceneIndexx));
+    }
+
+    public void LoadSpecificScene(int sceneIndex,bool isSceneFromSave)
+    {
+        loadingSceen.active = true;
+        loadDone = false;
+        isSceneFromSaveOrAreadyPlayed = isSceneFromSave;
+        StartCoroutine(LoadAsynchronously(sceneIndex));
+    }
+
+
+    public void LoadMenu()
+    {
+        /////////////8 GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
+        loadingSceen.active = true;
+        loadDone = false;
+        isLoadingMenu = true;
+        StartCoroutine(LoadAsynchronously(1));
+    }
+
+
+    IEnumerator LoadAsynchronously(int sceneIdnex)
+    {
+        //Time.timeScale = 0f;
+        // loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIdnex);
+
+
+        // 8 loadingSceen.SetActive(true);
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / .9f);
+            slider.value = progress;
+            progressText.text = progress * 100f + "%";
+            yield return null;
+        }
+        if (operation.isDone)
+        {
+         //8   GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
+
+
+            //  GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
+            if (!isLoadingMenu && isSceneFromSaveOrAreadyPlayed)
+            {
+                this.GetComponent<SavingAndLoading>().FindEnemys();
+                this.GetComponent<SavingAndLoading>().LoadPlayer();
+
+            }
+            if (!isSceneFromSaveOrAreadyPlayed)
+            {
+               if(GameObject.FindGameObjectWithTag("Player").gameObject ==null || GameObject.FindGameObjectWithTag("PlayerSpawnPoint").gameObject == null)
+                {
+                    Debug.LogError("Cannot find Player or PlayersSpawnPointOnSceneLoad ----SaveAndLoading c#/// Player.GameObject=" + GameObject.FindGameObjectWithTag("Player").gameObject.name +
+                        "   ---  PlayerSpawnPoint = " + GameObject.FindGameObjectWithTag("PlayerSpawnPoint").gameObject.name);
+                }
+                else
+                {
+                    GameObject.FindGameObjectWithTag("Player").gameObject.transform.position = GameObject.FindGameObjectWithTag("PlayerSpawnPoint").transform.position;
+                }
+               
+            }
+          //8  loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
+         // 8  slider = GameObject.FindGameObjectWithTag("LoadSlider").GetComponent<Slider>();
+          // 8 progressText = GameObject.FindGameObjectWithTag("LoadText").GetComponent<Text>();
+            loadingSceen.SetActive(false);
+
+
+
+
+
+            // this.GetComponent<SavingAndLoading>().LoadEnemys();
+
+          
+            Time.timeScale = 1.0f;
+
+        }
+
+    }
 }
+
+
+/*
+
+public void LoadSpecificScene(int sceneIndex)
+{
+    loadingSceen.active = true;
+    loadDone = false;
+    StartCoroutine(LoadAsynchronously(sceneIndex, false));
+}
+
+public void LoadLastSaveScene()
+{
+    loadingSceen.active = true;
+    loadDone = false;
+    StartCoroutine(LoadAsynchronously(SaveSystem.LoadPlayer().sceneIndexx, true));
+
+}
+
+IEnumerator LoadAsynchronously(int sceneIdnex, bool fromSave)
+{
+    //Time.timeScale = 0f;
+    AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIdnex);
+    loadingSceen.SetActive(true);
+
+
+    while (!operation.isDone)
+    {
+        float progress = Mathf.Clamp01(operation.progress / .9f);
+        slider.value = progress;
+        progressText.text = progress * 100f + "%";
+        yield return null;
+    }
+    if (operation.isDone)
+    {
+        loadingSceen.SetActive(false);
+        loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
+        if (fromSave)
+        {
+            this.GetComponent<SavingAndLoading>().FindEnemys();
+            this.GetComponent<SavingAndLoading>().LoadPlayer();
+        }
+
+
+        loadingSceen.SetActive(false);
+
+
+
+        Time.timeScale = 1.0f;
+
+    }
+
+}
+*/
+
+
+
+

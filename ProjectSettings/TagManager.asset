@@ -17,6 +17,7 @@ TagManager:
   - LoadText
   - LevelLoader
   - Canvas2
+  - PlayerSpawnPoint
   layers:
   - Default
   - TransparentFX

@@ -1,44 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using System.IO;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-public class LoadBase : MonoBehaviour
+public class EndSceneCollider : MonoBehaviour
 {
     //For Loading
+    /*
     public GameObject loadingSceen;
     public Slider slider;
     public Text progressText;
-    bool loadDone = false,loadfromSave=false;
+    bool loadDone = false, loadfromSave = false;
     public int sceneIndex;
+    */
     // Start is called before the first frame update
 
-    /*
-    public void Start()
+
+
+
+    private void OnTriggerEnter(Collider collision)
     {
-        SavingAndLoading s = GetComponent<SavingAndLoading>();
-            s.LoadPlayer();
-            s.LoadEnemys();
+       // Debug.Log("################" + collision.gameObject.name);
+        if (collision.gameObject.name == "MainPlayer")
+        {
+            Scene scene = SceneManager.GetActiveScene();
+            GameObject.FindGameObjectWithTag("Canvas2").GetComponent<SavingAndLoading>().LoadSpecificScene(scene.buildIndex + 1 , false);
+          //  Load(sceneIndex);
+            Destroy(this.gameObject);
+        }
     }
-    */
+    /*
     public void Load(int sceneIndex)
     {
         loadingSceen.active = true;
         loadDone = false;
-        StartCoroutine(LoadAsynchronously(sceneIndex,false));
+        StartCoroutine(LoadAsynchronously(sceneIndex, false));
     }
 
     public void LoadLastSaveScene()
     {
         loadingSceen.active = true;
         loadDone = false;
-       StartCoroutine(LoadAsynchronously( SaveSystem.LoadPlayer().sceneIndexx,true));
+        StartCoroutine(LoadAsynchronously(SaveSystem.LoadPlayer().sceneIndexx, true));
 
     }
 
-    IEnumerator LoadAsynchronously(int sceneIdnex,bool fromSave)
+    IEnumerator LoadAsynchronously(int sceneIdnex, bool fromSave)
     {
         //Time.timeScale = 0f;
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIdnex);
@@ -61,15 +69,16 @@ public class LoadBase : MonoBehaviour
                 this.GetComponent<SavingAndLoading>().FindEnemys();
                 this.GetComponent<SavingAndLoading>().LoadPlayer();
             }
-         
+
 
             loadingSceen.SetActive(false);
 
-           
+
 
             Time.timeScale = 1.0f;
 
         }
 
     }
+    */
 }

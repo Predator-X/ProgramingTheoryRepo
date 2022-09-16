@@ -23,10 +23,10 @@ public class PauseMenu : MonoBehaviour
     private void Start()
     {
         onStartGameObjectsInScene = GameObject.FindGameObjectsWithTag("Enemy");
-        loadLastCheckpointButton.onClick.AddListener(TaskOnClick);
+       // loadLastCheckpointButton.onClick.AddListener(TaskOnClick);
     }
 
-    void TaskOnClick()
+   public void TaskOnClick()
     {
         levelLoader = GameObject.FindGameObjectWithTag("LevelLoader");
        
@@ -76,6 +76,8 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         GameIsPaused = true;
     }
+
+
 
     public void QuitGame()
     {
