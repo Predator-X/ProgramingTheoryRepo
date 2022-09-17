@@ -18,6 +18,10 @@ public class PlayerController : Character
    public float currentTime = 0;
     string text;
 
+    //get all Enemys in scene for Saving
+    GameObject[] onStartGameObjectsInScene;
+  
+
     //Effect on camera
     Cinemachine.CinemachineImpulseSource impulseSource;
 
@@ -29,7 +33,9 @@ public class PlayerController : Character
         attack = this.GetComponent<ShootWithRaycast>();
 
         cam = GameObject.FindGameObjectWithTag("CameraPlayer").GetComponent<Camera>();
-     
+
+        onStartGameObjectsInScene = GameObject.FindGameObjectsWithTag("Enemy");
+
     }
 
     // Update is called once per frame
@@ -67,12 +73,26 @@ public class PlayerController : Character
                 currentSpeed = speed;
             }
         }
-  
-       
-      
      
+    }
+
+  /*  
+    public GameObject[] DetectEnemysOnStartInScene()
+    {
+        //      return GameObject.FindGameObjectsWithTag("Enemy");
+        
+        foreach (GameObject obj in Object.FindObjectsOfType(typeof(GameObject))
+        {
+
+
+        }
+
+        
+        //yield return null; 
 
     }
+
+    */
 
     public void AddScore(int sc)
     {

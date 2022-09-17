@@ -32,6 +32,8 @@ public class Enemy : Character
 
         attack = this.GetComponent<ShootWithRaycast>();
 
+        SaveSystem.getEnemysOnStart = GameObject.FindGameObjectsWithTag("Enemy");
+
     }
 
     void Update()

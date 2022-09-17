@@ -25,8 +25,9 @@ public class PauseMenu : MonoBehaviour
 
     private void Start()
     {
-        onStartGameObjectsInScene = GameObject.FindGameObjectsWithTag("Enemy");
-       // loadLastCheckpointButton.onClick.AddListener(TaskOnClick);
+        // onStartGameObjectsInScene = GameObject.FindGameObjectsWithTag("Enemy");
+        // loadLastCheckpointButton.onClick.AddListener(TaskOnClick);
+        GetEnemysFromScene();
     }
 
    public void TaskOnClick()
@@ -103,6 +104,7 @@ public class PauseMenu : MonoBehaviour
     {
         scene = SceneManager.GetActiveScene();
         SaveSystem.SavePlayer(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>(),scene.buildIndex);
+        
         SaveEnemys();
     }
 
@@ -122,6 +124,7 @@ public class PauseMenu : MonoBehaviour
 
         LoadEnemys();
 
+       
         /*
         Vector3 rotation;
         rotation.x = data.rotation[0];
@@ -130,14 +133,34 @@ public class PauseMenu : MonoBehaviour
        playerHolder.transform.rotation.x = rotation; */
     }
 
+
+    public virtual void GetEnemysFromScene()
+    {
+        int a = 0;
+        foreach (GameObject obj in Object.FindObjectsOfType(typeof(GameObject)))
+        {
+            a++;
+            if (obj.tag == "Enemy")
+            {
+                onStartGameObjectsInScene[a] = obj;
+            }
+
+
+        }
+    }
+
+
     public virtual void SaveEnemys()
     {
-        GameObject[] enemysInScene = onStartGameObjectsInScene; //GameObject.FindGameObjectsWithTag("Enemy");
-        int enemysLeft = enemysInScene.Length;
+       
 
-     //   SaveSystem.SaveHowManyEnemysLeft(enemysLeft);
-       // Enemy[] enemysInSceneToSave;
-       if(enemysInScene.Length == 0)
+        GameObject[] enemysInScene = SaveSystem.getEnemysOnStart; //GameObject.FindGameObjectsWithTag("Enemy");
+     // int enemysLeft = enemysInScene.Length;
+    
+     
+        //   SaveSystem.SaveHowManyEnemysLeft(enemysLeft);
+        // Enemy[] enemysInSceneToSave;
+        if (enemysInScene.Length == 0)
         {
             Debug.Log("There was no enemys to save ----- PauseMenu c# ");
 

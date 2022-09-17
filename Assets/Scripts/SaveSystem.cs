@@ -4,10 +4,13 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem {
 
-    public static void SavePlayer(PlayerController player , int sceneIndex)
+    public static string UserName;
+    public static GameObject[] getEnemysOnStart;
+    public static void SavePlayer(PlayerController player , int sceneIndex)//string username
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/player.save";
+        
+        string path = Application.persistentDataPath + "/"+getUserName()+"player.save";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         PlayerData data = new PlayerData(player , sceneIndex);
@@ -16,38 +19,18 @@ public static class SaveSystem {
         stream.Close();
     }
 
-    public static void SaveUserData(string username, string passport)
+    public static void setUserName(string userName)
     {
-        string path = Application.persistentDataPath + "/"+username+".save";
-        
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(path, FileMode.Create);
-
-            UserData data = new UserData(username, passport);
-
-            formatter.Serialize(stream, data);
-            stream.Close();
+        UserName = userName;
     }
 
-    public static UserData LoadUserData(string username)
+    public static string getUserName()
     {
-        string path = Application.persistentDataPath + "/" + username + ".save";
-
-        if (File.Exists(path))
-        {
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(path, FileMode.Open);
-
-            UserData data = formatter.Deserialize(stream) as UserData;
-            stream.Close();
-            return data;
-        }
-        else { Debug.LogError("Save file not found in " + path); return null; }
-    
+        return UserName;
     }
     public static PlayerData LoadPlayer()
     {
-        string path = Application.persistentDataPath + "/player.save";
+        string path = Application.persistentDataPath + "/" + getUserName()+ "player.save"; //"/player.save";
 
         if (File.Exists(path))
         {
@@ -61,7 +44,71 @@ public static class SaveSystem {
         else { Debug.LogError("Save file not found in " + path); return null; }
     }
 
+    public static void SaveUserData(string username, string passport)
+    {
+        Debug.Log("=============Save===UserData Name: " + username);
+        string path = Application.persistentDataPath+"/" + username+ "UserDataLib.save"; 
+        
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Create);
 
+            UserData data = new UserData(username, passport);
+
+            formatter.Serialize(stream, data);
+            stream.Close();
+    }
+
+    public static UserData LoadUserData(string username)
+    {
+        Debug.Log("=============LoadUserData Name: " + username);
+        string path = Application.persistentDataPath+"/" + username+"UserDataLib.save"; //+ username + ".Userdata.save";
+
+        if (File.Exists(path))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+
+            UserData data = formatter.Deserialize(stream) as UserData;
+            stream.Close();
+            return data;
+        }
+        else { Debug.LogError("Save file not found in " + path); return null; }
+    
+    }
+
+
+    public static void SaveSceneData(string username,int currentSceneid, bool isScenefinisht, int lastchekpoint)
+    {
+        
+
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/" + username + ".SaveSceneData.save";
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        SceneData data = new SceneData(currentSceneid,isScenefinisht, lastchekpoint);
+
+        formatter.Serialize(stream, data);
+        stream.Close();
+
+
+    }
+
+    static SceneData LoadSceneData(string username)
+    {
+        string path = Application.persistentDataPath + "/"+ username+ ".SaveSceneData.save";
+
+        if (File.Exists(path))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+
+            SceneData data = formatter.Deserialize(stream) as SceneData;
+            stream.Close();
+            return data;
+        }
+        else { Debug.LogError("Save file not found in " + path); return null; }
+
+    }
 
 
 

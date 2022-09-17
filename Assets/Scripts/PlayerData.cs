@@ -56,39 +56,44 @@ public class EnemyData
 }
 
 [System.Serializable]
+public class SceneData
+{
+  //  public ArrayList sceneID = new ArrayList();
+
+    public List<int> scenesID;// isSceneFinishtList;
+    public List<bool> isSceneFinishtList;
+    //  public ArrayList isSceneFinishtArray = new ArrayList();
+
+    public bool isSceneFinisht;
+    public int currentSceneID;
+    public int lastCheckpoint;
+
+    public SceneData(int currentSceneid,bool isScenefinisht,int lastchekpoint)//ArrayList sceneid
+    {
+        //sceneID = sceneid;
+        scenesID.Add(currentSceneid);
+        isSceneFinishtList.Add(isScenefinisht);
+        isSceneFinisht = isScenefinisht;
+        currentSceneID = currentSceneid;
+        lastCheckpoint = lastchekpoint;
+    }
+
+}
+
+[System.Serializable]
 public class UserData
 {
-  public  string username, passport;
-   // PlayerController settingPlayerContrller;
-    //PlayerData playersData;
-    public UserData(string userName,string passportt)
+    public  string username, passport;
+
+
+    public UserData(string userName, string passportt)
     {
+
+
         username = userName;
         passport = passportt;
 
-       
     }
-    /*
-    public void setPlayerController(PlayerController playerSettings)
-    {
-        settingPlayerContrller = playerSettings;
-    }
-
-    public PlayerController getPlayerControllerSettings()
-    {
-        return settingPlayerContrller;
-    }
-
-    public void setPlayerData(PlayerData playerData)
-    {
-        playersData = playerData;
-    }
-    
-    public PlayerData returnPlayerData()
-    {
-        return playersData;
-    }
-    */
 }
 
 [System.Serializable]

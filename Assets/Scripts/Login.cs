@@ -49,7 +49,11 @@ public class Login : MonoBehaviour
             }
         }
         */
-       // checkText.text = "Welcome " + loginInput.text;
+        // checkText.text = "Welcome " + loginInput.text;
+       
+        
+            SaveSystem.setUserName( loginInput.text.ToString());
+        
     }
 
     public void TryAgainButtonOnClick()
@@ -73,24 +77,35 @@ public class Login : MonoBehaviour
 
     public  void OnLoginClicked()
     {
-        string path = Application.persistentDataPath + "/" + loginInput.text + ".save";
+        SaveSystem.setUserName(loginInput.text);
+        // SaveSystem.SaveUserData("1", "1");
+        //string path = Application.persistentDataPath  + "/UserDataLib.save";  ////////////"/" + loginInput.text + ".save";
+        Debug.Log("################## UserName:" + loginInput.text);
+        string path = Application.persistentDataPath + "/" + loginInput.text + "UserDataLib.save";
+       // Application.persistentDataPath + "/" + username + "UserDataLib.save";
+
+
         if (File.Exists(path))
         {
-            UserData data = SaveSystem.LoadUserData(loginInput.text.ToString());
+            //UserData data = SaveSystem.LoadUserData(loginInput.text.ToString());
+            UserData data = SaveSystem.LoadUserData(loginInput.text);
+     
+        
+                if (loginInput.text.ToString() == data.username.ToString() && passportInput.text.ToString() == data.passport.ToString())
+                {
+                    SaveSystem.UserName = data.username.ToString();
+                    checkText.gameObject.active = true;
+                    checkText.text = "Login Suckesfull " + loginInput.text.ToString();
+                    Debug.Log("Login Suckcessfull " + loginInput.text);
 
-            if (loginInput.text.ToString() == data.username.ToString() && passportInput.text.ToString() == data.passport.ToString())
-            {
-                checkText.gameObject.active = true;
-                checkText.text = "Login Suckesfull " + loginInput.text.ToString();
-                Debug.Log("Login Suckcessfull " + loginInput.text);
+                    Load(sceneIndex);
+                }
+                else if (loginInput.text != data.username || passportInput.text != data.passport)
+                {
+                    checkText.gameObject.active = true;
+                    checkText.text = "Wrong Passport try Again";
+                }
 
-                Load(sceneIndex);
-            }
-            else if (loginInput.text != data.username || passportInput.text != data.passport)
-            {
-                checkText.gameObject.active = true;
-                checkText.text="Wrong Passport try Again";
-            }
             
         }
         else if (!File.Exists(path) && !creatNewPressed)
@@ -100,13 +115,16 @@ public class Login : MonoBehaviour
             //checkText.text = loginInput.text+" Your Account Created ";
             //SaveSystem.SaveUserData(loginInput.text, passportInput.text);
         }
-        else if(!File.Exists(path)&& creatNewPressed)
+        else if (!File.Exists(path) && creatNewPressed)
         {
-            SaveSystem.SaveUserData(loginInput.text.ToString(), passportInput.text.ToString());
+            SaveSystem.setUserName(loginInput.text);
+            SaveSystem.SaveUserData(loginInput.text, passportInput.text.ToString());
             checkText.text = loginInput.text + " Your Account Created ";
             Load(sceneIndex);
             creatNewPressed = false;
         }
+        
+          
     }
 
 
@@ -143,3 +161,39 @@ public class Login : MonoBehaviour
 
     }
 }
+
+
+/*
+ * 
+ *   if (loginInput.text.ToString() == data.username.ToString() && passportInput.text.ToString() == data.passport.ToString())
+            {
+                SaveSystem.UserName = data.username.ToString();
+                checkText.gameObject.active = true;
+                checkText.text = "Login Suckesfull " + loginInput.text.ToString();
+                Debug.Log("Login Suckcessfull " + loginInput.text);
+
+                Load(sceneIndex);
+            }
+            else if (loginInput.text != data.username || passportInput.text != data.passport)
+            {
+                checkText.gameObject.active = true;
+                checkText.text="Wrong Passport try Again";
+            }
+            
+        }
+        else if (!File.Exists(path) && !creatNewPressed)
+        {
+            errorCanvas.active = true;
+            //checkText.gameObject.active = true;
+            //checkText.text = loginInput.text+" Your Account Created ";
+            //SaveSystem.SaveUserData(loginInput.text, passportInput.text);
+        }
+        else if(!File.Exists(path)&& creatNewPressed)
+        {
+            SaveSystem.UserName = loginInput.text.ToString();
+            SaveSystem.SaveUserData(loginInput.text.ToString(), passportInput.text.ToString());
+            checkText.text = loginInput.text + " Your Account Created ";
+            Load(sceneIndex);
+            creatNewPressed = false;
+        }
+*/

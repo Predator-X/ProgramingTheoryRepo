@@ -173,6 +173,13 @@ public class SavingAndLoading : MonoBehaviour
         StartCoroutine(LoadAsynchronously(SaveSystem.LoadPlayer().sceneIndexx));
     }
 
+    public void LoadLastSave()
+    {
+        isLoadingMenu = false;
+        isSceneFromSaveOrAreadyPlayed = true;
+       
+    }
+
     //LoadsNextSceneFromCurrentWone
     public void LoadNextScene()
     {
