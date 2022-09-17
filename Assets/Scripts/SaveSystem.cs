@@ -120,7 +120,7 @@ public static class SaveSystem {
 
         }
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/enemy"+id+".save";
+        string path = Application.persistentDataPath + "/enemy"+id+getUserName()+".save";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         EnemyData data = new EnemyData(enemy);
@@ -131,7 +131,7 @@ public static class SaveSystem {
 
     public static EnemyData LoadEnemys(int id)
     {
-        string path = Application.persistentDataPath + "/enemy"+id+".save";
+        string path = Application.persistentDataPath + "/enemy"+id+getUserName()+".save";
 
         if (File.Exists(path))
         {
