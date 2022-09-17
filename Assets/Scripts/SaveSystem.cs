@@ -9,7 +9,7 @@ public static class SaveSystem {
     public static void SavePlayer(PlayerController player , int sceneIndex)//string username
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        
+        Debug.Log("=============SavePlayer======= Name: " + getUserName());
         string path = Application.persistentDataPath + "/"+getUserName()+"player.save";
         FileStream stream = new FileStream(path, FileMode.Create);
 
@@ -30,6 +30,7 @@ public static class SaveSystem {
     }
     public static PlayerData LoadPlayer()
     {
+        Debug.Log("=============LOAD-Player======= Name: " + getUserName());
         string path = Application.persistentDataPath + "/" + getUserName()+ "player.save"; //"/player.save";
 
         if (File.Exists(path))

@@ -151,7 +151,7 @@ public class Login : MonoBehaviour
         }
         if (operation.isDone)
         {
-            
+            SaveSystem.setUserName(loginInput.text);
             loadingSceen.SetActive(false);
 
 
