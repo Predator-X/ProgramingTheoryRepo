@@ -25,7 +25,8 @@ public class EndSceneCollider : MonoBehaviour
         if (collision.gameObject.name == "MainPlayer")
         {
             Scene scene = SceneManager.GetActiveScene();
-            GameObject.FindGameObjectWithTag("Canvas2").GetComponent<SavingAndLoading>().LoadSpecificScene(scene.buildIndex + 1 , false);
+            SaveSystem.SavePlayer(collision.gameObject.GetComponent<PlayerController>(),scene.buildIndex);
+            GameObject.FindGameObjectWithTag("Canvas2").GetComponent<SavingAndLoading>().LoadNextScene();//.LoadSpecificScene(scene.buildIndex + 1 , false);
           //  Load(sceneIndex);
             Destroy(this.gameObject);
         }

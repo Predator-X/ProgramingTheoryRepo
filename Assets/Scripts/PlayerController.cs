@@ -94,15 +94,6 @@ public class PlayerController : Character
 
     */
 
-    public void AddScore(int sc)
-    {
-        score += sc;
-    }
-
-    public int GetScore()
-    {
-        return score;
-    }
 
     public string updateTimer()
     {
@@ -114,7 +105,30 @@ public class PlayerController : Character
        return string.Format("{0:00} : {1:00}", minutes, seconds);
     }
 
+    public void SetScore(int scoreset)
+    {
+        score = scoreset;
+    }
 
+    public void AddScore(int sc)
+    {
+        score += sc;
+    }
+
+ 
+    public int GetScore()
+    {
+        return score;
+    }
+
+    public void SetTime(float timeset)
+    {
+        currentTime = timeset;
+    }
+    public float GetTime()
+    {
+        return currentTime;
+    }
 }
 
 

@@ -14,8 +14,8 @@ public class PlayerData
     {
         sceneIndexx = sceneIndex;
         health = player.currentHealth;
-        score = player.score;
-        currntTime = player.currentTime;
+        score = player.GetScore();
+        currntTime = player.GetTime();
 
         position = new float[3];
         position[0] = player.transform.position.x;

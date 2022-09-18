@@ -257,7 +257,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 144742109}
         m_TargetAssemblyTypeName: SavingAndLoading, Assembly-CSharp
-        m_MethodName: LoadNextScene
+        m_MethodName: StartNewGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -424,7 +424,7 @@ GameObject:
   - component: {fileID: 1397750446}
   m_Layer: 5
   m_Name: MainMenu
-  m_TagString: Untagged
+  m_TagString: MainMenu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -464,7 +464,7 @@ GameObject:
   - component: {fileID: 1775455340}
   m_Layer: 5
   m_Name: ContinueButton
-  m_TagString: Untagged
+  m_TagString: ContinueButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

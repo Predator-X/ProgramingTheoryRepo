@@ -67,6 +67,17 @@ public class Character : MonoBehaviour
         Destroy(g);
         Destroy(gameObject);
     }
+
+
+    public void SetHealth(float healthset)
+    {
+        currentHealth = healthset;
+    }
+
+    public float GetHealth()
+    {
+        return currentHealth;
+    }
 }
 
 

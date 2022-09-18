@@ -20,7 +20,7 @@ public class SavingAndLoading : MonoBehaviour
     public GameObject loadingSceen;
     public Slider slider;
     public Text progressText;
-    bool loadDone = false , isLoadingMenu=false , isLoading=false,isSceneFromSaveOrAreadyPlayed=false;
+    bool loadDone = false , isLoadingMenu=false , isLoading=false,isSceneFromSaveOrAreadyPlayed=false, isLoadingNextLevel=false;
 
     //If this scene is main menu and player has no save/ checkpoint, has not played the game, disactivate counitue button
     GameObject mainMenuContinueButton;
@@ -112,9 +112,9 @@ public class SavingAndLoading : MonoBehaviour
        
         
             playerHolder = GameObject.FindGameObjectWithTag("Player");
-            playerHolder.GetComponent<PlayerController>().currentHealth = data.health;
-            playerHolder.GetComponent<PlayerController>().score = data.score;
-            playerHolder.GetComponent<PlayerController>().currentTime = data.currntTime;
+            playerHolder.GetComponent<PlayerController>().SetHealth(data.health);
+            playerHolder.GetComponent<PlayerController>().SetScore( data.score);
+            playerHolder.GetComponent<PlayerController>().SetTime(data.currntTime);
 
             Vector3 position;
             position.x = data.position[0];
@@ -207,6 +207,21 @@ public class SavingAndLoading : MonoBehaviour
         StartCoroutine(LoadAsynchronously(SaveSystem.LoadPlayer().sceneIndexx));
     }
 
+    public void StartNewGame()
+    {
+        loadingSceen.active = true;
+        loadDone = false;
+        isLoadingNextLevel = false;
+
+        isLoadingMenu = false;
+        isSceneFromSaveOrAreadyPlayed = false;
+
+        Scene scene = SceneManager.GetActiveScene();
+
+       
+        StartCoroutine(LoadAsynchronously(scene.buildIndex + 1));
+    }
+
     public void LoadLastSave()
     {
         isLoadingMenu = false;
@@ -218,7 +233,13 @@ public class SavingAndLoading : MonoBehaviour
     public void LoadNextScene()
     {
         loadingSceen.active = true;
+        loadDone = false;
+
         Scene scene = SceneManager.GetActiveScene();
+
+        isLoadingNextLevel = true;
+
+        isLoadingMenu = false;
         isSceneFromSaveOrAreadyPlayed = false;
         StartCoroutine(LoadAsynchronously(scene.buildIndex + 1));
     }
@@ -227,6 +248,7 @@ public class SavingAndLoading : MonoBehaviour
     {
         loadingSceen.active = true;
         loadDone = false;
+        
         isSceneFromSaveOrAreadyPlayed = isSceneFromSave;
         StartCoroutine(LoadAsynchronously(sceneIndex));
     }
@@ -238,6 +260,9 @@ public class SavingAndLoading : MonoBehaviour
         loadingSceen.active = true;
         loadDone = false;
         isLoadingMenu = true;
+
+        isLoadingNextLevel = false;
+        isSceneFromSaveOrAreadyPlayed = false;
         StartCoroutine(LoadAsynchronously(1));
     }
 
@@ -273,7 +298,13 @@ public class SavingAndLoading : MonoBehaviour
                 this.GetComponent<SavingAndLoading>().LoadPlayer();
 
             }
-            if (!isSceneFromSaveOrAreadyPlayed && !isLoadingMenu)
+            if(!isSceneFromSaveOrAreadyPlayed && !isLoadingMenu && isLoadingNextLevel)
+            {
+                PlayerController playerC = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+                PlayerData playerdata = SaveSystem.LoadPlayer();
+                playerC.SetHealth(playerdata.health); playerC.SetTime(playerdata.currntTime); playerC.SetScore(playerdata.score);
+            }
+            if (!isSceneFromSaveOrAreadyPlayed && !isLoadingMenu && !isLoadingNextLevel)
             {
                if(GameObject.FindGameObjectWithTag("Player").gameObject ==null || GameObject.FindGameObjectWithTag("PlayerSpawnPoint").gameObject == null)
                 {
