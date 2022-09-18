@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
 public class SavingAndLoading : MonoBehaviour
 {
      GameObject[] onStartGameObjectsInScene;
@@ -21,6 +22,9 @@ public class SavingAndLoading : MonoBehaviour
     public Text progressText;
     bool loadDone = false , isLoadingMenu=false , isLoading=false,isSceneFromSaveOrAreadyPlayed=false;
 
+    //If this scene is main menu and player has no save/ checkpoint, has not played the game, disactivate counitue button
+    GameObject mainMenuContinueButton;
+
     private void Awake()
     {
         if (Instance != null)
@@ -37,11 +41,41 @@ public class SavingAndLoading : MonoBehaviour
     private void Start()
     {
         onStartGameObjectsInScene = GameObject.FindGameObjectsWithTag("Enemy");
+
+        //If this scene is main menu and player has no save/ checkpoint, has not played the game, disactivate counitue button
+        CheckIfIsMainManuAndSetUI();
     }
 
 
+    //If this scene is main menu and player has no save/ checkpoint, has not played the game, disactivate counitue button
+    public void CheckIfIsMainManuAndSetUI()
+    {
+        Scene thisScene = SceneManager.GetActiveScene();
+        if (thisScene.buildIndex == 1)
+        {
+            string path = Application.persistentDataPath + "/" + SaveSystem.getUserName() + "player.save";
 
+            if (!File.Exists(path))
+            {
+                mainMenuContinueButton = GameObject.FindGameObjectWithTag("ContinueButton");
+                mainMenuContinueButton.active = false;
+            }
+            else if (File.Exists(path))
+            {
+                if (mainMenuContinueButton != null)
+                {
 
+                    mainMenuContinueButton.gameObject.active = true;
+                }
+                else
+                {
+                    mainMenuContinueButton = GameObject.FindGameObjectWithTag("ContinueButton");
+                    mainMenuContinueButton.gameObject.active = true;
+                }
+
+            }
+        }
+    }
 
 
 
@@ -252,6 +286,11 @@ public class SavingAndLoading : MonoBehaviour
                 }
                
             }
+            if (isLoadingMenu)
+            {
+                CheckIfIsMainManuAndSetUI();
+            }
+
           //8  loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
          // 8  slider = GameObject.FindGameObjectWithTag("LoadSlider").GetComponent<Slider>();
           // 8 progressText = GameObject.FindGameObjectWithTag("LoadText").GetComponent<Text>();

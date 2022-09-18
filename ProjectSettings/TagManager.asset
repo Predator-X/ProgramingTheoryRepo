@@ -18,6 +18,8 @@ TagManager:
   - LevelLoader
   - Canvas2
   - PlayerSpawnPoint
+  - MainMenu
+  - ContinueButton
   layers:
   - Default
   - TransparentFX
