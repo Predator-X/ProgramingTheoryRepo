@@ -6,7 +6,7 @@ public class HighScoreHandler : MonoBehaviour
 {
     List<PlayerAchivments> scoreList = new List<PlayerAchivments>();
     [SerializeField] int maxCount = 10;
-    [SerializeField] string filename;
+   [SerializeField] string filename;
 
 
 

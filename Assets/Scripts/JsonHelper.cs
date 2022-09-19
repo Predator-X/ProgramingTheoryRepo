@@ -72,11 +72,12 @@ public static class JsonHelper
         return res;
     }
 
-    private static string GetPath(string filename)
+    public static string GetPath(string filename)
     {
-       // return Application.persistentDataPath + "/" + filename;
-       return "G:/__JSONtest/PlayersScoreListData.json";
-        Debug.Log("G:/__JSONtest/PlayersScoreListData.json");
+        return Application.persistentDataPath + "/" + filename;
+       //return "G:/__JSONtest/PlayersScoreListData.json";
+       //return Application.persistentDataPath + "/PlayersScoreListData.json";
+        Debug.Log(Application.persistentDataPath + "/" + filename);//("G:/__JSONtest/PlayersScoreListData.json");
     }
 
     private static void WriteFile(string path , string content)

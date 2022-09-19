@@ -16,11 +16,31 @@ public class HighScoreUI : MonoBehaviour
     [SerializeField] GameObject uiTextPrefab;
     [SerializeField] Transform wrapperElement;
 
-    public TMP_Text text;// text2,text3;
+    // public TMP_Text text;// text2,text3;
+    private void Awake()
+    {
+       wrapperElement= GameObject.FindGameObjectWithTag("ScoreList").transform;
+    }
     private void Start()
     {
+        scoreList.Add(new PlayerAchivments("dick Harper", 100, 100, 100));
+        scoreList.Add(new PlayerAchivments("josh", 2, 3, 4));
+        SaveHighScores();
         LoadHighScores();
         updateUI(scoreList);
+        if (File.Exists(JsonHelper.GetPath(filename)))
+        {
+            // Debug.LogError("File Exists: " + JsonHelper.GetPath(filename));
+          
+            LoadHighScores();
+            
+            updateUI(scoreList);
+        }
+        if (!File.Exists(JsonHelper.GetPath(filename)))
+        {
+            Debug.LogError("File path does not exists: " + JsonHelper.GetPath(filename));
+        }
+
        /* for (int i = 0; i <= scoreList.Count; i++)
         {
             if (i == 0)
@@ -37,6 +57,7 @@ public class HighScoreUI : MonoBehaviour
             }
         }*/
     }
+  
 
     private void LoadHighScores()
     {
@@ -61,15 +82,36 @@ public class HighScoreUI : MonoBehaviour
                 {
                     //Instaniate new entry UI 
                     var inst = Instantiate(uiTextPrefab, Vector3.zero, Quaternion.identity);
-                    inst.transform.SetParent(wrapperElement);
+                    inst.transform.SetParent(wrapperElement,false);
 
                     uiElements.Add(inst);
                 }
                 var scoreTexts = uiElements[i].GetComponentsInChildren<TMP_Text>();
-                scoreTexts[i].text = " Player " + i + " : " + 
-                    scoreList[i].Name + " | Time: " + 
-                    scoreList[i].Time.ToString() + "| Score : "+
-                    scoreList[i].Score.ToString();
+                Debug.Log("uiELEMENTS@@@@@@@ : " + uiElements[i].name);
+               
+                           
+                scoreTexts[0].text = scoreList[i].Name;
+
+
+                scoreTexts[1].text = "Score: " + scoreList[i].Score;
+
+                /*
+                scoreTexts[0].text = " Player " + i + " : " + 
+                                 scoreList[i].Name + " | Time: " + 
+                                 scoreList[i].Time.ToString() + "| Score : "+
+                                 scoreList[i].Score.ToString();
+
+                -------------------------------------------------------------------------------
+
+                   uiElements[i].GetComponentInChildren<TMP_Text>().text= " Player " + i + " : " +
+                                  scoreList[i].Name + " | Time: " +
+                                  scoreList[i].Time.ToString() + "| Score : " +
+                                  scoreList[i].Score.ToString();
+
+
+                */
+
+
             }
         }
     }

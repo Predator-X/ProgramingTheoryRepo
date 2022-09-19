@@ -20,6 +20,7 @@ TagManager:
   - PlayerSpawnPoint
   - MainMenu
   - ContinueButton
+  - ScoreList
   layers:
   - Default
   - TransparentFX

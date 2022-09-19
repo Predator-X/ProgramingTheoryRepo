@@ -22,6 +22,9 @@ public class PauseMenu : MonoBehaviour
 
     Scene scene;
 
+    //path to save JsonFile
+    [SerializeField] string filename;
+
     //MainMenu
     public GameObject mainMenu;
 
@@ -33,7 +36,7 @@ public class PauseMenu : MonoBehaviour
         // loadLastCheckpointButton.onClick.AddListener(TaskOnClick);
         GetEnemysFromScene();
 
-
+/*
         List<PlayerAchivments> scoreList = new List<PlayerAchivments>();
         scoreList.Add(new PlayerAchivments("bob", 10, 100, 1000));
         scoreList.Add(new PlayerAchivments(SaveSystem.getUserName(), 10, 100, 1000));
@@ -55,7 +58,7 @@ public class PauseMenu : MonoBehaviour
         scoreList.Add(new PlayerAchivments(SaveSystem.getUserName(), 10, 100, 1000));
 
         JsonHelper.SaveToJSON<PlayerAchivments>(scoreList, SaveSystem.getUserName());
-       
+       */
     }
 
 
@@ -134,7 +137,13 @@ public class PauseMenu : MonoBehaviour
     public virtual void SavePlayer()
     {
         scene = SceneManager.GetActiveScene();
-        SaveSystem.SavePlayer(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>(),scene.buildIndex);
+        PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
+        float sumTotalSocre = player.GetTime() / player.GetScore() * 100;
+        JsonHelper.SaveToJSON<PlayerAchivments>(new PlayerAchivments(SaveSystem.getUserName().ToString(), player.GetScore(), player.GetTime(), sumTotalSocre), filename);
+
+        SaveSystem.SavePlayer(player,scene.buildIndex);
+    
         
         SaveEnemys();
     }
