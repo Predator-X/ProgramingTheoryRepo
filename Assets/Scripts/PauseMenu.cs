@@ -33,9 +33,24 @@ public class PauseMenu : MonoBehaviour
         // loadLastCheckpointButton.onClick.AddListener(TaskOnClick);
         GetEnemysFromScene();
 
+
         List<PlayerAchivments> scoreList = new List<PlayerAchivments>();
+        scoreList.Add(new PlayerAchivments("bob", 10, 100, 1000));
+        scoreList.Add(new PlayerAchivments(SaveSystem.getUserName(), 10, 100, 1000));
+
+        JsonHelper.SaveToJSON<PlayerAchivments>(scoreList, SaveSystem.getUserName());
+
+      
         scoreList = JsonHelper.ReadListFromJSON<PlayerAchivments>("bob");
 
+        for(int i=0;i<= scoreList.Count; i++)
+        {
+            if (SaveSystem.getUserName() == scoreList[i].Name)
+            {
+                scoreList.RemoveAt(i);
+            }
+        }
+        
         scoreList.Add(new PlayerAchivments("bob", 10, 100, 1000));
         scoreList.Add(new PlayerAchivments(SaveSystem.getUserName(), 10, 100, 1000));
 

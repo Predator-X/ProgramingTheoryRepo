@@ -8,10 +8,7 @@ public class HighScoreHandler : MonoBehaviour
     [SerializeField] int maxCount = 10;
     [SerializeField] string filename;
 
-    private void Start()
-    {
-        
-    }
+
 
 
     private void LoadHighScores()
