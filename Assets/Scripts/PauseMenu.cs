@@ -139,13 +139,55 @@ public class PauseMenu : MonoBehaviour
         scene = SceneManager.GetActiveScene();
         PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
+
+        List<PlayerAchivments> pA = new List<PlayerAchivments>();
+        pA = JsonHelper.ReadListFromJSON<PlayerAchivments>(filename);
+
         float sumTotalSocre = player.GetTime() / player.GetScore() * 100;
-        JsonHelper.SaveToJSON<PlayerAchivments>(new PlayerAchivments(SaveSystem.getUserName().ToString(), player.GetScore(), player.GetTime(), sumTotalSocre), filename);
+        PlayerAchivments thisPlayer = new PlayerAchivments(SaveSystem.getUserName().ToString(), player.GetScore(), player.GetTime(), sumTotalSocre);
+
+        pA.Add(thisPlayer);
+        SaveHighScores(pA);
+
+     //   AddHighScoreIfPossible(new PlayerAchivments(SaveSystem.getUserName().ToString(), player.GetScore(), player.GetTime(), sumTotalSocre), pA);
+
+    
+        
+
+       // JsonHelper.SaveToJSON<PlayerAchivments>(new PlayerAchivments(SaveSystem.getUserName().ToString(), player.GetScore(), player.GetTime(), sumTotalSocre), filename);
 
         SaveSystem.SavePlayer(player,scene.buildIndex);
     
         
         SaveEnemys();
+    }
+
+
+    private void SaveHighScores(List<PlayerAchivments> scoreList)
+    {
+        JsonHelper.SaveToJSON<PlayerAchivments>(scoreList, filename);
+    }
+
+    public void AddHighScoreIfPossible(PlayerAchivments playerAchivments, List<PlayerAchivments> scoreList)
+    {
+        int maxCount = 7;
+        for (int i = 0; i < maxCount; i++)
+        {
+            if (i >= scoreList.Count || playerAchivments.Score > scoreList[i].Score)
+            {
+                //add new high score
+                scoreList.Insert(i, playerAchivments);
+
+                while (scoreList.Count > maxCount)
+                {
+                    scoreList.RemoveAt(maxCount);
+                }
+
+                SaveHighScores(scoreList);
+
+                break; // Break as no point to go further as the scores will be lower
+            }
+        }
     }
 
     public virtual void LoadPlayer()

@@ -23,9 +23,9 @@ public class HighScoreUI : MonoBehaviour
     }
     private void Start()
     {
-        scoreList.Add(new PlayerAchivments("dick Harper", 100, 100, 100));
-        scoreList.Add(new PlayerAchivments("josh", 2, 3, 4));
-        SaveHighScores();
+      //  scoreList.Add(new PlayerAchivments("dick Harper", 100, 100, 100));
+      //  scoreList.Add(new PlayerAchivments("josh", 2, 3, 4));
+      //  SaveHighScores();
         LoadHighScores();
         updateUI(scoreList);
         if (File.Exists(JsonHelper.GetPath(filename)))
