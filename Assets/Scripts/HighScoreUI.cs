@@ -26,8 +26,7 @@ public class HighScoreUI : MonoBehaviour
       //  scoreList.Add(new PlayerAchivments("dick Harper", 100, 100, 100));
       //  scoreList.Add(new PlayerAchivments("josh", 2, 3, 4));
       //  SaveHighScores();
-        LoadHighScores();
-        updateUI(scoreList);
+  
         if (File.Exists(JsonHelper.GetPath(filename)))
         {
             // Debug.LogError("File Exists: " + JsonHelper.GetPath(filename));
@@ -39,6 +38,13 @@ public class HighScoreUI : MonoBehaviour
         if (!File.Exists(JsonHelper.GetPath(filename)))
         {
             Debug.LogError("File path does not exists: " + JsonHelper.GetPath(filename));
+        }
+
+        SaveSystem.buttonHolder = GameObject.FindGameObjectWithTag("ContinueButton");
+        if (SaveSystem.justCreatedNewAccount)
+        {
+           SaveSystem.buttonHolder= GameObject.FindGameObjectWithTag("ContinueButton");
+            SaveSystem.buttonHolder.active = false;
         }
 
        /* for (int i = 0; i <= scoreList.Count; i++)
@@ -93,7 +99,7 @@ public class HighScoreUI : MonoBehaviour
                 scoreTexts[0].text = scoreList[i].Name;
 
 
-                scoreTexts[1].text = "Score: " + scoreList[i].Score;
+                scoreTexts[1].text = "Score:" + scoreList[i].Score;
 
                 /*
                 scoreTexts[0].text = " Player " + i + " : " + 

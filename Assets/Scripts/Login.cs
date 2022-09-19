@@ -134,6 +134,7 @@ public class Login : MonoBehaviour
             SaveSystem.SaveUserData(loginInput.text, passportInput.text.ToString());
             checkText.text = loginInput.text + " Your Account Created ";
             Load(sceneIndex);
+            SaveSystem.justCreatedNewAccount = true;
             creatNewPressed = false;
         }
         

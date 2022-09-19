@@ -35,7 +35,7 @@ public class PauseMenu : MonoBehaviour
         // onStartGameObjectsInScene = GameObject.FindGameObjectsWithTag("Enemy");
         // loadLastCheckpointButton.onClick.AddListener(TaskOnClick);
         GetEnemysFromScene();
-
+        
 /*
         List<PlayerAchivments> scoreList = new List<PlayerAchivments>();
         scoreList.Add(new PlayerAchivments("bob", 10, 100, 1000));
@@ -148,6 +148,9 @@ public class PauseMenu : MonoBehaviour
 
         pA.Add(thisPlayer);
         SaveHighScores(pA);
+
+        SaveSystem.justCreatedNewAccount = false;
+        SaveSystem.buttonHolder.active = true;
 
      //   AddHighScoreIfPossible(new PlayerAchivments(SaveSystem.getUserName().ToString(), player.GetScore(), player.GetTime(), sumTotalSocre), pA);
 

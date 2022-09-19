@@ -6,6 +6,8 @@ public static class SaveSystem {
 
     public static string UserName;
     public static GameObject[] getEnemysOnStart;
+    public static bool justCreatedNewAccount = false;
+    public static GameObject buttonHolder;
     public static void SavePlayer(PlayerController player , int sceneIndex)//string username
     {
         BinaryFormatter formatter = new BinaryFormatter();
