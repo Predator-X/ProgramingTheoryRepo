@@ -32,6 +32,19 @@ public class Login : MonoBehaviour
         checkText.gameObject.active = false;
         errorCanvas.active = false;
     }
+/*
+    private void Start()
+    {
+        PlayersList playersListData = new PlayersList();
+
+        playersListData.Name = "FART";
+        playersListData.Score = 1000;
+        playersListData.Time = 1000;
+        playersListData.TotalScore = 100000;
+
+        SaveSystem.SaveListHolder(playersListData);
+    }
+*/
     private void Update()
     {
         /*

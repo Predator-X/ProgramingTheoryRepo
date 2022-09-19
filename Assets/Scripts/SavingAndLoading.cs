@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.IO;
+using System.Linq;
 public class SavingAndLoading : MonoBehaviour
 {
      GameObject[] onStartGameObjectsInScene;
@@ -25,6 +26,27 @@ public class SavingAndLoading : MonoBehaviour
     //If this scene is main menu and player has no save/ checkpoint, has not played the game, disactivate counitue button
     GameObject mainMenuContinueButton;
 
+    /// PlayerScoreList
+    /*
+    
+      public List<PlayersList> ListHolder = new List<PlayersList>();
+   // public List<TPlayerList> ListT = new List<T>();
+
+    public void SaveListHolder()
+    {
+        ScoreListData scoreListData = new ScoreListData();
+        scoreListData.ScoreListofPlayersData = ListHolder.ToArray();
+        for(int i=0; i == scoreListData.ScoreListofPlayersData.Length; i++)
+        {
+            if(scoreListData.ScoreListofPlayersData[i] == null)
+            {
+                scoreListData.ScoreListofPlayersData[i] = ListHolder[i];
+            }
+        }
+       
+    }
+    
+    */
     private void Awake()
     {
         if (Instance != null)

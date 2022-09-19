@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
+using System.Linq;
 #if UNITY_EDITOR
 using UnityEditor; // original code to quit Unity player
 #endif
@@ -23,14 +25,28 @@ public class PauseMenu : MonoBehaviour
     //MainMenu
     public GameObject mainMenu;
 
+    //ScoreList
+    ArrayList scoreListArrayList;
     private void Start()
     {
         // onStartGameObjectsInScene = GameObject.FindGameObjectsWithTag("Enemy");
         // loadLastCheckpointButton.onClick.AddListener(TaskOnClick);
         GetEnemysFromScene();
+
+        List<PlayerAchivments> scoreList = new List<PlayerAchivments>();
+        scoreList = JsonHelper.ReadListFromJSON<PlayerAchivments>("bob");
+
+        scoreList.Add(new PlayerAchivments("bob", 10, 100, 1000));
+        scoreList.Add(new PlayerAchivments(SaveSystem.getUserName(), 10, 100, 1000));
+
+        JsonHelper.SaveToJSON<PlayerAchivments>(scoreList, SaveSystem.getUserName());
+       
     }
 
-   public void TaskOnClick()
+
+  
+
+    public void TaskOnClick()
     {
         levelLoader = GameObject.FindGameObjectWithTag("LevelLoader");
        
@@ -212,3 +228,45 @@ public class PauseMenu : MonoBehaviour
     
 
 }
+
+
+
+
+
+/* 
+    public void SavePlayersScoreListDataToJSON(PlayerAchivments playerAchivments)//string playerName, int score, float time, float totalScore)
+{
+        scoreListArrayList = new ArrayList();
+
+        List<PlayerAchivments> pList = new List<PlayerAchivments>()
+        {
+            playerAchivments
+    };
+       
+
+        scoreListArrayList.Add(pList);
+        PlayersScoreListData data = new PlayersScoreListData(scoreListArrayList);
+        string json = JsonUtility.ToJson(data.ToString());
+       
+       File.WriteAllText("G:/__JSONtest/PlayersScoreListData.json", json);// Application.persistentDataPath + "/PlayersScoreListData.json", json);
+        /* PlayerAchivments playerAchivments = new PlayerAchivments();
+
+         playerAchivments.Name = playerName;
+         playerAchivments.Score = score;
+         playerAchivments.Time = time;
+         playerAchivments.TotalScore = totalScore;
+
+         */
+//   PlayersScoreListData playersScoreListData = new PlayersScoreListData(playerAchivments);
+// playersScoreListData.playersScoreArrayList.Add(playerAchivments);
+//   playersScoreListData(playerAchivments);
+//PlayersScoreListData.playersScoreArraList.AddRange(playerAchivments.ToArray())
+
+// playersScoreListData.playersScoreArrayList.Add(playerAchivments);
+//  string json = JsonUtility.ToJson(playersScoreListData);
+//   File.WriteAllText("G:/__JSONtest/PlayersScoreListData.json", json);// Application.persistentDataPath + "/PlayersScoreListData.json", json);
+/*
+Debug.Log("G:/__JSONtest/PlayersScoreListData.json");
+    }
+
+*/

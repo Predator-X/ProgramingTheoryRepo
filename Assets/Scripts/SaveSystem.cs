@@ -146,6 +146,73 @@ public static class SaveSystem {
     }
 
 
+    public static void SavePlayersScoreListDataToJSON(PlayerAchivments playerAchivments)//string playerName, int score, float time, float totalScore)
+    {
+       /* PlayerAchivments playerAchivments = new PlayerAchivments();
+
+        playerAchivments.Name = playerName;
+        playerAchivments.Score = score;
+        playerAchivments.Time = time;
+        playerAchivments.TotalScore = totalScore;
+
+        */
+     //   PlayersScoreListData playersScoreListData = new PlayersScoreListData(playerAchivments);
+        // playersScoreListData.playersScoreArrayList.Add(playerAchivments);
+        //   playersScoreListData(playerAchivments);
+        //PlayersScoreListData.playersScoreArraList.AddRange(playerAchivments.ToArray())
+        
+       // playersScoreListData.playersScoreArrayList.Add(playerAchivments);
+      //  string json = JsonUtility.ToJson(playersScoreListData);
+     //   File.WriteAllText("G:/__JSONtest/PlayersScoreListData.json", json);// Application.persistentDataPath + "/PlayersScoreListData.json", json);
+        Debug.Log("G:/__JSONtest/PlayersScoreListData.json");
+    }
+    /*
+       public static void SaveScoreListJSON(string playerName,int score,float time,float totalScore)
+       {
+           PlayersList playersListData = new PlayersList();
+
+           playersListData.Name = playerName;
+           playersListData.Score = score;
+           playersListData.Time = time;
+           playersListData.TotalScore = totalScore;
+
+           string json = JsonUtility.ToJson(playersListData);
+           File.WriteAllText(Application.persistentDataPath + "/PlayersScoreList.json", json);
+
+       }
+
+      // public List<PlayersList> ListHolder = new List<PlayersList>();
+
+       public static void SaveListHolder(PlayersList playersList)
+       {
+           ScoreListData scoreListData = new ScoreListData();
+           scoreListData.ScoreListofPlayersList.Add(playersList);
+           scoreListData.ScoreListofPlayersData = ListHolder.ToArray();
+
+
+           string json = JsonUtility.ToJson(scoreListData);
+           File.WriteAllText("G:/__JSONtest/PlayersScoreListDATA.json", json);
+           Debug.Log("G:/__JSONtest/PlayersScoreListDATA.json");
+
+       }
+
+
+           public static PlayersList LoadScoreListJSON()
+       {
+           string path = Application.persistentDataPath + "/PlayersScoreList.json";
+           if (File.Exists(path))
+           {
+               string json = File.ReadAllText(path);
+               PlayersList PlayersScoreListData = JsonUtility.FromJson<PlayersList>(json);
+               return PlayersScoreListData;
+
+           }
+           else { Debug.LogError("Save file not found in " + path); return null; }
+       }
+    */
+
+
+
 
 
 }

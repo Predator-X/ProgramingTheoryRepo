@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 [System.Serializable]
 public class PlayerData 
 {
@@ -33,6 +34,43 @@ public class PlayerData
 
 }
 
+[System.Serializable]
+public class PlayerAchivments
+{
+   public string Name;
+    public int Score;
+    public float Time;
+    public float TotalScore;
+
+    public PlayerAchivments(string name , int score , float time , float totalscore)
+    {
+        Name = name;
+        Score = score;
+        Time = time;
+        TotalScore = totalscore;
+    }
+
+}
+
+[System.Serializable]
+public class PlayersScoreListData
+{
+    
+    public ArrayList ScoreArrayList;
+    public PlayersScoreListData(ArrayList scoreListArrayList)
+    {
+        ScoreArrayList = new ArrayList();
+        ScoreArrayList.AddRange(scoreListArrayList);
+    }
+   // PlayerAchivments[] playersScoreArrayList;// = new ArrayList();
+
+}
+
+[System.Serializable]
+public class FuckFace
+{
+    public PlayersScoreListData[] fuckFaceArray;
+}
 
 [System.Serializable]
 public class EnemyData
