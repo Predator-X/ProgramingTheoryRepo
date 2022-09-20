@@ -95,12 +95,12 @@ public class HighScoreUI : MonoBehaviour
         //  SaveHighScores();
         //  LoadHighScores();
            
-           for (int i =0; i< scoreList.Count; i++)
+         /*  for (int i =0; i< scoreList.Count; i++)
            {
                AddHighScoreIfPossible(scoreList[i]);
 
            }
-
+         */
            
 
         updateUI(scoreList);

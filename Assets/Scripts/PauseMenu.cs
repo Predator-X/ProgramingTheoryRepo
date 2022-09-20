@@ -177,7 +177,7 @@ public class PauseMenu : MonoBehaviour
 
         for (int i = 0; i < pA.Count; i++)
         {
-            if (pA[i].Name.Equals(thisPlayer.Name))// && pA[i].Score > thisPlayer.Score)
+            if (pA[i].Name.Equals(thisPlayer.Name) && ((uint)pA[i].Score) > ((uint)thisPlayer.Score))
             {
                 pA.RemoveAt(i);
                 pA.Add(thisPlayer);

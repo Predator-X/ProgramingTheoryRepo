@@ -95,6 +95,8 @@ public class Login : MonoBehaviour
     {
         if (!File.Exists(JsonHelper.GetPath(filename)))
         {
+            SaveSystem.justCreatedNewAccount = true;
+
             List<PlayerAchivments> pA = new List<PlayerAchivments>();
 
          //   pA = JsonHelper.ReadListFromJSON<PlayerAchivments>(filename);
