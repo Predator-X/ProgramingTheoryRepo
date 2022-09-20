@@ -22,7 +22,8 @@ public class Login : MonoBehaviour
     bool loadDone = false;
     public int sceneIndex;
 
-
+    //Json
+    [SerializeField] string filename;
 
     //  public Button button;
     // Start is called before the first frame update
@@ -31,6 +32,8 @@ public class Login : MonoBehaviour
     {
         checkText.gameObject.active = false;
         errorCanvas.active = false;
+
+   
     }
 /*
     private void Start()
@@ -90,6 +93,17 @@ public class Login : MonoBehaviour
 
     public  void OnLoginClicked()
     {
+        if (!File.Exists(JsonHelper.GetPath(filename)))
+        {
+            List<PlayerAchivments> pA = new List<PlayerAchivments>();
+
+         //   pA = JsonHelper.ReadListFromJSON<PlayerAchivments>(filename);
+            PlayerAchivments thisPlayer = new PlayerAchivments(loginInput.text.ToString(), 0, 0, 0);
+
+            pA.Add(thisPlayer);
+            JsonHelper.SaveToJSON<PlayerAchivments>(pA, filename);
+        }
+
         SaveSystem.setUserName(loginInput.text);
         // SaveSystem.SaveUserData("1", "1");
         //string path = Application.persistentDataPath  + "/UserDataLib.save";  ////////////"/" + loginInput.text + ".save";
@@ -132,11 +146,16 @@ public class Login : MonoBehaviour
         {
             SaveSystem.setUserName(loginInput.text);
             SaveSystem.SaveUserData(loginInput.text, passportInput.text.ToString());
+
+          
+
             checkText.text = loginInput.text + " Your Account Created ";
             Load(sceneIndex);
             SaveSystem.justCreatedNewAccount = true;
             creatNewPressed = false;
         }
+
+      
         
           
     }

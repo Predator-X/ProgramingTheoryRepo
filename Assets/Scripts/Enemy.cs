@@ -54,7 +54,7 @@ public class Enemy : Character
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, attackRange ))
         {
-            Debug.Log(hit.transform.gameObject);
+
             if (hit.transform.tag == "Wall")
             {
                 obstacleInWay = true;
@@ -68,7 +68,7 @@ public class Enemy : Character
     public override void Damage(int damageAmount)
     {
         currentHealth -= damageAmount;
-        Debug.Log("Name: " + gameObject.name + " HasLife: " + currentHealth);
+      //  Debug.Log("Name: " + gameObject.name + " HasLife: " + currentHealth);
 
         if (currentHealth <= 0 && enemyIsHitOnHead)
         {

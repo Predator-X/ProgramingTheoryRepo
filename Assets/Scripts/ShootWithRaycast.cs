@@ -79,8 +79,8 @@ public class ShootWithRaycast : MonoBehaviour
   public  void Shoot()
     {
         Transform child = transform.GetChild(transform.childCount - 1);
-        Debug.Log("Child Count: " + transform.childCount);
-        Debug.Log(child.name);
+       // Debug.Log("Child Count: " + transform.childCount);
+                                        //  Debug.Log(this.gameObject.name+" has Shooted : in "+child.name);// this debug might be confiussing as it might be wrong descrpied
 
 
         // Update the time when our player can fire next
@@ -130,7 +130,7 @@ public class ShootWithRaycast : MonoBehaviour
             if(tag == "Player")
             {
               
-                Debug.Log("HitInfo :" + hit.collider.name + "  Tag Name: " + hit.transform.tag);
+           //*     Debug.Log("HitInfo :" + hit.collider.name + "  Tag Name: " + hit.transform.tag);
                // Debug.Log("_-------------------- Name: " + hit.transform.parent.name);
                 GameObject body;
                 if (hit.collider.name == "Head" )
@@ -170,7 +170,7 @@ public class ShootWithRaycast : MonoBehaviour
                 {
                     damageExtra = 0;
                    
-                    Debug.Log("GunDamage: " + gunDamage);
+                //    Debug.Log("GunDamage: " + gunDamage);
 
                         // Call the damage function of that script, passing in our gunDamage variable
                         health.Damage(gunDamage + damageExtra);

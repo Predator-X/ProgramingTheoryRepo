@@ -35,6 +35,9 @@ public static class JsonHelper
     public static void SaveToJSON<T>(List<T> toSave,string filename)
     {
         string content = JsonHelper.ToJson<T>(toSave.ToArray());
+
+        string printOutPath = GetPath(filename);
+        Debug.Log("----------------------: " + printOutPath);
         WriteFile(GetPath(filename), content);
     }
 

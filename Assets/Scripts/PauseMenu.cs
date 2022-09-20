@@ -140,15 +140,18 @@ public class PauseMenu : MonoBehaviour
         PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
 
-        List<PlayerAchivments> pA = new List<PlayerAchivments>();
-        pA = JsonHelper.ReadListFromJSON<PlayerAchivments>(filename);
+     
 
+        
         float sumTotalSocre = player.GetTime() / player.GetScore() * 100;
         PlayerAchivments thisPlayer = new PlayerAchivments(SaveSystem.getUserName().ToString(), player.GetScore(), player.GetTime(), sumTotalSocre);
 
-        pA.Add(thisPlayer);
-        SaveHighScores(pA);
 
+        //if score does not exists or is new highest then save it to scoreList under the name withiut creating duplicates
+
+        ////   pA.Add(thisPlayer);
+        //  SaveHighScores(pA);
+        CheckScoresList(thisPlayer);
         SaveSystem.justCreatedNewAccount = false;
         SaveSystem.buttonHolder.active = true;
 
@@ -165,6 +168,30 @@ public class PauseMenu : MonoBehaviour
         SaveEnemys();
     }
 
+    //Check for duplicates or HigherScore
+    public void CheckScoresList(PlayerAchivments thisPlayer)
+    {
+        Debug.Log("------------CHECK SCORES LIST is active---------------NAME: "+thisPlayer.Name);
+        List<PlayerAchivments> pA = new List<PlayerAchivments>();
+        pA = JsonHelper.ReadListFromJSON<PlayerAchivments>(filename);
+
+        for (int i = 0; i < pA.Count; i++)
+        {
+            if (pA[i].Name.Equals(thisPlayer.Name))// && pA[i].Score > thisPlayer.Score)
+            {
+                pA.RemoveAt(i);
+                pA.Add(thisPlayer);
+                SaveHighScores(pA);
+                Debug.Log("------------CHECK SCORES LIST is active---------------"+"Player Score Removed and added at List position :" + i);
+            }
+            if (pA[i].Name != thisPlayer.Name)
+            {
+                pA.Add(thisPlayer);
+                SaveHighScores(pA);
+                Debug.Log("------------CHECK SCORES LIST is active---------------"+"Players Score Added to high scoreList at :" + i);
+            }
+        }
+    }
 
     private void SaveHighScores(List<PlayerAchivments> scoreList)
     {

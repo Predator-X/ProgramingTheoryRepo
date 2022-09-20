@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using TMPro;
 using UnityEngine.UI;
+using System.Linq;
 
 public class HighScoreUI : MonoBehaviour
 {
@@ -32,12 +33,51 @@ public class HighScoreUI : MonoBehaviour
             // Debug.LogError("File Exists: " + JsonHelper.GetPath(filename));
           
             LoadHighScores();
-            
-            updateUI(scoreList);
+
+            //Delete Duplicate names from ScoreList
+            /*
+            List<PlayerAchivments> duplicateScoreList = new List<PlayerAchivments>();
+            int i, a;
+            for ( i = 0; i == scoreList.Count; i++)
+            {
+                
+                for ( a=0; a== scoreList.Count -1 ;a++)
+                {
+                    if (scoreList[i].Name == scoreList[a + 1].Name)
+                    {
+                        scoreList.RemoveAt(i);
+                    }
+                }
+                
+
+            }
+              SaveHighScores();
+            LoadHighScores();
+            */
+
+            //Sort ScoreList
+          
+           
+                      //                scoreList   = scoreList.OrderByDescending(o => o.Score).ToList();
+          
+          //  SaveHighScores();
+          //  LoadHighScores();
+            /*   
+               for (int i =0; i< scoreList.Count; i++)
+               {
+                   AddHighScoreIfPossible(scoreList[i]);
+
+               }
+
+               */
+
+          //  updateUI(scoreList);
         }
         if (!File.Exists(JsonHelper.GetPath(filename)))
         {
             Debug.LogError("File path does not exists: " + JsonHelper.GetPath(filename));
+           
+
         }
 
         SaveSystem.buttonHolder = GameObject.FindGameObjectWithTag("ContinueButton");
@@ -47,21 +87,23 @@ public class HighScoreUI : MonoBehaviour
             SaveSystem.buttonHolder.active = false;
         }
 
-       /* for (int i = 0; i <= scoreList.Count; i++)
-        {
-            if (i == 0)
-            {
-                text.text = " Player " + i + " : " + scoreList[i].Name + " | Time: " + scoreList[i].Time.ToString() + "  ";
-            }
-            if (i == 1)
-            {
-                text2.text = " Player " + i + " : " + scoreList[i].Name + " | Time: " + scoreList[i].Time.ToString() + "  ";
-            }
-            if (i == 2)
-            {
-                text3.text = " Player " + i + " : " + scoreList[i].Name + " | Time: " + scoreList[i].Time.ToString() + "  ";
-            }
-        }*/
+   
+        LoadHighScores();
+
+         scoreList= scoreList.OrderByDescending(o => o.Score).ToList();
+        
+        //  SaveHighScores();
+        //  LoadHighScores();
+           
+           for (int i =0; i< scoreList.Count; i++)
+           {
+               AddHighScoreIfPossible(scoreList[i]);
+
+           }
+
+           
+
+        updateUI(scoreList);
     }
   
 
@@ -82,7 +124,7 @@ public class HighScoreUI : MonoBehaviour
         {
             PlayerAchivments pA = list[i];
 
-            if (pA.Score > 0)
+            if (pA.Score > -1)
             {
                 if (i >= uiElements.Count)
                 {

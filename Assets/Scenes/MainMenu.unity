@@ -1782,7 +1782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef4f97f14c3540440b0877682c369148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCount: 3
+  maxCount: 7
   filename: bob.json
   uiTextPrefab: {fileID: 7239704630204967748, guid: a7fb77256b3cd334cabcdf70f103751e, type: 3}
   wrapperElement: {fileID: 1467978621}
