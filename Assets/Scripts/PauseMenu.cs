@@ -24,6 +24,7 @@ public class PauseMenu : MonoBehaviour
 
     //path to save JsonFile
     [SerializeField] string filename;
+    List<PlayerAchivments> listTosave = new List<PlayerAchivments>();//used for checkList to return
 
     //MainMenu
     public GameObject mainMenu;
@@ -136,6 +137,8 @@ public class PauseMenu : MonoBehaviour
 
     public virtual void SavePlayer()
     {
+        
+
         scene = SceneManager.GetActiveScene();
         PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
@@ -144,7 +147,7 @@ public class PauseMenu : MonoBehaviour
 
         
         float sumTotalSocre = player.GetTime() / player.GetScore() * 100;
-        PlayerAchivments thisPlayer = new PlayerAchivments(SaveSystem.getUserName().ToString(), player.GetScore(), player.GetTime(), sumTotalSocre);
+        PlayerAchivments thisPlayer = new PlayerAchivments(SaveSystem.getUserName(), player.GetScore(), player.GetTime(), sumTotalSocre);
 
 
         //if score does not exists or is new highest then save it to scoreList under the name withiut creating duplicates
@@ -155,12 +158,14 @@ public class PauseMenu : MonoBehaviour
         SaveSystem.justCreatedNewAccount = false;
         SaveSystem.buttonHolder.active = true;
 
-     //   AddHighScoreIfPossible(new PlayerAchivments(SaveSystem.getUserName().ToString(), player.GetScore(), player.GetTime(), sumTotalSocre), pA);
 
-    
-        
+       // SaveHighScores(listTosave);
+        //   AddHighScoreIfPossible(new PlayerAchivments(SaveSystem.getUserName().ToString(), player.GetScore(), player.GetTime(), sumTotalSocre), pA);
 
-       // JsonHelper.SaveToJSON<PlayerAchivments>(new PlayerAchivments(SaveSystem.getUserName().ToString(), player.GetScore(), player.GetTime(), sumTotalSocre), filename);
+
+   
+
+        // JsonHelper.SaveToJSON<PlayerAchivments>(new PlayerAchivments(SaveSystem.getUserName().ToString(), player.GetScore(), player.GetTime(), sumTotalSocre), filename);
 
         SaveSystem.SavePlayer(player,scene.buildIndex);
     
@@ -174,22 +179,54 @@ public class PauseMenu : MonoBehaviour
         Debug.Log("------------CHECK SCORES LIST is active---------------NAME: "+thisPlayer.Name);
         List<PlayerAchivments> pA = new List<PlayerAchivments>();
         pA = JsonHelper.ReadListFromJSON<PlayerAchivments>(filename);
-
+        string name = SaveSystem.getUserName();
+        bool STOP = false;
         for (int i = 0; i < pA.Count; i++)
         {
-            if (pA[i].Name.Equals(thisPlayer.Name) && ((uint)pA[i].Score) > ((uint)thisPlayer.Score))
+            
+            if (pA[i].Name.Equals(name))
             {
-                pA.RemoveAt(i);
-                pA.Add(thisPlayer);
-                SaveHighScores(pA);
-                Debug.Log("------------CHECK SCORES LIST is active---------------"+"Player Score Removed and added at List position :" + i);
+                if (( pA[i].Score < thisPlayer.Score))
+                {
+                    pA.RemoveAt(i);
+                    pA.Insert(i, thisPlayer);
+                    
+
+                    listTosave = pA;
+                    SaveHighScores(pA);
+                    pA = JsonHelper.ReadListFromJSON<PlayerAchivments>(filename);
+                 //   i = pA.Count;
+                    Debug.Log("------------CHECK SCORES LIST is active---------------" + "Player Score Removed and added at List position :" + i);
+                    
+                }
+                if ( pA[i].Score > thisPlayer.Score)
+                {
+                    pA.RemoveAt(i);
+                    listTosave = pA;
+                    pA = JsonHelper.ReadListFromJSON<PlayerAchivments>(filename);
+                    SaveHighScores(pA);
+                    Debug.Log("------------CHECK SCORES LIST is active---------------" + "Old Players Score Removed that was founded with lower score at position :" + i);
+
+                    
+                }
+
             }
-            if (pA[i].Name != thisPlayer.Name)
+           /*  if (!STOP)
             {
-                pA.Add(thisPlayer);
-                SaveHighScores(pA);
-                Debug.Log("------------CHECK SCORES LIST is active---------------"+"Players Score Added to high scoreList at :" + i);
+                 if ( pA[i].Score < thisPlayer.Score)
+                 {
+                  Debug.Log("------------CHECK SCORES LIST is active---------------" + "Players Score Added to high scoreList at :" + i
+                      + "Name are queal to eachother? :" + thisPlayer.Name.Equals(name));
+                      pA.Add(thisPlayer);
+                      SaveHighScores(pA);
+                      listTosave = pA;
+                      pA = JsonHelper.ReadListFromJSON<PlayerAchivments>(filename);
+                   //   i = pA.Count;
+
+                           
+                  }
             }
+             */
         }
     }
 

@@ -17,6 +17,7 @@ public class HighScoreUI : MonoBehaviour
     [SerializeField] GameObject uiTextPrefab;
     [SerializeField] Transform wrapperElement;
 
+    bool itExists = false;
     // public TMP_Text text;// text2,text3;
     private void Awake()
     {
@@ -33,7 +34,22 @@ public class HighScoreUI : MonoBehaviour
             // Debug.LogError("File Exists: " + JsonHelper.GetPath(filename));
           
             LoadHighScores();
+            for(int i=0; i< scoreList.Count; i++)
+            {
+                if (scoreList[i].Name == SaveSystem.getUserName())
+                {
+                    itExists = true;
+                }
+            }
 
+            if (!itExists)
+            {
+                PlayerAchivments thisPlayer = new PlayerAchivments(SaveSystem.getUserName(), 0, 0, 0);
+
+                scoreList.Add(thisPlayer);
+                SaveHighScores();
+                LoadHighScores();
+            }
             //Delete Duplicate names from ScoreList
             /*
             List<PlayerAchivments> duplicateScoreList = new List<PlayerAchivments>();
