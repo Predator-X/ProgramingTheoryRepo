@@ -21,6 +21,8 @@ TagManager:
   - MainMenu
   - ContinueButton
   - ScoreList
+  - PauseMenu
+  - LoadLastCheckpointButton
   layers:
   - Default
   - TransparentFX

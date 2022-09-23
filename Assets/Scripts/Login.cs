@@ -126,8 +126,8 @@ public class Login : MonoBehaviour
                     checkText.gameObject.active = true;
                     checkText.text = "Login Suckesfull " + loginInput.text.ToString();
                     Debug.Log("Login Suckcessfull " + loginInput.text);
-
-                    Load(sceneIndex);
+                GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetMainMenuON();
+                Load(sceneIndex);
                 }
                 else if (loginInput.text != data.username || passportInput.text != data.passport)
                 {
@@ -152,6 +152,7 @@ public class Login : MonoBehaviour
           
 
             checkText.text = loginInput.text + " Your Account Created ";
+            GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetMainMenuON();
             Load(sceneIndex);
             SaveSystem.justCreatedNewAccount = true;
             creatNewPressed = false;

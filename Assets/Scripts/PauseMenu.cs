@@ -29,14 +29,25 @@ public class PauseMenu : MonoBehaviour
     //MainMenu
     public GameObject mainMenu;
 
+    //PauseMenu
+    public GameObject loadCheckpointButton;
+
     //ScoreList
     ArrayList scoreListArrayList;
+
+    private void Awake()
+    {
+       
+            SetMainMenuOf();
+        
+    }
     private void Start()
     {
         // onStartGameObjectsInScene = GameObject.FindGameObjectsWithTag("Enemy");
         // loadLastCheckpointButton.onClick.AddListener(TaskOnClick);
         GetEnemysFromScene();
         
+     
 /*
         List<PlayerAchivments> scoreList = new List<PlayerAchivments>();
         scoreList.Add(new PlayerAchivments("bob", 10, 100, 1000));
@@ -98,6 +109,18 @@ public class PauseMenu : MonoBehaviour
             else
             {
                 Pause();
+
+                ////Check if The player Has Checkpoint and set Load last check point Button to correct state
+                string path = Application.persistentDataPath + "/" + SaveSystem.getUserName() + "player.save";
+                if (File.Exists(path))
+                {
+                    loadLastCheckpointButton.gameObject.active= true;
+                }
+                else if (!File.Exists(path))
+                {
+                   loadLastCheckpointButton.gameObject.active = false;
+                }
+
             }
         }
     }

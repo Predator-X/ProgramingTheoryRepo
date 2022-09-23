@@ -21,7 +21,9 @@ public class SavingAndLoading : MonoBehaviour
     public GameObject loadingSceen;
     public Slider slider;
     public Text progressText;
-    bool loadDone = false , isLoadingMenu=false , isLoading=false,isSceneFromSaveOrAreadyPlayed=false, isLoadingNextLevel=false;
+    bool loadDone = false , isLoadingMenu=false , isLoading =false,isSceneFromSaveOrAreadyPlayed=false, isLoadingNextLevel=false;
+
+  
 
     //If this scene is main menu and player has no save/ checkpoint, has not played the game, disactivate counitue button
     GameObject mainMenuContinueButton;
@@ -225,7 +227,7 @@ public class SavingAndLoading : MonoBehaviour
         //  loadingSceen.SetActive(true);
         isLoadingMenu = false;
         isSceneFromSaveOrAreadyPlayed = true;
-       
+
         StartCoroutine(LoadAsynchronously(SaveSystem.LoadPlayer().sceneIndexx));
     }
 
@@ -342,6 +344,7 @@ public class SavingAndLoading : MonoBehaviour
             if (isLoadingMenu)
             {
                 CheckIfIsMainManuAndSetUI();
+                this.GetComponent<PauseMenu>().SetMainMenuON();
             }
 
           //8  loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");

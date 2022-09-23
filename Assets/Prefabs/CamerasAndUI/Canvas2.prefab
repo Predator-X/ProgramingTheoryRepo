@@ -1755,6 +1755,7 @@ MonoBehaviour:
   loadLastCheckpointButton: {fileID: 6199984500306570071}
   filename: bob.json
   mainMenu: {fileID: 1397750445}
+  loadCheckpointButton: {fileID: 6199984500306570065}
 --- !u!114 &144742109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1859,7 +1860,7 @@ GameObject:
   - component: {fileID: 6199984500306570071}
   m_Layer: 5
   m_Name: LoadLastCheckpointButton
-  m_TagString: Untagged
+  m_TagString: LoadLastCheckpointButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1947,7 +1948,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0, g: 0, b: 0, a: 0.627451}
     m_PressedColor: {r: 0.11320752, g: 0.10412956, b: 0.10412956, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.4745098}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -2772,7 +2773,7 @@ GameObject:
   - component: {fileID: 6199984500628974582}
   m_Layer: 5
   m_Name: PauseMenu
-  m_TagString: Untagged
+  m_TagString: PauseMenu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
