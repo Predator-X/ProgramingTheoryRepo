@@ -189,7 +189,7 @@ public class SavingAndLoading : MonoBehaviour
 
         Vector3 position;
         // Enemy[] enemysInSceneToSave;
-        if (enemysInScene.Length == 0)
+        if (enemysInScene.Length <= 0)
         {
             Debug.Log("There was no enemys to save ----- PauseMenu c# ");
 

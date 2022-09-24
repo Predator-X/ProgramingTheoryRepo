@@ -32,6 +32,9 @@ public class PauseMenu : MonoBehaviour
     //PauseMenu
     public GameObject loadCheckpointButton;
 
+    //Credits Panel
+    public GameObject creditsPanel;
+
     //ScoreList
     ArrayList scoreListArrayList;
 
@@ -39,6 +42,7 @@ public class PauseMenu : MonoBehaviour
     {
        
             SetMainMenuOf();
+        creditsPanel.gameObject.active = false;
         
     }
     private void Start()
@@ -132,11 +136,17 @@ public class PauseMenu : MonoBehaviour
         GameIsPaused = false;
     }
 
-    void Pause()
+  public void Pause()
     {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
+    }
+    public void EndGamePause()
+    {
+        //Time.timeScale = 0f;
+        GameIsPaused = true;
+        SetCreditsPanelOnForseconds();   
     }
 
     public void SetMainMenuON()
@@ -156,6 +166,21 @@ public class PauseMenu : MonoBehaviour
 #else
         Application.Quit(); // original code to quit Unity player
 #endif
+    }
+
+    public void SetCreditsPanelOnForseconds()
+    {
+        StartCoroutine(Credits());
+    }
+  
+    IEnumerator Credits()
+    {
+        yield return new WaitForSeconds(1);
+        creditsPanel.active = true;
+
+        yield return new WaitForSeconds(10f);
+        creditsPanel.active = false;
+        
     }
 
     public virtual void SavePlayer()

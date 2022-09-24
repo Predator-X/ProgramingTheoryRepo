@@ -16,7 +16,7 @@ public class EndSceneCollider : MonoBehaviour
     */
     // Start is called before the first frame update
 
-
+    GameObject canvas2;
 
 
     private void OnTriggerEnter(Collider collision)
@@ -33,9 +33,25 @@ public class EndSceneCollider : MonoBehaviour
 
         if(this.gameObject.tag==("EndSceneCollider") && collision.gameObject.name == "MainPlayer")
         {
-            GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetMainMenuON(); 
-            GameObject.FindGameObjectWithTag("Canvas2").GetComponent<SavingAndLoading>().LoadMenu();
+             canvas2 = GameObject.FindGameObjectWithTag("Canvas2");
+            // canvas2.GetComponent<PauseMenu>().Pause();
+            canvas2.GetComponent<PauseMenu>().EndGamePause();
+
+            canvas2.GetComponent<PauseMenu>().SavePlayer();
+           // Scene scene = SceneManager.GetActiveScene();
+           // SaveSystem.SavePlayer(collision.gameObject.GetComponent<PlayerController>(), scene.buildIndex);
+            StartCoroutine(AfterCreditsLoadMainMenu());
+         
         }
+    }
+
+    IEnumerator AfterCreditsLoadMainMenu()
+    {
+        yield return new WaitForSeconds(10);
+        canvas2.GetComponent<PauseMenu>().Resume();
+        canvas2.GetComponent<PauseMenu>().SetMainMenuON();
+        canvas2.GetComponent<SavingAndLoading>().LoadMenu();
+
     }
     /*
     public void Load(int sceneIndex)
