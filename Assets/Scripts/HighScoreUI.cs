@@ -47,6 +47,7 @@ public class HighScoreUI : MonoBehaviour
                 PlayerAchivments thisPlayer = new PlayerAchivments(SaveSystem.getUserName(), 0, 0, 0);
 
                 scoreList.Add(thisPlayer);
+
                 SaveHighScores();
                 LoadHighScores();
             }
@@ -103,21 +104,22 @@ public class HighScoreUI : MonoBehaviour
             SaveSystem.buttonHolder.active = false;
         }
 
-   
-        LoadHighScores();
 
-         scoreList= scoreList.OrderByDescending(o => o.Score).ToList();
-        
+      
+        LoadHighScores();
+    //    scoreList = scoreList.OrderByDescending(o => o.Score).ToList();
+
+
         //  SaveHighScores();
         //  LoadHighScores();
-           
-         /*  for (int i =0; i< scoreList.Count; i++)
-           {
-               AddHighScoreIfPossible(scoreList[i]);
 
-           }
-         */
-           
+        /*  for (int i =0; i< scoreList.Count; i++)
+          {
+              AddHighScoreIfPossible(scoreList[i]);
+
+          }
+        */
+
 
         updateUI(scoreList);
     }
@@ -126,7 +128,7 @@ public class HighScoreUI : MonoBehaviour
     private void LoadHighScores()
     {
         scoreList = JsonHelper.ReadListFromJSON<PlayerAchivments>(filename);
-
+        scoreList = scoreList.OrderByDescending(o => o.Score).ToList();
 
         while (scoreList.Count > maxCount)
         {
