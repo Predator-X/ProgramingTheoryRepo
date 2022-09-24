@@ -22,13 +22,19 @@ public class EndSceneCollider : MonoBehaviour
     private void OnTriggerEnter(Collider collision)
     {
        // Debug.Log("################" + collision.gameObject.name);
-        if (collision.gameObject.name == "MainPlayer")
+        if (this.gameObject.tag!="EndSceneCollider" && collision.gameObject.name == "MainPlayer")
         {
             Scene scene = SceneManager.GetActiveScene();
             SaveSystem.SavePlayer(collision.gameObject.GetComponent<PlayerController>(),scene.buildIndex);
             GameObject.FindGameObjectWithTag("Canvas2").GetComponent<SavingAndLoading>().LoadNextScene();//.LoadSpecificScene(scene.buildIndex + 1 , false);
           //  Load(sceneIndex);
             Destroy(this.gameObject);
+        }
+
+        if(this.gameObject.tag==("EndSceneCollider") && collision.gameObject.name == "MainPlayer")
+        {
+            GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetMainMenuON(); 
+            GameObject.FindGameObjectWithTag("Canvas2").GetComponent<SavingAndLoading>().LoadMenu();
         }
     }
     /*

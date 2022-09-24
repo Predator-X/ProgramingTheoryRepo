@@ -23,6 +23,7 @@ TagManager:
   - ScoreList
   - PauseMenu
   - LoadLastCheckpointButton
+  - EndSceneCollider
   layers:
   - Default
   - TransparentFX
