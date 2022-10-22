@@ -282,6 +282,8 @@ MonoBehaviour:
   currentSpeed: 0
   speed: 8
   runSpeed: 15
+  mouseSensityvityX: 1
+  mouseSensityvityY: 1
   head: {fileID: 6502597803476996891}
   gun: {fileID: 6502597803585837270}
   body: {fileID: 6502597805480488458}
@@ -307,8 +309,8 @@ MonoBehaviour:
   gunDamage: 1
   damageExtra: 0
   fireRate: 0.25
-  weaponRange: 50
-  hitForce: 100
+  weaponRange: 150
+  hitForce: 200
   gunEnd: {fileID: 6502597804235355351}
 --- !u!114 &6502597803799071135
 MonoBehaviour:
@@ -322,7 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d4e9a0d91c79646aa03abfeadddb3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponRange: 50
+  weaponRange: 100
 --- !u!120 &6502597803799071134
 LineRenderer:
   m_ObjectHideFlags: 0

@@ -352,12 +352,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eabf001e585e8834d84a17bf87c03f78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSpeed: 0
   speed: 5
+  runSpeed: 15
+  mouseSensityvityX: 2
+  mouseSensityvityY: 2
   head: {fileID: 5870731763488984548}
   gun: {fileID: 5870731764406497365}
   body: {fileID: 5870731763769773391}
+  isDead: 0
   currentHealth: 3
   characterController: {fileID: 5870731763769773390}
+  aimCamera: {fileID: 0}
+  fallowCamera: {fileID: 0}
+  score: 0
+  currentTime: 0
 --- !u!114 &5870731763769773377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,6 +380,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunDamage: 1
+  damageExtra: 0
   fireRate: 0.25
   weaponRange: 50
   hitForce: 100

@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
-  //  public CharacterController characterController;
-    public float currentSpeed , speed = 5f , runSpeed = 15f;
+  //  public CharacterController characterController;          //setting mouse sensityfity multiplication
+    public float currentSpeed , speed = 5f , runSpeed = 15f, mouseSensityvityX = 10f, mouseSensityvityY = 10f  ;
     public GameObject head, gun, body;
     //  bool isPlayer = false;
     public bool isDead = false;
@@ -46,12 +46,12 @@ public class Character : MonoBehaviour
         transform.Translate(move * currentSpeed * Time.deltaTime, Space.Self);
         // characterController.Move(move * speed * Time.deltaTime);
 
-        body.transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * 5f);
+        body.transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mouseSensityvityX);
                                                                                      // transform.rotation = body.transform.rotation;
-        head.transform.Rotate(Vector3.left * Input.GetAxis("Mouse Y") * 5f);         // this when using scirpt CameraFallow
-        transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * 5f);
+        head.transform.Rotate(Vector3.left * Input.GetAxis("Mouse Y") * mouseSensityvityY);         // this when using scirpt CameraFallow
+        transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mouseSensityvityX);
                                                                                      //  gun.transform.rotation = head.transform.rotation;
-        gun.transform.Rotate(Vector3.left * Input.GetAxis("Mouse Y") * 5f);
+        gun.transform.Rotate(Vector3.left * Input.GetAxis("Mouse Y") * mouseSensityvityY);
     }
 
     public virtual void Heal(float healAmount)
