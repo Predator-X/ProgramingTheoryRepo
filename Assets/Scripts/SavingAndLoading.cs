@@ -145,6 +145,9 @@ public class SavingAndLoading : MonoBehaviour
             position.y = data.position[1];
             position.z = data.position[2];
             playerHolder.transform.position = position;
+     
+
+        Debug.Log("Player Loaded Position: " + position);
 
             LoadEnemys();
         
@@ -218,6 +221,7 @@ public class SavingAndLoading : MonoBehaviour
     {
       ////////////////8  GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
         loadDone = false;
+        loadingSceen.active = true;
         //////////  // scene = SceneManager.GetActiveScene();
         //if(scene.buildIndex != sceneIndex)
         //{
@@ -226,6 +230,7 @@ public class SavingAndLoading : MonoBehaviour
         //  loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
         //  loadingSceen.SetActive(true);
         isLoadingMenu = false;
+        isLoadingNextLevel = false;
         isSceneFromSaveOrAreadyPlayed = true;
 
         StartCoroutine(LoadAsynchronously(SaveSystem.LoadPlayer().sceneIndexx));
@@ -316,10 +321,12 @@ public class SavingAndLoading : MonoBehaviour
         //    }
 
             //  GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
-            if (!isLoadingMenu && isSceneFromSaveOrAreadyPlayed)
+            if (!isLoadingMenu && !isLoadingNextLevel && isSceneFromSaveOrAreadyPlayed)
             {
+                yield return new WaitForSeconds(0.5f);
                 this.GetComponent<SavingAndLoading>().FindEnemys();
                 this.GetComponent<SavingAndLoading>().LoadPlayer();
+                loadingSceen.active = false;
 
             }
             if(!isSceneFromSaveOrAreadyPlayed && !isLoadingMenu && isLoadingNextLevel)
@@ -347,9 +354,10 @@ public class SavingAndLoading : MonoBehaviour
                 this.GetComponent<PauseMenu>().SetMainMenuON();
             }
 
-          //8  loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
-         // 8  slider = GameObject.FindGameObjectWithTag("LoadSlider").GetComponent<Slider>();
-          // 8 progressText = GameObject.FindGameObjectWithTag("LoadText").GetComponent<Text>();
+            //8  loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
+            // 8  slider = GameObject.FindGameObjectWithTag("LoadSlider").GetComponent<Slider>();
+            // 8 progressText = GameObject.FindGameObjectWithTag("LoadText").GetComponent<Text>();
+           
             loadingSceen.SetActive(false);
 
 

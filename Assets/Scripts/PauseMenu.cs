@@ -38,6 +38,9 @@ public class PauseMenu : MonoBehaviour
     //ScoreList
     ArrayList scoreListArrayList;
 
+    //to Active CheckpointUI
+    [SerializeField] private GameObject checkPointUI;
+
     private void Awake()
     {
        
@@ -404,9 +407,24 @@ public class PauseMenu : MonoBehaviour
 
 
 
+    public GameObject GetCheckPointUI()
+    {
+        return checkPointUI;
+    }
+    public void CheckPointReachedt()
+    {
+        StartCoroutine(activeAndDisActiveForXTimeGameObject(checkPointUI, 3f));
+    }
+
+    IEnumerator activeAndDisActiveForXTimeGameObject(GameObject obj, float forTime)
+    {
+        obj.active = true;
+        yield return new WaitForSeconds(forTime);
+        obj.active = false;
+
+    }
 
 
-    
 
 }
 

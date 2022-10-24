@@ -24,6 +24,9 @@ TagManager:
   - PauseMenu
   - LoadLastCheckpointButton
   - EndSceneCollider
+  - thisisCheckpoint
+  - PlayerUI
+  - NextSceneCollider
   layers:
   - Default
   - TransparentFX

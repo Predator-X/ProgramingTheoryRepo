@@ -21,14 +21,14 @@ public class EndSceneCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-       // Debug.Log("################" + collision.gameObject.name);
-        if (this.gameObject.tag!="EndSceneCollider" && collision.gameObject.name == "MainPlayer")
+        // Debug.Log("################" + collision.gameObject.name);  this.gameObject.tag!="EndSceneCollider" && this.gameObject.tag!="thisisCheckpoint"
+        if (this.gameObject.tag=="NextSceneCollider" && collision.gameObject.name == "MainPlayer")
         {
             Scene scene = SceneManager.GetActiveScene();
             SaveSystem.SavePlayer(collision.gameObject.GetComponent<PlayerController>(),scene.buildIndex);
             GameObject.FindGameObjectWithTag("Canvas2").GetComponent<SavingAndLoading>().LoadNextScene();//.LoadSpecificScene(scene.buildIndex + 1 , false);
           //  Load(sceneIndex);
-            Destroy(this.gameObject);
+           
         }
 
         if(this.gameObject.tag==("EndSceneCollider") && collision.gameObject.name == "MainPlayer")
@@ -43,7 +43,31 @@ public class EndSceneCollider : MonoBehaviour
             StartCoroutine(AfterCreditsLoadMainMenu());
          
         }
+        if (this.gameObject.tag == "thisisCheckpoint" && collision.gameObject.name == "MainPlayer") 
+        {
+             Scene scene = SceneManager.GetActiveScene();
+             SaveSystem.SavePlayer(collision.gameObject.GetComponent<PlayerController>(), scene.buildIndex);
+
+            //>>> using method from PauseMenu as its saves to binary and  ((json) as it updates the score) 
+            canvas2 = GameObject.FindGameObjectWithTag("Canvas2");
+          //  canvas2.GetComponent<PauseMenu>().SavePlayer();
+            GameObject obj = canvas2.GetComponent<PauseMenu>().GetCheckPointUI();
+            // obj.SetActive(true);
+            // StartCoroutine(activeAndDisActiveForXTimeGameObject(obj, 3f)); // play and show CheckPoint for 3 sec 
+            canvas2.GetComponent<PauseMenu>().CheckPointReachedt();
+            this.gameObject.GetComponent<BoxCollider>().enabled = false;
+            this.gameObject.active = false;
+        }
     }
+    /*
+    IEnumerator activeAndDisActiveForXTimeGameObject(GameObject obj, float forTime)
+    {
+        obj.active = true;
+        yield return new WaitForSeconds(forTime);
+        obj.active = false;
+        Destroy(this.gameObject);
+    }
+    */
 
     IEnumerator AfterCreditsLoadMainMenu()
     {
