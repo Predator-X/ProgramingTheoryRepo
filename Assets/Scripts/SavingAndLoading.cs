@@ -323,7 +323,7 @@ public class SavingAndLoading : MonoBehaviour
             //  GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
             if (!isLoadingMenu && !isLoadingNextLevel && isSceneFromSaveOrAreadyPlayed)
             {
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(1f);
                 this.GetComponent<SavingAndLoading>().FindEnemys();
                 this.GetComponent<SavingAndLoading>().LoadPlayer();
                 loadingSceen.active = false;

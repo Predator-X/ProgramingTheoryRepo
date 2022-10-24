@@ -50,6 +50,7 @@ public class EndSceneCollider : MonoBehaviour
 
             //>>> using method from PauseMenu as its saves to binary and  ((json) as it updates the score) 
             canvas2 = GameObject.FindGameObjectWithTag("Canvas2");
+            canvas2.GetComponent<PauseMenu>().SaveEnemys();
           //  canvas2.GetComponent<PauseMenu>().SavePlayer();
             GameObject obj = canvas2.GetComponent<PauseMenu>().GetCheckPointUI();
             // obj.SetActive(true);
