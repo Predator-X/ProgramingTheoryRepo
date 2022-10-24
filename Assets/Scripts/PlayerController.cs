@@ -25,6 +25,12 @@ public class PlayerController : Character
     //Effect on camera
     Cinemachine.CinemachineImpulseSource impulseSource;
 
+
+    //<<<>>> New Code for overriting move method 
+    [SerializeField] float gravity = -9.81f;
+    Vector3 velocity;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,13 +44,57 @@ public class PlayerController : Character
 
     }
 
+    //**************CharacterController Updating Method if not works please delete this
+    protected override void Move(GameObject head, GameObject gun, GameObject body)
+    {
+        
+
+        Vector3 moveInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+
+        //<<<>>>! This Is Deleted becouse of new Code -->  transform.Translate(moveInput * currentSpeed * Time.deltaTime, Space.Self);
+        // characterController.Move(move * speed * Time.deltaTime);
+
+        //<<<>>> New Code |_______________________________________________________________
+        //                  V
+
+        // to calculate gravity : y -= gravity * -2f * Time.deltatime; but calculate only on ground
+
+        if (characterController.isGrounded)
+        {
+            velocity.y = - 1f;
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                velocity.y = jumpForce;
+            }
+        }
+        else
+        {
+            velocity.y -= gravity * -2f * Time.deltaTime;
+        }
+
+        Vector3 MoveVector = transform.TransformDirection(moveInput);
+
+        characterController.Move(MoveVector * currentSpeed * Time.deltaTime);
+        characterController.Move(velocity * Time.deltaTime);
+
+      //____________________End Of new Code_________________________________________!!!
+
+        body.transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mouseSensityvityX);
+        // transform.rotation = body.transform.rotation;
+        head.transform.Rotate(Vector3.left * Input.GetAxis("Mouse Y") * mouseSensityvityY);         // this when using scirpt CameraFallow
+        transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mouseSensityvityX);
+        //  gun.transform.rotation = head.transform.rotation;
+        gun.transform.Rotate(Vector3.left * Input.GetAxis("Mouse Y") * mouseSensityvityY);
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (!PauseMenu.GameIsPaused)
         {
-            Move(head, gun, body);
-
+            Move(head, gun, body);// MoveThatWorked
+           // MoveByRigidbody();
             if (Input.GetButtonDown("Fire1") && Time.time > nextFire)
             {
                 attack.Shoot();
@@ -75,6 +125,8 @@ public class PlayerController : Character
         }
      
     }
+
+    
 
   /*  
     public GameObject[] DetectEnemysOnStartInScene()

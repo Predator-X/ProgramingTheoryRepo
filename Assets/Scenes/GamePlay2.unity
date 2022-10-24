@@ -986,6 +986,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EndScene
       objectReference: {fileID: 0}
+    - target: {fileID: 5967351993938418337, guid: 57b9450278ecdae49afec30b5f4d1327, type: 3}
+      propertyPath: m_TagString
+      value: EndSceneCollider
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57b9450278ecdae49afec30b5f4d1327, type: 3}
 --- !u!4 &1640660941 stripped

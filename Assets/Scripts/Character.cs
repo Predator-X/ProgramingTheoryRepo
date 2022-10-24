@@ -14,6 +14,10 @@ public class Character : MonoBehaviour
     //health
     public float currentHealth =10;
 
+ 
+    public float jumpForce;
+
+
     private void Awake()
     {
         currentSpeed = speed;
@@ -42,8 +46,8 @@ public class Character : MonoBehaviour
 
   protected virtual void Move(GameObject head ,GameObject gun, GameObject body)
     {
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        transform.Translate(move * currentSpeed * Time.deltaTime, Space.Self);
+        Vector3 moveInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        transform.Translate(moveInput * currentSpeed * Time.deltaTime, Space.Self);
         // characterController.Move(move * speed * Time.deltaTime);
 
         body.transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mouseSensityvityX);
@@ -53,6 +57,8 @@ public class Character : MonoBehaviour
                                                                                      //  gun.transform.rotation = head.transform.rotation;
         gun.transform.Rotate(Vector3.left * Input.GetAxis("Mouse Y") * mouseSensityvityY);
     }
+
+ 
 
     public virtual void Heal(float healAmount)
     {

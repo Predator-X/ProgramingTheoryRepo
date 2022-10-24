@@ -289,11 +289,13 @@ MonoBehaviour:
   body: {fileID: 6502597805480488458}
   isDead: 0
   currentHealth: 20
+  jumpForce: 5
   characterController: {fileID: 6502597803799071122}
   aimCamera: {fileID: 0}
   fallowCamera: {fileID: 0}
   score: 0
   currentTime: 0
+  gravity: -9.81
 --- !u!114 &6502597803799071132
 MonoBehaviour:
   m_ObjectHideFlags: 0
