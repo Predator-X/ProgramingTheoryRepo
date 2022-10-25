@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using System.Linq;
 #if UNITY_EDITOR
-using UnityEditor; // original code to quit Unity player
+using UnityEditor; // original code to quit Unity player in editor
 #endif
 
 public class PauseMenu : MonoBehaviour
@@ -45,39 +45,12 @@ public class PauseMenu : MonoBehaviour
     {
        
             SetMainMenuOf();
-        creditsPanel.gameObject.active = false;
+        creditsPanel.gameObject.SetActive(false);
         
     }
     private void Start()
-    {
-        // onStartGameObjectsInScene = GameObject.FindGameObjectsWithTag("Enemy");
-        // loadLastCheckpointButton.onClick.AddListener(TaskOnClick);
-        GetEnemysFromScene();
-        
-     
-/*
-        List<PlayerAchivments> scoreList = new List<PlayerAchivments>();
-        scoreList.Add(new PlayerAchivments("bob", 10, 100, 1000));
-        scoreList.Add(new PlayerAchivments(SaveSystem.getUserName(), 10, 100, 1000));
-
-        JsonHelper.SaveToJSON<PlayerAchivments>(scoreList, SaveSystem.getUserName());
-
-      
-        scoreList = JsonHelper.ReadListFromJSON<PlayerAchivments>("bob");
-
-        for(int i=0;i<= scoreList.Count; i++)
-        {
-            if (SaveSystem.getUserName() == scoreList[i].Name)
-            {
-                scoreList.RemoveAt(i);
-            }
-        }
-        
-        scoreList.Add(new PlayerAchivments("bob", 10, 100, 1000));
-        scoreList.Add(new PlayerAchivments(SaveSystem.getUserName(), 10, 100, 1000));
-
-        JsonHelper.SaveToJSON<PlayerAchivments>(scoreList, SaveSystem.getUserName());
-       */
+    {     
+        GetEnemysFromScene();   
     }
 
 
@@ -90,7 +63,7 @@ public class PauseMenu : MonoBehaviour
         if (levelLoader != null)
         {
             levelLoader = GameObject.FindGameObjectWithTag("LevelLoader");
-            levelLoader.GetComponent<LoadLevel>().Load();//SaveSystem.LoadPlayer().sceneIndexx);
+            levelLoader.GetComponent<LoadLevel>().Load();
         }
         else if (levelLoader == null)
         {
@@ -104,7 +77,8 @@ public class PauseMenu : MonoBehaviour
         levelLoader = GameObject.FindGameObjectWithTag("LevelLoader");
 
     }
-    // Update is called once per frame
+ 
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -121,11 +95,11 @@ public class PauseMenu : MonoBehaviour
                 string path = Application.persistentDataPath + "/" + SaveSystem.getUserName() + "player.save";
                 if (File.Exists(path))
                 {
-                    loadLastCheckpointButton.gameObject.active= true;
+                    loadLastCheckpointButton.gameObject.SetActive(true);
                 }
                 else if (!File.Exists(path))
                 {
-                   loadLastCheckpointButton.gameObject.active = false;
+                   loadLastCheckpointButton.gameObject.SetActive(false);
                 }
 
             }
@@ -147,19 +121,19 @@ public class PauseMenu : MonoBehaviour
     }
     public void EndGamePause()
     {
-        //Time.timeScale = 0f;
+        
         GameIsPaused = true;
         SetCreditsPanelOnForseconds();   
     }
 
     public void SetMainMenuON()
     {
-        mainMenu.active = true;
+        mainMenu.SetActive(true);
     }
 
     public void SetMainMenuOf()
     {
-        mainMenu.active = false;
+        mainMenu.SetActive(false);
     }
 
     public void QuitGame()
@@ -167,7 +141,7 @@ public class PauseMenu : MonoBehaviour
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
 #else
-        Application.Quit(); // original code to quit Unity player
+        Application.Quit(); // original code to quit Unity player in build version
 #endif
     }
 
@@ -179,10 +153,10 @@ public class PauseMenu : MonoBehaviour
     IEnumerator Credits()
     {
         yield return new WaitForSeconds(1);
-        creditsPanel.active = true;
+        creditsPanel.SetActive(true);
 
         yield return new WaitForSeconds(10f);
-        creditsPanel.active = false;
+        creditsPanel.SetActive(false);
         
     }
 
@@ -191,36 +165,18 @@ public class PauseMenu : MonoBehaviour
         
 
         scene = SceneManager.GetActiveScene();
-        PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-
-
-     
-
+        PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();     
         
         float sumTotalSocre = player.GetTime() / player.GetScore() * 100;
         PlayerAchivments thisPlayer = new PlayerAchivments(SaveSystem.getUserName(), player.GetScore(), player.GetTime(), sumTotalSocre);
 
 
         //if score does not exists or is new highest then save it to scoreList under the name withiut creating duplicates
-
-        ////   pA.Add(thisPlayer);
-        //  SaveHighScores(pA);
         CheckScoresList(thisPlayer);
         SaveSystem.justCreatedNewAccount = false;
-        SaveSystem.buttonHolder.active = true;
-
-
-       // SaveHighScores(listTosave);
-        //   AddHighScoreIfPossible(new PlayerAchivments(SaveSystem.getUserName().ToString(), player.GetScore(), player.GetTime(), sumTotalSocre), pA);
-
-
-   
-
-        // JsonHelper.SaveToJSON<PlayerAchivments>(new PlayerAchivments(SaveSystem.getUserName().ToString(), player.GetScore(), player.GetTime(), sumTotalSocre), filename);
+        SaveSystem.buttonHolder.SetActive(true);
 
         SaveSystem.SavePlayer(player,scene.buildIndex);
-    
-        
         SaveEnemys();
     }
 
@@ -262,22 +218,7 @@ public class PauseMenu : MonoBehaviour
                 }
 
             }
-           /*  if (!STOP)
-            {
-                 if ( pA[i].Score < thisPlayer.Score)
-                 {
-                  Debug.Log("------------CHECK SCORES LIST is active---------------" + "Players Score Added to high scoreList at :" + i
-                      + "Name are queal to eachother? :" + thisPlayer.Name.Equals(name));
-                      pA.Add(thisPlayer);
-                      SaveHighScores(pA);
-                      listTosave = pA;
-                      pA = JsonHelper.ReadListFromJSON<PlayerAchivments>(filename);
-                   //   i = pA.Count;
-
-                           
-                  }
-            }
-             */
+          
         }
     }
 
@@ -354,12 +295,8 @@ public class PauseMenu : MonoBehaviour
     {
        
 
-        GameObject[] enemysInScene = SaveSystem.getEnemysOnStart; //GameObject.FindGameObjectsWithTag("Enemy");
-     // int enemysLeft = enemysInScene.Length;
-    
+        GameObject[] enemysInScene = SaveSystem.getEnemysOnStart; 
      
-        //   SaveSystem.SaveHowManyEnemysLeft(enemysLeft);
-        // Enemy[] enemysInSceneToSave;
         if (enemysInScene.Length == 0)
         {
             Debug.Log("There was no enemys to save ----- PauseMenu c# ");
@@ -368,8 +305,7 @@ public class PauseMenu : MonoBehaviour
         else
         {
             for (int i = 0; i != enemysInScene.Length; i++)
-            {
-                // enemysInSceneToSave[i] = 
+            { 
                 SaveSystem.SaveEnemys(enemysInScene[i].GetComponent<Enemy>(),i);
             }
         }
@@ -377,7 +313,7 @@ public class PauseMenu : MonoBehaviour
 
     public virtual void LoadEnemys()
     {
-        GameObject[] enemysInScene = onStartGameObjectsInScene; //GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] enemysInScene = onStartGameObjectsInScene; 
 
         int enemysLeft = enemysInScene.Length;
 
@@ -393,8 +329,8 @@ public class PauseMenu : MonoBehaviour
             for (int i = 0; i != enemysInScene.Length; i++)
             {
                  enemysInScene[i].GetComponent<Enemy>().currentHealth =  SaveSystem.LoadEnemys(i).heath;
-                enemysInScene[i].SetActive(SaveSystem.LoadEnemys(i).isItActive);
-                //  enemysInScene[i].GetComponent<Enemy>().currentHealth = SaveSystem.LoadEnemys(i).heath;
+                 enemysInScene[i].SetActive(SaveSystem.LoadEnemys(i).isItActive);
+                
                 position.x = SaveSystem.LoadEnemys(i).position[0];
                 position.y = SaveSystem.LoadEnemys(i).position[1];
                 position.z = SaveSystem.LoadEnemys(i).position[2];
@@ -418,9 +354,9 @@ public class PauseMenu : MonoBehaviour
 
     IEnumerator activeAndDisActiveForXTimeGameObject(GameObject obj, float forTime)
     {
-        obj.active = true;
+        obj.SetActive(true);
         yield return new WaitForSeconds(forTime);
-        obj.active = false;
+        obj.SetActive(false);
 
     }
 

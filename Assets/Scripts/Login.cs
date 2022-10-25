@@ -38,24 +38,21 @@ public class Login : MonoBehaviour
 
     private void Update()
     {
-       
-        
-            SaveSystem.setUserName( loginInput.text.ToString());
-        
+               SaveSystem.setUserName( loginInput.text.ToString());
     }
 
     public void TryAgainButtonOnClick()
     {
-        errorCanvas.active = false;
+        errorCanvas.SetActive(false);
     }
 
     public void CreateNewUserOnClick()
     {
         creatNewPressed = true;
-        checkText.gameObject.active = true;
+        checkText.gameObject.SetActive(true);
         checkText.text = "Creat New Account";
         button.text = "Sign In";
-        errorCanvas.active = false;
+        errorCanvas.SetActive(false);
        
 
       
@@ -94,7 +91,7 @@ public class Login : MonoBehaviour
                 if (loginInput.text.ToString() == data.username.ToString() && passportInput.text.ToString() == data.passport.ToString())
                 {
                     SaveSystem.UserName = data.username.ToString();
-                    checkText.gameObject.active = true;
+                    checkText.gameObject.SetActive(true);
                     checkText.text = "Login Suckesfull " + loginInput.text.ToString();
                     Debug.Log("Login Suckcessfull " + loginInput.text);
                 GameObject.FindGameObjectWithTag("GameManager").GetComponent<PauseMenu>().SetMainMenuON();
@@ -102,7 +99,7 @@ public class Login : MonoBehaviour
                 }
                 else if (loginInput.text != data.username || passportInput.text != data.passport)
                 {
-                    checkText.gameObject.active = true;
+                    checkText.gameObject.SetActive(true);
                     checkText.text = "Wrong Passport try Again";
                 }
 
@@ -110,7 +107,7 @@ public class Login : MonoBehaviour
         }
         else if (!File.Exists(path) && !creatNewPressed)
         {
-            errorCanvas.active = true;
+            errorCanvas.SetActive(true);
           
         }
         else if (!File.Exists(path) && creatNewPressed)
@@ -136,7 +133,7 @@ public class Login : MonoBehaviour
 
     public void Load(int sceneIndex)
     {
-        loadingSceen.active = true;
+        loadingSceen.SetActive(true);
         loadDone = false;
         StartCoroutine(LoadAsynchronously(sceneIndex));
     }

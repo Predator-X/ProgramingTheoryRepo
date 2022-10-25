@@ -1,4 +1,4 @@
-//Canvas2 is GameManager
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,16 +14,7 @@ public class LoadBase : MonoBehaviour
     public Text progressText;
     bool loadDone = false,loadfromSave=false;
     public int sceneIndex;
-    // Start is called before the first frame update
-
-    /*
-    public void Start()
-    {
-        SavingAndLoading s = GetComponent<SavingAndLoading>();
-            s.LoadPlayer();
-            s.LoadEnemys();
-    }
-    */
+ 
     public void Load(int sceneIndex)
     {
         loadingSceen.active = true;
@@ -41,7 +32,7 @@ public class LoadBase : MonoBehaviour
 
     IEnumerator LoadAsynchronously(int sceneIdnex,bool fromSave)
     {
-        //Time.timeScale = 0f;
+        
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIdnex);
         loadingSceen.SetActive(true);
 

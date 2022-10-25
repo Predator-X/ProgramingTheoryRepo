@@ -60,19 +60,19 @@ public class SavingAndLoading : MonoBehaviour
             if (!File.Exists(path))
             {
                 mainMenuContinueButton = GameObject.FindGameObjectWithTag("ContinueButton");
-                mainMenuContinueButton.active = false;
+                mainMenuContinueButton.SetActive(false);
             }
             else if (File.Exists(path))
             {
                 if (mainMenuContinueButton != null)
                 {
 
-                    mainMenuContinueButton.gameObject.active = true;
+                    mainMenuContinueButton.gameObject.SetActive(true);
                 }
                 else
                 {
                     mainMenuContinueButton = GameObject.FindGameObjectWithTag("ContinueButton");
-                    mainMenuContinueButton.gameObject.active = true;
+                    mainMenuContinueButton.gameObject.SetActive(true);
                 }
 
             }
@@ -98,8 +98,6 @@ public class SavingAndLoading : MonoBehaviour
     {
         PlayerData data = SaveSystem.LoadPlayer();
 
-    
-       
         
             playerHolder = GameObject.FindGameObjectWithTag("Player");
             playerHolder.GetComponent<PlayerController>().SetHealth(data.health);
@@ -117,9 +115,6 @@ public class SavingAndLoading : MonoBehaviour
 
             LoadEnemys();
         
-
-       
-
         /*
         Vector3 rotation;
         rotation.x = data.rotation[0];
@@ -186,7 +181,7 @@ public class SavingAndLoading : MonoBehaviour
     {
      
         loadDone = false;
-        loadingSceen.active = true;
+        loadingSceen.SetActive(true);
        
         isLoadingMenu = false;
         isLoadingNextLevel = false;
@@ -197,7 +192,7 @@ public class SavingAndLoading : MonoBehaviour
 
     public void StartNewGame()
     {
-        loadingSceen.active = true;
+        loadingSceen.SetActive(true);
         loadDone = false;
         isLoadingNextLevel = false;
 
@@ -220,7 +215,7 @@ public class SavingAndLoading : MonoBehaviour
     //LoadsNextSceneFromCurrentWone
     public void LoadNextScene()
     {
-        loadingSceen.active = true;
+        loadingSceen.SetActive(true);
         loadDone = false;
 
         Scene scene = SceneManager.GetActiveScene();
@@ -234,7 +229,7 @@ public class SavingAndLoading : MonoBehaviour
 
     public void LoadSpecificScene(int sceneIndex,bool isSceneFromSave)
     {
-        loadingSceen.active = true;
+        loadingSceen.SetActive(true);
         loadDone = false;
         
         isSceneFromSaveOrAreadyPlayed = isSceneFromSave;
@@ -245,7 +240,7 @@ public class SavingAndLoading : MonoBehaviour
     public void LoadMenu()
     {
         
-        loadingSceen.active = true;
+        loadingSceen.SetActive(true);
         loadDone = false;
         isLoadingMenu = true;
 
@@ -278,7 +273,7 @@ public class SavingAndLoading : MonoBehaviour
                 yield return new WaitForSeconds(1f);
                 this.GetComponent<SavingAndLoading>().FindEnemys();
                 this.GetComponent<SavingAndLoading>().LoadPlayer();
-                loadingSceen.active = false;
+                loadingSceen.SetActive(false);
 
             }
             if(!isSceneFromSaveOrAreadyPlayed && !isLoadingMenu && isLoadingNextLevel)

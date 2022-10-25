@@ -32,7 +32,6 @@ public class LoadLevel : MonoBehaviour
     }
     private void Start()
     {
-
         loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
         slider = GameObject.FindGameObjectWithTag("LoadSlider").GetComponent<Slider>();
         progressText = GameObject.FindGameObjectWithTag("LoadText").GetComponent<Text>();
@@ -41,15 +40,9 @@ public class LoadLevel : MonoBehaviour
 
     public void Load()//(int sceneIndex)
     {
-        GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<PauseMenu>().SetLoadLevel();
         loadDone = false;
-        //////////  // scene = SceneManager.GetActiveScene();
-        //if(scene.buildIndex != sceneIndex)
-        //{
-        //    StartCoroutine(LoadAsynchronously(sceneIndex));
-        //  }
-      //  loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
-      //  loadingSceen.SetActive(true);
+ 
         StartCoroutine(LoadAsynchronously(SaveSystem.LoadPlayer().sceneIndexx));
     }
 
@@ -58,7 +51,7 @@ public class LoadLevel : MonoBehaviour
 
     public void LoadMenu()
     {
-        GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<PauseMenu>().SetLoadLevel();
         loadingSceen.active = true;
         loadDone = false;
         StartCoroutine(LoadAsynchronously(1));
@@ -67,13 +60,8 @@ public class LoadLevel : MonoBehaviour
 
     IEnumerator LoadAsynchronously(int sceneIdnex)
     {
-        //Time.timeScale = 0f;
-       // loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
-       
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIdnex);
-
-
-       // loadingSceen.SetActive(true);
+             AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIdnex);
+     
         while (!operation.isDone)
         {
             float progress = Mathf.Clamp01(operation.progress / .9f);
@@ -83,22 +71,13 @@ public class LoadLevel : MonoBehaviour
         }
         if (operation.isDone)
         {
-             GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
+             GameObject.FindGameObjectWithTag("GameManager").GetComponent<PauseMenu>().SetLoadLevel();
             
-            
-              //  GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
-
                 loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
                 slider = GameObject.FindGameObjectWithTag("LoadSlider").GetComponent<Slider>();
                 progressText = GameObject.FindGameObjectWithTag("LoadText").GetComponent<Text>();
                 loadingSceen.SetActive(false);
-            
-                    
-           
-
-           
-           // this.GetComponent<SavingAndLoading>().LoadEnemys();
-        
+                         
             this.GetComponent<SavingAndLoading>().FindEnemys();
             this.GetComponent<SavingAndLoading>().LoadPlayer();
             Time.timeScale = 1.0f;
@@ -107,18 +86,3 @@ public class LoadLevel : MonoBehaviour
       
     }
 }
-
-
-
-
-/*
- * 
- * 
- *             GameObject g;
-            g = GameObject.FindGameObjectWithTag("Player").gameObject;
-            g.gameObject.active = false;
-            g.gameObject.SetActive(true);
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().enabled = false;
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().enabled = true;
-         //   loadDone = true;
-*/

@@ -78,9 +78,8 @@ public static class JsonHelper
     public static string GetPath(string filename)
     {
         return Application.persistentDataPath + "/" + filename;
-       //return "G:/__JSONtest/PlayersScoreListData.json";
-       //return Application.persistentDataPath + "/PlayersScoreListData.json";
-        Debug.Log(Application.persistentDataPath + "/" + filename);//("G:/__JSONtest/PlayersScoreListData.json");
+      
+        Debug.Log(Application.persistentDataPath + "/" + filename);
     }
 
     private static void WriteFile(string path , string content)

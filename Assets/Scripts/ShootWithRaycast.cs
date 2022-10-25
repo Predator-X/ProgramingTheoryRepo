@@ -79,9 +79,7 @@ public class ShootWithRaycast : MonoBehaviour
   public  void Shoot()
     {
         Transform child = transform.GetChild(transform.childCount - 1);
-       // Debug.Log("Child Count: " + transform.childCount);
-                                        //  Debug.Log(this.gameObject.name+" has Shooted : in "+child.name);// this debug might be confiussing as it might be wrong descrpied
-
+      
 
         // Update the time when our player can fire next
         nextFire = Time.time + fireRate;
@@ -104,10 +102,9 @@ public class ShootWithRaycast : MonoBehaviour
             //Create Vector form GunPoint
             rayOrigin = transform.Find("GunHolder").transform.Find("Hand").transform.Find("GunShootPosition").transform.position;
             gOrgin = transform.Find("GunHolder").transform.Find("Hand").transform.Find("GunShootPosition").transform.forward;
-           // rayOrigin = gOrgin;//fpsCam.transform.forward;
+           
         }
-       // gOrgin = transform.Find("GunHolder").transform.Find("Hand").transform.Find("GunShootPosition").transform.forward;
-      //  rayOrigin = fpsCam.transform.forward;
+      
         // Declare a raycast hit to store information about what our raycast has hit
         RaycastHit hit;
 
@@ -129,24 +126,10 @@ public class ShootWithRaycast : MonoBehaviour
             //If script is Attachet to Player
             if(tag == "Player")
             {
-              
-           //*     Debug.Log("HitInfo :" + hit.collider.name + "  Tag Name: " + hit.transform.tag);
-               // Debug.Log("_-------------------- Name: " + hit.transform.parent.name);
-                GameObject body;
+
                 if (hit.collider.name == "Head" )
                 {
-                    /*
-                    body = GameObject.Find(hit.transform.parent.name);
-                       body.gameObject.AddComponent<Rigidbody>();
-                       body.transform.Find("Body").transform.parent = null;
-
-                  
                    
-                    hit.transform.gameObject.AddComponent<Rigidbody>();
-                    hit.transform.parent = null;
-
-                    health = hit.collider.GetComponentInParent<Character>();
-                    */
                     hit.collider.name = "HeadShooted";
                         health = hit.collider.GetComponentInParent<Enemy>();
                         damageExtra = 10;
@@ -160,17 +143,13 @@ public class ShootWithRaycast : MonoBehaviour
                             GetComponent<PlayerController>().AddScore(gunDamage + damageExtra);
 
                         }
-                        else if (health == null) { Debug.LogError("health: When Shoot With head Probably canot find character script in Parent!----ShootWithRayCast c#"); }
-                    
-                    
+                        else if (health == null) { Debug.LogError("health: When Shoot With head Probably canot find character script in Parent!----ShootWithRayCast c#"); }               
 
                 }
 
                 else if (hit.transform.name != "Head" && health !=null && hit.transform.tag !="Player")
                 {
-                    damageExtra = 0;
-                   
-                //    Debug.Log("GunDamage: " + gunDamage);
+                    damageExtra = 0;                  
 
                         // Call the damage function of that script, passing in our gunDamage variable
                         health.Damage(gunDamage + damageExtra);
@@ -185,10 +164,7 @@ public class ShootWithRaycast : MonoBehaviour
                 // Call the damage function of that script, passing in our gunDamage variable
                 health.Damage(gunDamage);
                
-
-
             }
-
 
 
             // Check if the object we hit has a rigidbody attached
@@ -246,75 +222,3 @@ public class ShootWithRaycast : MonoBehaviour
 
 
 }
-
-
-
-
-
-/*
- *         // fpsCam = GetComponentInParent<Camera>();
- * 
- *             // If we did not hit anything, set the end of the line to a position directly in front of the camera at the distance of weaponRange
-           // laserLine.SetPosition(1, rayOrigin + (fpsCam.transform.forward * weaponRange));
-
-
-      // Create a vector at the center of our camera's viewport
-        Vector3 rayOrigin = fpsCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
-
-
- *           void Update()
-    {
-        // Check if the player has pressed the fire button and if enough time has elapsed since they last fired
-        if (Input.GetButtonDown("Fire1") && Time.time > nextFire)
-        {
-            Shoot();
-        }
-    }
-
-
-
-
-
- * 
-        if (this.gameObject.tag == "Player")
-        {
-             rayOrigin = fpsCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
-        }
-        else if( this.gameObject.tag == "Enemy")
-        {
-            //  //.GetComponentInChildren(0).transform.position;
-            Transform gOrgin = transform.Find("Hand").transform.Find("GunShootPosition");
-            rayOrigin = gOrgin.position;
-        }
-
-    *
-      if (hit.transform.tag == "EnemyHead" && this.tag == "Player")
-                {
-                    GetComponent<PlayerController>().AddScore(gunDamage+10);
-                }
-
-
-
-
-
-
-
-
-       else if (hit.transform.name != "Head" && health !=null)
-                {
-                    damageExtra = 0;
-                   
-                    Debug.Log("GunDamage: " + gunDamage);
-
-                    if (health != null)
-                    {
-                        // Call the damage function of that script, passing in our gunDamage variable
-                        health.Damage(gunDamage + damageExtra);
-                            GetComponent<PlayerController>().AddScore(gunDamage);
-
-
-                    }
-                }
-
-
-  */
