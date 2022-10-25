@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class Enemy : Character
-{
-   public NavMeshAgent agent;
-  public  Transform player;
+{   //For Targeting Player
+    public NavMeshAgent agent;
+    public  Transform player;
     public LayerMask WhatIsGround, WhatIsPlayer;
+
     //Patrolling
     Vector3 walkPoint;
     bool walkPointSet;
@@ -49,7 +50,6 @@ public class Enemy : Character
 
 
         //Behafiour  when enemy standing in fornt of the wall do this ....
-
         var ray = new Ray(this.transform.position, this.transform.forward);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, attackRange ))
@@ -57,7 +57,7 @@ public class Enemy : Character
 
             if (hit.transform.tag == "Wall")
             {
-                obstacleInWay = true;
+                obstacleInWay = true;  //<-- this will make go back in update to chase the player
             }
             else if (hit.transform.tag != "Wall") { obstacleInWay = false; }
         }
@@ -68,40 +68,29 @@ public class Enemy : Character
     public override void Damage(int damageAmount)
     {
         currentHealth -= damageAmount;
-      //  Debug.Log("Name: " + gameObject.name + " HasLife: " + currentHealth);
+     
 
         if (currentHealth <= 0 && enemyIsHitOnHead)
         {
-            GameObject b, g, h;
-            b = this.transform.Find("Body").gameObject;
-            b.GetComponent<DisActivateAfter>().enabled = true;
-            b.AddComponent<Rigidbody>();
-            b.transform.parent = null;
+            GameObject body, gun, head;
+            body = this.transform.Find("Body").gameObject;
+            body.GetComponent<DisActivateAfter>().enabled = true;
+            body.AddComponent<Rigidbody>();
+            body.transform.parent = null;
          
 
-            g = this.transform.Find("GunHolder").gameObject;
-            g.GetComponent<DisActivateAfter>().enabled = true;
-            g.AddComponent<Rigidbody>();
-            g.transform.parent = null;
+            gun = this.transform.Find("GunHolder").gameObject;
+            gun.GetComponent<DisActivateAfter>().enabled = true;
+            gun.AddComponent<Rigidbody>();
+            gun.transform.parent = null;
 
-            //h = this.transform.Find("Head").gameObject;  HeadShooted
-            h = this.transform.Find("HeadShooted").gameObject;
-            h.GetComponent<DisActivateAfter>().enabled = true;
-            h.AddComponent<Rigidbody>();
-            h.transform.parent = null;
-
-           // PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
            
-            //StartCoroutine(player.DeadDellay(b));
-            //StartCoroutine(player.DeadDellay(h));
-
-        
-            
-            
+            head = this.transform.Find("HeadShooted").gameObject;
+            head.GetComponent<DisActivateAfter>().enabled = true;
+            head.AddComponent<Rigidbody>();
+            head.transform.parent = null;
 
             isDead = true;
-
- 
             gameObject.SetActive(false);
 
 
@@ -178,34 +167,3 @@ public class Enemy : Character
 
     }
 }
-
-
-/*
- * 
- *        //Behafiour  when enemy standing in fornt of the wall do this ....
-        
-        var ray = new Ray(this.transform.position, this.transform.forward);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 7))
-        {
-            Debug.Log(hit.transform.gameObject);
-            if (hit.transform.tag == "Wall")
-            {
-                obstacleInWay = true;
-                Patrolling();
-                AttackPlayer();
-            }
-            else { obstacleInWay = false; }
-        }
-        if (attack.IsItShootingAtObstacle() && playerInSightRange)
-        {
-            obstacleInWay = true;
-            Patrolling();
-            ChasePlayer();
-            //  Invoke("AttackPlayer", Time.deltaTime * 3f);
-        }
-        if (!attack.IsItShootingAtObstacle())
-        {
-            obstacleInWay = false;
-        }
-*/

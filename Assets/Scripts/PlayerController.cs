@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerController : Character
 {
-    public CharacterController characterController;
+    public CharacterController characterController;  //<-- characterController that is build in unity 
 
     //Shooting
     ShootWithRaycast attack;
@@ -44,23 +44,13 @@ public class PlayerController : Character
 
     }
 
-    //**************CharacterController Updating Method if not works please delete this
-    protected override void Move(GameObject head, GameObject gun, GameObject body)
-    {
-        
+   
+    protected override void Move(GameObject head, GameObject gun, GameObject body)  //<<<|>>> New Code added_________________________________________________________ to Move() method in character class by base.Move();
+    {                    
 
         Vector3 moveInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-
-        //<<<>>>! This Is Deleted becouse of new Code -->  transform.Translate(moveInput * currentSpeed * Time.deltaTime, Space.Self);
-        // characterController.Move(move * speed * Time.deltaTime);
-
-        //<<<>>> New Code |_______________________________________________________________
-        //                  V
-
-        // to calculate gravity : y -= gravity * -2f * Time.deltatime; but calculate only on ground
-
-        if (characterController.isGrounded)
+        if (characterController.isGrounded)    
         {
             velocity.y = - 1f;
             if (Input.GetKeyDown(KeyCode.Space))
@@ -70,82 +60,63 @@ public class PlayerController : Character
         }
         else
         {
-            velocity.y -= gravity * -2f * Time.deltaTime;
+            velocity.y -= gravity * -2f * Time.deltaTime;     // <--to calculate gravity : y -= gravity * -2f * Time.deltatime; but calculate only on ground 
         }
 
-        Vector3 MoveVector = transform.TransformDirection(moveInput);
+        Vector3 moveVector = transform.TransformDirection(moveInput);
 
-        characterController.Move(MoveVector * currentSpeed * Time.deltaTime);
+        characterController.Move(moveVector * currentSpeed * Time.deltaTime);
         characterController.Move(velocity * Time.deltaTime);
+        base.Move(head, gun, body);
 
-      //____________________End Of new Code_________________________________________!!!
 
-        body.transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mouseSensityvityX);
-        // transform.rotation = body.transform.rotation;
-        head.transform.Rotate(Vector3.left * Input.GetAxis("Mouse Y") * mouseSensityvityY);         // this when using scirpt CameraFallow
-        transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mouseSensityvityX);
-        //  gun.transform.rotation = head.transform.rotation;
-        gun.transform.Rotate(Vector3.left * Input.GetAxis("Mouse Y") * mouseSensityvityY);
+ 
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (!PauseMenu.GameIsPaused)
         {
-            Move(head, gun, body);// MoveThatWorked
-           // MoveByRigidbody();
-            if (Input.GetButtonDown("Fire1") && Time.time > nextFire)
-            {
-                attack.Shoot();
-                impulseSource = GetComponent<Cinemachine.CinemachineImpulseSource>();
-                impulseSource.GenerateImpulse(cam.transform.forward);
-            }
-
-            if (Input.GetButtonDown("Fire2") && fallowCamera.activeInHierarchy)
-            {
-                fallowCamera.SetActive(false);
-                aimCamera.SetActive(true);
-            }
-            if (Input.GetButtonUp("Fire2") && aimCamera.activeInHierarchy)
-            {
-                aimCamera.SetActive(false);
-                fallowCamera.SetActive(true);
-
-            }
-
-            if (Input.GetButtonDown("SpeedUp"))
-            {
-                currentSpeed = runSpeed;
-            }
-            if (Input.GetButtonUp("SpeedUp"))
-            {
-                currentSpeed = speed;
-            }
+            Move(head, gun, body);
+            attackAndCameraManagmentOnInput();
+           
         }
      
     }
 
-    
 
-  /*  
-    public GameObject[] DetectEnemysOnStartInScene()
+
+    private void attackAndCameraManagmentOnInput()
     {
-        //      return GameObject.FindGameObjectsWithTag("Enemy");
-        
-        foreach (GameObject obj in Object.FindObjectsOfType(typeof(GameObject))
+        if (Input.GetButtonDown("Fire1") && Time.time > nextFire)
         {
+            attack.Shoot();
+            impulseSource = GetComponent<Cinemachine.CinemachineImpulseSource>();
+            impulseSource.GenerateImpulse(cam.transform.forward);
+        }
 
+        if (Input.GetButtonDown("Fire2") && fallowCamera.activeInHierarchy)
+        {
+            fallowCamera.SetActive(false);
+            aimCamera.SetActive(true);
+        }
+        if (Input.GetButtonUp("Fire2") && aimCamera.activeInHierarchy)
+        {
+            aimCamera.SetActive(false);
+            fallowCamera.SetActive(true);
 
         }
 
-        
-        //yield return null; 
-
+        if (Input.GetButtonDown("SpeedUp"))
+        {
+            currentSpeed = runSpeed;
+        }
+        if (Input.GetButtonUp("SpeedUp"))
+        {
+            currentSpeed = speed;
+        }
     }
-
-    */
-
 
     public string updateTimer()
     {
@@ -185,23 +156,9 @@ public class PlayerController : Character
 
 
 
-/*
- * 
- * 
- *    public override void Damage(int damageAmount)
-    {
-        currentHealth -= damageAmount;
-
-        if (currentHealth <= 0)
-        {
-            healthBar.interactable = false;
-            healthBar.size = 1;
-          
-            gameObject.SetActive(false);
-        }
-
-*/
 
 
 
+// <--v 
 
+//<<>>____________________End Of new Code_________________________________________!!

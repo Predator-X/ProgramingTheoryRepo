@@ -1,14 +1,20 @@
+//Character is a Parent class 
+//contains health,take damage , heal, move and dead dellay 
+// sets the basics for (inheritance) characters controller like playerController, enemy 
+//>> Here you can set after what time dead dellay (game object gets destroyed from scene
+// Move() method only using mouse to rotate as it might be inherited for other characters like tank 
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Character : MonoBehaviour
-{
-  //  public CharacterController characterController;          //setting mouse sensityfity multiplication
-    public float currentSpeed , speed = 5f , runSpeed = 15f, mouseSensityvityX = 10f, mouseSensityvityY = 10f  ;
+{                                                            // | setting mouse sensityfity multiplication    |
+                                                            //  v                                             v
+    public float currentSpeed , speed = 5f , runSpeed = 15f,    mouseSensityvityX = 10f, mouseSensityvityY = 10f  ;
     public GameObject head, gun, body;
-    //  bool isPlayer = false;
+
     public bool isDead = false;
 
     //health
@@ -21,7 +27,6 @@ public class Character : MonoBehaviour
     private void Awake()
     {
         currentSpeed = speed;
-       //currentHealth = maxHealth;
    
     }
 
@@ -44,17 +49,14 @@ public class Character : MonoBehaviour
 
   
 
-  protected virtual void Move(GameObject head ,GameObject gun, GameObject body)
+  protected virtual void Move(GameObject head ,GameObject gun, GameObject body)             //<-- here only rotate as it might be used for tank or other character
     {
-        Vector3 moveInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        transform.Translate(moveInput * currentSpeed * Time.deltaTime, Space.Self);
-        // characterController.Move(move * speed * Time.deltaTime);
-
-        body.transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mouseSensityvityX);
-                                                                                     // transform.rotation = body.transform.rotation;
-        head.transform.Rotate(Vector3.left * Input.GetAxis("Mouse Y") * mouseSensityvityY);         // this when using scirpt CameraFallow
+                             
+        body.transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mouseSensityvityX);                         
+                                                                                    
+        head.transform.Rotate(Vector3.left * Input.GetAxis("Mouse Y") * mouseSensityvityY);         
         transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mouseSensityvityX);
-                                                                                     //  gun.transform.rotation = head.transform.rotation;
+                                                                                    
         gun.transform.Rotate(Vector3.left * Input.GetAxis("Mouse Y") * mouseSensityvityY);
     }
 
@@ -85,104 +87,3 @@ public class Character : MonoBehaviour
         return currentHealth;
     }
 }
-
-
-
-/*
-     //CameraFallow
-    public Camera playersCam;
-    public Transform camtarget;
-    public float pLerp = .02f,
-        rLerp = .01f;
-
-//CameraFallow
-//   camtarget = transform.Find("Head").GetChild(0);
-//  if (playersCam == null)
-//  {
-//      playersCam = GameObject.FindGameObjectWithTag("CameraPlayer").GetComponent<Camera>();
-//    }
-
-
-
-   void CameraFallow()
-{
-   playersCam.transform.position = Vector3.Lerp(playersCam.transform.position, camtarget.position, pLerp);
-   transform.rotation = Quaternion.Lerp(playersCam.transform.rotation, camtarget.rotation, rLerp);
-}
-*/
-
-/*
- *      if(this.tag == "Player")
-    {
-        isPlayer = true;
-        Scrollbar healthBar = Scrollbar.FindObjectOfType<Scrollbar>();
-
-    }
- * 
- * 
- * // detach head on dead 
-           
-            if (this.tag == "Enemy")
-            {
-                Transform head = transform.GetChild(1);
-                head.parent = null;
-                head.gameObject.SetActive(true);
-                isDead = true;
-                gameObject.SetActive(false);
-            }
-            else
-            {
-                isDead = true;
-                gameObject.SetActive(false);
-            }
-
- *      
-                        if (this.tag == "Enemy")
-                        {
-                            Transform head = transform.GetChild(1);
-                            head.parent = null;
-                            head.gameObject.SetActive(true);
-                          //  DeadDellay(head.gameObject);
-                            head.gameObject.AddComponent<Rigidbody>();
-                          //  head.gameObject.AddComponent < Enemy > ().DeadDellay(head.gameObject); 
-
-                            isDead = true;
-                           gameObject.SetActive(false);
-
-
-
-                        }
-                        else
-                        {
-                            isDead = true;
-                            gameObject.SetActive(false);
-                        }
-                      
-
-
-
-
-
-
-
-
-
-        if(this.tag == "Enemy")
-            {
-                Transform gunHolder = transform.Find("GunHolder");
-                if (gunHolder != null)
-                {
-                    gunHolder.gameObject.AddComponent<Rigidbody>();
-                    gunHolder.parent = null;
-                }
-                else { Debug.LogError("Did not find GunHolder In Character to detach on death--- Character c#"); }
-
-                isDead = true;
-                gameObject.SetActive(false);
-            }
-            else
-            {
-            }
- *
- */
-

@@ -15,9 +15,7 @@ public class SavingAndLoading : MonoBehaviour
 
     public static SavingAndLoading Instance;
 
-    /// <summary>
-    /// ///////////////////////////////////////////////////////////////////
-    /// </summary>
+   
     public GameObject loadingSceen;
     public Slider slider;
     public Text progressText;
@@ -28,27 +26,7 @@ public class SavingAndLoading : MonoBehaviour
     //If this scene is main menu and player has no save/ checkpoint, has not played the game, disactivate counitue button
     GameObject mainMenuContinueButton;
 
-    /// PlayerScoreList
-    /*
-    
-      public List<PlayersList> ListHolder = new List<PlayersList>();
-   // public List<TPlayerList> ListT = new List<T>();
-
-    public void SaveListHolder()
-    {
-        ScoreListData scoreListData = new ScoreListData();
-        scoreListData.ScoreListofPlayersData = ListHolder.ToArray();
-        for(int i=0; i == scoreListData.ScoreListofPlayersData.Length; i++)
-        {
-            if(scoreListData.ScoreListofPlayersData[i] == null)
-            {
-                scoreListData.ScoreListofPlayersData[i] = ListHolder[i];
-            }
-        }
-       
-    }
-    
-    */
+  
     private void Awake()
     {
         if (Instance != null)
@@ -114,20 +92,8 @@ public class SavingAndLoading : MonoBehaviour
         SaveEnemys();
     }
 
-   /* //checks if the scene is the same as the player last save 
-    public virtual void CheckSceneBeforePlyerLoad()
-    {
-        PlayerData data = SaveSystem.LoadPlayer();
-
-        if (scene.buildIndex != data.sceneIndexx )
-        {
-            this.GetComponent<LoadLevel>().Load();//data.sceneIndexx);
-            //sceneIsLoaded = true;
-
-
-        }// else if(scene.buildIndex == data.sceneIndexx && sceneIsLoaded)
-    }
-   */
+  
+  
     public virtual void LoadPlayer()
     {
         PlayerData data = SaveSystem.LoadPlayer();
@@ -167,8 +133,7 @@ public class SavingAndLoading : MonoBehaviour
         GameObject[] enemysInScene = onStartGameObjectsInScene; //GameObject.FindGameObjectsWithTag("Enemy");
         int enemysLeft = enemysInScene.Length;
 
-        //   SaveSystem.SaveHowManyEnemysLeft(enemysLeft);
-        // Enemy[] enemysInSceneToSave;
+       
         if (enemysInScene.Length == 0)
         {
             Debug.Log("There was no enemys to save ----- PauseMenu c# ");
@@ -178,7 +143,7 @@ public class SavingAndLoading : MonoBehaviour
         {
             for (int i = 0; i != enemysInScene.Length; i++)
             {
-                // enemysInSceneToSave[i] = 
+                
                 SaveSystem.SaveEnemys(enemysInScene[i].GetComponent<Enemy>(), i);
             }
         }
@@ -191,7 +156,7 @@ public class SavingAndLoading : MonoBehaviour
         int enemysLeft = enemysInScene.Length;
 
         Vector3 position;
-        // Enemy[] enemysInSceneToSave;
+       
         if (enemysInScene.Length <= 0)
         {
             Debug.Log("There was no enemys to save ----- PauseMenu c# ");
@@ -203,7 +168,7 @@ public class SavingAndLoading : MonoBehaviour
             {
                 enemysInScene[i].GetComponent<Enemy>().currentHealth = SaveSystem.LoadEnemys(i).heath;
                 enemysInScene[i].SetActive(SaveSystem.LoadEnemys(i).isItActive);
-                //  enemysInScene[i].GetComponent<Enemy>().currentHealth = SaveSystem.LoadEnemys(i).heath;
+               
                 position.x = SaveSystem.LoadEnemys(i).position[0];
                 position.y = SaveSystem.LoadEnemys(i).position[1];
                 position.z = SaveSystem.LoadEnemys(i).position[2];
@@ -217,18 +182,12 @@ public class SavingAndLoading : MonoBehaviour
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void Load()//(int sceneIndex)
+    public void Load()
     {
-      ////////////////8  GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
+     
         loadDone = false;
         loadingSceen.active = true;
-        //////////  // scene = SceneManager.GetActiveScene();
-        //if(scene.buildIndex != sceneIndex)
-        //{
-        //    StartCoroutine(LoadAsynchronously(sceneIndex));
-        //  }
-        //  loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
-        //  loadingSceen.SetActive(true);
+       
         isLoadingMenu = false;
         isLoadingNextLevel = false;
         isSceneFromSaveOrAreadyPlayed = true;
@@ -285,7 +244,7 @@ public class SavingAndLoading : MonoBehaviour
   
     public void LoadMenu()
     {
-        /////////////8 GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
+        
         loadingSceen.active = true;
         loadDone = false;
         isLoadingMenu = true;
@@ -298,13 +257,12 @@ public class SavingAndLoading : MonoBehaviour
 
     IEnumerator LoadAsynchronously(int sceneIdnex)
     {
-        //Time.timeScale = 0f;
-        // loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
+       
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIdnex);
 
 
-        // 8 loadingSceen.SetActive(true);
+       
         while (!operation.isDone)
         {
             float progress = Mathf.Clamp01(operation.progress / .9f);
@@ -314,13 +272,7 @@ public class SavingAndLoading : MonoBehaviour
         }
         if (operation.isDone)
         {
-            //8   GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
-          //  if (isLoadingMenu)
-          //  {
-             //   GameObject.FindGameObjectWithTag("Canvas2").transform.FindChild("MainMenu").gameObject.active = true;
-        //    }
-
-            //  GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
+          
             if (!isLoadingMenu && !isLoadingNextLevel && isSceneFromSaveOrAreadyPlayed)
             {
                 yield return new WaitForSeconds(1f);
@@ -353,81 +305,13 @@ public class SavingAndLoading : MonoBehaviour
                 CheckIfIsMainManuAndSetUI();
                 this.GetComponent<PauseMenu>().SetMainMenuON();
             }
-
-            //8  loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
-            // 8  slider = GameObject.FindGameObjectWithTag("LoadSlider").GetComponent<Slider>();
-            // 8 progressText = GameObject.FindGameObjectWithTag("LoadText").GetComponent<Text>();
+     
            
             loadingSceen.SetActive(false);
-
-
-
-
-
-            // this.GetComponent<SavingAndLoading>().LoadEnemys();
-
-          
+    
             Time.timeScale = 1.0f;
 
         }
 
     }
 }
-
-
-/*
-
-public void LoadSpecificScene(int sceneIndex)
-{
-    loadingSceen.active = true;
-    loadDone = false;
-    StartCoroutine(LoadAsynchronously(sceneIndex, false));
-}
-
-public void LoadLastSaveScene()
-{
-    loadingSceen.active = true;
-    loadDone = false;
-    StartCoroutine(LoadAsynchronously(SaveSystem.LoadPlayer().sceneIndexx, true));
-
-}
-
-IEnumerator LoadAsynchronously(int sceneIdnex, bool fromSave)
-{
-    //Time.timeScale = 0f;
-    AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIdnex);
-    loadingSceen.SetActive(true);
-
-
-    while (!operation.isDone)
-    {
-        float progress = Mathf.Clamp01(operation.progress / .9f);
-        slider.value = progress;
-        progressText.text = progress * 100f + "%";
-        yield return null;
-    }
-    if (operation.isDone)
-    {
-        loadingSceen.SetActive(false);
-        loadingSceen = GameObject.FindGameObjectWithTag("LoadScreen");
-        if (fromSave)
-        {
-            this.GetComponent<SavingAndLoading>().FindEnemys();
-            this.GetComponent<SavingAndLoading>().LoadPlayer();
-        }
-
-
-        loadingSceen.SetActive(false);
-
-
-
-        Time.timeScale = 1.0f;
-
-    }
-
-}
-*/
-
-
-
-

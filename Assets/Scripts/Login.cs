@@ -25,8 +25,7 @@ public class Login : MonoBehaviour
     //Json
     [SerializeField] string filename;
 
-    //  public Button button;
-    // Start is called before the first frame update
+  
 
     private void Awake()
     {
@@ -35,37 +34,10 @@ public class Login : MonoBehaviour
 
    
     }
-/*
-    private void Start()
-    {
-        PlayersList playersListData = new PlayersList();
 
-        playersListData.Name = "FART";
-        playersListData.Score = 1000;
-        playersListData.Time = 1000;
-        playersListData.TotalScore = 100000;
 
-        SaveSystem.SaveListHolder(playersListData);
-    }
-*/
     private void Update()
     {
-        /*
-        if(loginInput.text != null){
-            string path = Application.persistentDataPath + "/" + loginInput.text + ".save";
-            if (File.Exists(path))
-            {
-                //  checkText.text = "Welcome " + loginInput.text;
-                // button.GetComponent<Text>().text = "Login";
-                // Debug.Log("Path exists");
-                button.text = "Login";
-            }else if (!File.Exists(path))
-            {
-                button.text = "Sign IN ";
-            }
-        }
-        */
-        // checkText.text = "Welcome " + loginInput.text;
        
         
             SaveSystem.setUserName( loginInput.text.ToString());
@@ -99,7 +71,7 @@ public class Login : MonoBehaviour
 
             List<PlayerAchivments> pA = new List<PlayerAchivments>();
 
-         //   pA = JsonHelper.ReadListFromJSON<PlayerAchivments>(filename);
+         
             PlayerAchivments thisPlayer = new PlayerAchivments(loginInput.text.ToString(), 0, 0, 0);
 
             pA.Add(thisPlayer);
@@ -107,16 +79,15 @@ public class Login : MonoBehaviour
         }
 
         SaveSystem.setUserName(loginInput.text);
-        // SaveSystem.SaveUserData("1", "1");
-        //string path = Application.persistentDataPath  + "/UserDataLib.save";  ////////////"/" + loginInput.text + ".save";
+        
         Debug.Log("################## UserName:" + loginInput.text);
         string path = Application.persistentDataPath + "/" + loginInput.text + "UserDataLib.save";
-       // Application.persistentDataPath + "/" + username + "UserDataLib.save";
+       
 
 
         if (File.Exists(path))
         {
-            //UserData data = SaveSystem.LoadUserData(loginInput.text.ToString());
+           
             UserData data = SaveSystem.LoadUserData(loginInput.text);
      
         
@@ -126,7 +97,7 @@ public class Login : MonoBehaviour
                     checkText.gameObject.active = true;
                     checkText.text = "Login Suckesfull " + loginInput.text.ToString();
                     Debug.Log("Login Suckcessfull " + loginInput.text);
-                GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetMainMenuON();
+                GameObject.FindGameObjectWithTag("GameManager").GetComponent<PauseMenu>().SetMainMenuON();
                 Load(sceneIndex);
                 }
                 else if (loginInput.text != data.username || passportInput.text != data.passport)
@@ -140,9 +111,7 @@ public class Login : MonoBehaviour
         else if (!File.Exists(path) && !creatNewPressed)
         {
             errorCanvas.active = true;
-            //checkText.gameObject.active = true;
-            //checkText.text = loginInput.text+" Your Account Created ";
-            //SaveSystem.SaveUserData(loginInput.text, passportInput.text);
+          
         }
         else if (!File.Exists(path) && creatNewPressed)
         {
@@ -152,7 +121,7 @@ public class Login : MonoBehaviour
           
 
             checkText.text = loginInput.text + " Your Account Created ";
-            GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetMainMenuON();
+            GameObject.FindGameObjectWithTag("GameManager").GetComponent<PauseMenu>().SetMainMenuON();
             Load(sceneIndex);
             SaveSystem.justCreatedNewAccount = true;
             creatNewPressed = false;
@@ -174,7 +143,7 @@ public class Login : MonoBehaviour
 
     IEnumerator LoadAsynchronously(int sceneIdnex)
     {
-        //Time.timeScale = 0f;
+       
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIdnex);
         loadingSceen.SetActive(true);
 
@@ -197,39 +166,3 @@ public class Login : MonoBehaviour
 
     }
 }
-
-
-/*
- * 
- *   if (loginInput.text.ToString() == data.username.ToString() && passportInput.text.ToString() == data.passport.ToString())
-            {
-                SaveSystem.UserName = data.username.ToString();
-                checkText.gameObject.active = true;
-                checkText.text = "Login Suckesfull " + loginInput.text.ToString();
-                Debug.Log("Login Suckcessfull " + loginInput.text);
-
-                Load(sceneIndex);
-            }
-            else if (loginInput.text != data.username || passportInput.text != data.passport)
-            {
-                checkText.gameObject.active = true;
-                checkText.text="Wrong Passport try Again";
-            }
-            
-        }
-        else if (!File.Exists(path) && !creatNewPressed)
-        {
-            errorCanvas.active = true;
-            //checkText.gameObject.active = true;
-            //checkText.text = loginInput.text+" Your Account Created ";
-            //SaveSystem.SaveUserData(loginInput.text, passportInput.text);
-        }
-        else if(!File.Exists(path)&& creatNewPressed)
-        {
-            SaveSystem.UserName = loginInput.text.ToString();
-            SaveSystem.SaveUserData(loginInput.text.ToString(), passportInput.text.ToString());
-            checkText.text = loginInput.text + " Your Account Created ";
-            Load(sceneIndex);
-            creatNewPressed = false;
-        }
-*/

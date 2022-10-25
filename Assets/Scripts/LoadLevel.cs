@@ -1,3 +1,5 @@
+
+
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -24,7 +26,7 @@ public class LoadLevel : MonoBehaviour
             return;
         }
         
-            GameObject.FindGameObjectWithTag("Canvas2").GetComponent<PauseMenu>().SetLoadLevel();
+            GameObject.FindGameObjectWithTag("GameManager").GetComponent<PauseMenu>().SetLoadLevel();
             Instance = this;
             DontDestroyOnLoad(gameObject);  
     }
