@@ -1,3 +1,4 @@
+//This Class updates UI Score By finding PlayerController and geting score form there 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

@@ -1,3 +1,4 @@
+//This Class updates UI Timer by finding PlayerController and geting Time From there   
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

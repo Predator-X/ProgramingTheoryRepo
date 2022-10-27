@@ -1,5 +1,5 @@
 //INHERITANCE - PlayerController Inherits From character class and POLYMORPHISM the move method
-
+//This Class is used for manaching MainPlayer Character
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,7 +46,7 @@ public class PlayerController : Character
 
     }
 
-   
+    // POLYMORPHISM
     protected override void Move(GameObject head, GameObject gun, GameObject body)  //<<<|>>> New Code added_________________________________________________________ to Move() method in character class by base.Move();
     {                    
 
@@ -156,12 +156,3 @@ public class PlayerController : Character
         return currentTime;
     }
 }
-
-
-
-
-
-
-// <--v 
-
-//<<>>____________________End Of new Code_________________________________________!!

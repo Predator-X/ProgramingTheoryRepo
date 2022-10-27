@@ -1,3 +1,4 @@
+//This Script contains methods that are able to save arrays and lists of data (Not my creation got it form internet as it helps a lot )
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

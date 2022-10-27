@@ -1,5 +1,5 @@
 //INHERITANCE - Enemy Inherits From character class 
-
+//Manages Enemy
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

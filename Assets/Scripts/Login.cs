@@ -1,3 +1,4 @@
+//This Script Manages Login and seting up new account
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,12 +26,20 @@ public class Login : MonoBehaviour
     //Json
     [SerializeField] string filename;
 
+    //Encapsulation setting character limit for user input (login input and passport)
+    [SerializeField] private int characterLimit = 16;
   
 
     private void Awake()
     {
-        checkText.gameObject.active = false;
-        errorCanvas.active = false;
+        checkText.gameObject.SetActive(false);
+        errorCanvas.SetActive(false);
+
+        //Set Character Limit in text
+        loginInput.characterLimit=characterLimit;
+        passportInput.characterLimit = characterLimit;
+        passportInput.contentType = TMP_InputField.ContentType.Password;
+        
 
    
     }

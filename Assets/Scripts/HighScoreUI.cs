@@ -1,40 +1,38 @@
-using System.Collections;
+//This script manages to set and sort data and ui for highscore list 
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using TMPro;
-using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.UI;
 
 public class HighScoreUI : MonoBehaviour
 {
     List<PlayerAchivments> scoreList = new List<PlayerAchivments>();
-    List<GameObject> uiElements = new List<GameObject>();
+    List<GameObject> uiElements = new List<GameObject>();//<- uiElements is uiScore text(name : Score) in mainMenuList
 
-    [SerializeField] int maxCount = 3;
+    [SerializeField] int maxCount = 3;//<- MaxCount is used for maximum people in high score list 
     [SerializeField] string filename;
 
     [SerializeField] GameObject uiTextPrefab;
     [SerializeField] Transform wrapperElement;
 
     bool itExists = false;
-    // public TMP_Text text;// text2,text3;
+    
     private void Awake()
     {
        wrapperElement= GameObject.FindGameObjectWithTag("ScoreList").transform;
     }
     private void Start()
     {
-      //  scoreList.Add(new PlayerAchivments("dick Harper", 100, 100, 100));
-      //  scoreList.Add(new PlayerAchivments("josh", 2, 3, 4));
-      //  SaveHighScores();
+     
   
         if (File.Exists(JsonHelper.GetPath(filename)))
         {
-            // Debug.LogError("File Exists: " + JsonHelper.GetPath(filename));
-          
+           
             LoadHighScores();
-            for(int i=0; i< scoreList.Count; i++)
+
+            for(int i=0; i< scoreList.Count; i++)//<- load saved users to a uiList(UI display) 
             {
                 if (scoreList[i].Name == SaveSystem.getUserName())
                 {
@@ -42,7 +40,7 @@ public class HighScoreUI : MonoBehaviour
                 }
             }
 
-            if (!itExists)
+            if (!itExists)//<- if its new player add him to the list
             {
                 PlayerAchivments thisPlayer = new PlayerAchivments(SaveSystem.getUserName(), 0, 0, 0);
 
@@ -51,44 +49,7 @@ public class HighScoreUI : MonoBehaviour
                 SaveHighScores();
                 LoadHighScores();
             }
-            //Delete Duplicate names from ScoreList
-            /*
-            List<PlayerAchivments> duplicateScoreList = new List<PlayerAchivments>();
-            int i, a;
-            for ( i = 0; i == scoreList.Count; i++)
-            {
-                
-                for ( a=0; a== scoreList.Count -1 ;a++)
-                {
-                    if (scoreList[i].Name == scoreList[a + 1].Name)
-                    {
-                        scoreList.RemoveAt(i);
-                    }
-                }
-                
-
-            }
-              SaveHighScores();
-            LoadHighScores();
-            */
-
-            //Sort ScoreList
-          
            
-                      //                scoreList   = scoreList.OrderByDescending(o => o.Score).ToList();
-          
-          //  SaveHighScores();
-          //  LoadHighScores();
-            /*   
-               for (int i =0; i< scoreList.Count; i++)
-               {
-                   AddHighScoreIfPossible(scoreList[i]);
-
-               }
-
-               */
-
-          //  updateUI(scoreList);
         }
         if (!File.Exists(JsonHelper.GetPath(filename)))
         {
@@ -97,38 +58,43 @@ public class HighScoreUI : MonoBehaviour
 
         }
 
-        SaveSystem.buttonHolder = GameObject.FindGameObjectWithTag("ContinueButton");
-        if (SaveSystem.justCreatedNewAccount)
-        {
-           SaveSystem.buttonHolder= GameObject.FindGameObjectWithTag("ContinueButton");
-            SaveSystem.buttonHolder.active = false;
-        }
+        ContinueButtonHandlerIfPlayerIsNewOrETC();//<- if its new user that does not have a save yeat disable continue button in MainMenu and viceVersa
 
 
-      
+
+
         LoadHighScores();
-    //    scoreList = scoreList.OrderByDescending(o => o.Score).ToList();
-
-
-        //  SaveHighScores();
-        //  LoadHighScores();
-
-        /*  for (int i =0; i< scoreList.Count; i++)
-          {
-              AddHighScoreIfPossible(scoreList[i]);
-
-          }
-        */
-
 
         updateUI(scoreList);
+
     }
-  
+
+    public void ContinueButtonHandlerIfPlayerIsNewOrETC()//<- if its new user that does not have a save yeat disable continue button in MainMenu and viceVersa
+
+    {
+
+        if (SaveSystem.justCreatedNewAccount)//<- if its new user that does not have a save yeat disable continue button in MainMenu
+        {
+            SaveSystem.buttonHolder = GameObject.FindGameObjectWithTag("ContinueButton");
+            Button continueButton = SaveSystem.buttonHolder.GetComponent<Button>();
+            continueButton.GetComponent<Image>().color = Color.clear;
+            continueButton.interactable = false;
+            //  SaveSystem.buttonHolder.SetActive(false);
+        }
+        if (!SaveSystem.justCreatedNewAccount)
+        {
+            SaveSystem.buttonHolder = GameObject.FindGameObjectWithTag("ContinueButton");
+            Button continueButton = SaveSystem.buttonHolder.GetComponent<Button>();
+            continueButton.GetComponent<Image>().color = Color.white;
+            continueButton.interactable = true;
+        }
+
+    }
 
     private void LoadHighScores()
     {
         scoreList = JsonHelper.ReadListFromJSON<PlayerAchivments>(filename);
-        scoreList = scoreList.OrderByDescending(o => o.Score).ToList();
+        scoreList = scoreList.OrderByDescending(o => o.Score).ToList();//<- filter list to show the highest scores
 
         while (scoreList.Count > maxCount)
         {
@@ -161,21 +127,6 @@ public class HighScoreUI : MonoBehaviour
 
                 scoreTexts[1].text = "Score:" + scoreList[i].Score;
 
-                /*
-                scoreTexts[0].text = " Player " + i + " : " + 
-                                 scoreList[i].Name + " | Time: " + 
-                                 scoreList[i].Time.ToString() + "| Score : "+
-                                 scoreList[i].Score.ToString();
-
-                -------------------------------------------------------------------------------
-
-                   uiElements[i].GetComponentInChildren<TMP_Text>().text= " Player " + i + " : " +
-                                  scoreList[i].Name + " | Time: " +
-                                  scoreList[i].Time.ToString() + "| Score : " +
-                                  scoreList[i].Score.ToString();
-
-
-                */
 
 
             }

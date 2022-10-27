@@ -1,4 +1,4 @@
-
+//This Script is Used for LoadingScreen UI when sceene is being loaded 
 
 using System.Collections;
 using UnityEngine;

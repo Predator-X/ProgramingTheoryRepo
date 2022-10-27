@@ -1,3 +1,5 @@
+//This Script manages Checkpiont, next scene or end game as
+//player collides with it depends on TAG that have been set on game object with it 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,18 +38,19 @@ public class EndSceneCollider : MonoBehaviour
         }
         if (this.gameObject.tag == "thisisCheckpoint" && collision.gameObject.name == "MainPlayer") 
         {
-             Scene scene = SceneManager.GetActiveScene();
-             SaveSystem.SavePlayer(collision.gameObject.GetComponent<PlayerController>(), scene.buildIndex);
+             //Scene scene = SceneManager.GetActiveScene();
+            // SaveSystem.SavePlayer(collision.gameObject.GetComponent<PlayerController>(), scene.buildIndex);
 
             //>>> using method from PauseMenu as its saves to binary and  ((json) as it updates the score) 
             gameManager = GameObject.FindGameObjectWithTag("GameManager");
-            gameManager.GetComponent<PauseMenu>().SaveEnemys();
-         
+            gameManager.GetComponent<PauseMenu>().SavePlayer();
+           
+         //Seting CheckPoint UI
             GameObject obj = gameManager.GetComponent<PauseMenu>().GetCheckPointUI();
             
             gameManager.GetComponent<PauseMenu>().CheckPointReachedt();
             this.gameObject.GetComponent<BoxCollider>().enabled = false;
-            this.gameObject.active = false;
+            this.gameObject.SetActive(false);
         }
     }
    

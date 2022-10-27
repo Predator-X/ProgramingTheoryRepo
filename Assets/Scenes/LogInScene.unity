@@ -2156,6 +2156,7 @@ MonoBehaviour:
   progressText: {fileID: 2042515135}
   sceneIndex: 1
   filename: bob.json
+  characterLimit: 16
 --- !u!1 &742748698
 GameObject:
   m_ObjectHideFlags: 0

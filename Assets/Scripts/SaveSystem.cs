@@ -1,3 +1,4 @@
+//This Script is static and is main for saving and loading data
 using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -9,6 +10,7 @@ public static class SaveSystem
     public static GameObject[] getEnemysOnStart;
     public static bool justCreatedNewAccount = false;
     public static GameObject buttonHolder;
+
     public static void SavePlayer(PlayerController player, int sceneIndex)//string username
     {
         BinaryFormatter formatter = new BinaryFormatter();
@@ -52,7 +54,7 @@ public static class SaveSystem
     {
         Debug.Log("=============Save===UserData Name: " + username);
         string path = Application.persistentDataPath + "/" + username + "UserDataLib.save";
-
+      
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(path, FileMode.Create);
 

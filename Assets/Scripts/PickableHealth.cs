@@ -1,3 +1,4 @@
+//This script is used for adding health for player when collided with it 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

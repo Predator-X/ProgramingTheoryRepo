@@ -67,12 +67,6 @@ public class PlayersScoreListData
 }
 
 [System.Serializable]
-public class FuckFace
-{
-    public PlayersScoreListData[] fuckFaceArray;
-}
-
-[System.Serializable]
 public class EnemyData
 {
     //public string[] enemyNames;
@@ -131,16 +125,5 @@ public class UserData
         username = userName;
         passport = passportt;
 
-    }
-}
-
-[System.Serializable]
-public class EnemysLeftData
-{
-    public int enemyssLeft;
-
-    public EnemysLeftData(int enemysLeft)
-    {
-        enemyssLeft = enemysLeft;
     }
 }

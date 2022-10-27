@@ -1,3 +1,8 @@
+//This Class Is setUp for being Parent Class For later creation diffrent Kinds of Wepons BUT so far no class inherits from it.
+//INHERITANCE
+//ABSTRACTION
+//ENCAPSULATION
+
 using UnityEngine;
 using System.Collections;
 
@@ -7,8 +12,9 @@ public class ShootWithRaycast : MonoBehaviour
 
 
     public int gunDamage = 1, damageExtra=0;                                           // Set the number of hitpoints that this gun will take away from shot objects with a health script
-    public float fireRate = 0.25f;                                      // Number in seconds which controls how often the player can fire
-    public float weaponRange = 50f;                                     // Distance in Unity units over which the player can fire
+    public float fireRate = 0.25f;
+    [SerializeField]private float weaponRange = 50f;// Number in seconds which controls how often the player can fire
+                                   // Distance in Unity units over which the player can fire
     public float hitForce = 100f;                                       // Amount of force which will be added to objects with a rigidbody shot by the player
     public Transform gunEnd;                                            // Holds a reference to the gun end object, marking the muzzle location of the gun
 
@@ -19,6 +25,24 @@ public class ShootWithRaycast : MonoBehaviour
     private float nextFire;                                             // Float to store the time the player will be allowed to fire again, after firing
 
     bool isItPlayer , isShootingAtObstacle=false;
+
+    //ENCAPSULATION
+    public float WeaponRange
+    {
+        get
+        {
+            return weaponRange;
+        }
+        set
+        {
+            if (value < 0.0f)
+            {
+                Debug.LogError("WeponRange Cannot be set to negative number!");
+            }
+            else { weaponRange = value; }
+
+        }
+    }
 
 
   //  string nameOfLastHeadShot = "a";
@@ -43,7 +67,7 @@ public class ShootWithRaycast : MonoBehaviour
  
 
 
-    void GetAllNeceserry()
+   public virtual void GetAllNeceserry()
     {
         // Get and store a reference to our LineRenderer component
         laserLine = GetComponent<LineRenderer>();
@@ -75,8 +99,8 @@ public class ShootWithRaycast : MonoBehaviour
     }
 
 
-
-  public  void Shoot()
+    //ABSTRACTION
+  public virtual void Shoot()
     {
         Transform child = transform.GetChild(transform.childCount - 1);
       
@@ -207,7 +231,7 @@ public class ShootWithRaycast : MonoBehaviour
         laserLine.enabled = false;
     }
 
-    public bool IsItShootingAtObstacle()
+    public virtual bool IsItShootingAtObstacle()
     {
         return isShootingAtObstacle;
     }

@@ -1,3 +1,4 @@
+//This Script Is more GameManager Script it manages PauseMenu UI  
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -271,9 +272,7 @@ public class PauseMenu : MonoBehaviour
         rotation.x = data.rotation[0];
         rotation.y = data.rotation[1];
         rotation.z = data.rotation[2];
-        Quaternion playersRotation = Quaternion.identity;
-        playersRotation.eulerAngles = rotation;
-        playerHolder.transform.rotation = playersRotation;
+        playerHolder.transform.rotation = Quaternion.Euler(rotation);
     }
 
 

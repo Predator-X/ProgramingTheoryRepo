@@ -1,3 +1,4 @@
+//This Script is manly used for Loading next Scenes and seting up whats necessary for certain scene like Main Menu Scene
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -56,26 +57,25 @@ public class SavingAndLoading : MonoBehaviour
         if (thisScene.buildIndex == 1)
         {
             string path = Application.persistentDataPath + "/" + SaveSystem.getUserName() + "player.save";
-
+         
+            
             if (!File.Exists(path))
             {
-                mainMenuContinueButton = GameObject.FindGameObjectWithTag("ContinueButton");
-                mainMenuContinueButton.SetActive(false);
+                SaveSystem.buttonHolder = GameObject.FindGameObjectWithTag("ContinueButton");
+                Button continueButton = SaveSystem.buttonHolder.GetComponent<Button>();
+                continueButton.GetComponent<Image>().color = Color.clear;
+                continueButton.interactable = false;
             }
             else if (File.Exists(path))
             {
-                if (mainMenuContinueButton != null)
-                {
-
-                    mainMenuContinueButton.gameObject.SetActive(true);
-                }
-                else
-                {
-                    mainMenuContinueButton = GameObject.FindGameObjectWithTag("ContinueButton");
-                    mainMenuContinueButton.gameObject.SetActive(true);
-                }
+                
+                    SaveSystem.buttonHolder = GameObject.FindGameObjectWithTag("ContinueButton");
+                    Button continueButton = SaveSystem.buttonHolder.GetComponent<Button>();
+                    continueButton.GetComponent<Image>().color = Color.white;
+                    continueButton.interactable = true;
 
             }
+            
         }
     }
 
@@ -114,13 +114,15 @@ public class SavingAndLoading : MonoBehaviour
         Debug.Log("Player Loaded Position: " + position);
 
             LoadEnemys();
-        
-        /*
+
+
+        //This Is porbably not most efficient way of seting rotation but I do not have time as I wont to finish this license as quick as possible as I have to work in other job 
         Vector3 rotation;
         rotation.x = data.rotation[0];
         rotation.y = data.rotation[1];
         rotation.z = data.rotation[2];
-       playerHolder.transform.rotation.x = rotation; */
+
+        playerHolder.transform.rotation = Quaternion.Euler(rotation);
     }
 
     public virtual void SaveEnemys()
@@ -199,10 +201,9 @@ public class SavingAndLoading : MonoBehaviour
         isLoadingMenu = false;
         isSceneFromSaveOrAreadyPlayed = false;
 
-        Scene scene = SceneManager.GetActiveScene();
-
-       
+        Scene scene = SceneManager.GetActiveScene();             
         StartCoroutine(LoadAsynchronously(scene.buildIndex + 1));
+
     }
 
     public void LoadLastSave()
@@ -248,6 +249,8 @@ public class SavingAndLoading : MonoBehaviour
         isSceneFromSaveOrAreadyPlayed = false;
         StartCoroutine(LoadAsynchronously(1));
     }
+
+ 
 
 
     IEnumerator LoadAsynchronously(int sceneIdnex)
@@ -297,6 +300,7 @@ public class SavingAndLoading : MonoBehaviour
             }
             if (isLoadingMenu)
             {
+
                 CheckIfIsMainManuAndSetUI();
                 this.GetComponent<PauseMenu>().SetMainMenuON();
             }

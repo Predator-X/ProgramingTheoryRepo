@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+//Sets Health bar for player GUI by geting playerController and geting health data form  there
 using UnityEngine;
 using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
