@@ -266,12 +266,14 @@ public class PauseMenu : MonoBehaviour
         LoadEnemys();
 
        
-        /*
+        //This Is porbably not most efficient way of seting rotation but I do not have time as I wont to finish this license as quick as possible as I have to work in other job 
         Vector3 rotation;
         rotation.x = data.rotation[0];
         rotation.y = data.rotation[1];
         rotation.z = data.rotation[2];
-       playerHolder.transform.rotation.x = rotation; */
+        Quaternion playersRotation = Quaternion.identity;
+        playersRotation.eulerAngles = rotation;
+        playerHolder.transform.rotation = playersRotation;
     }
 
 

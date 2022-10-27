@@ -1,3 +1,5 @@
+//INHERITANCE - PlayerController Inherits From character class and POLYMORPHISM the move method
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -65,9 +67,9 @@ public class PlayerController : Character
 
         Vector3 moveVector = transform.TransformDirection(moveInput);
 
-        characterController.Move(moveVector * currentSpeed * Time.deltaTime);
+        characterController.Move(moveVector * CurrentSpeed * Time.deltaTime);
         characterController.Move(velocity * Time.deltaTime);
-        base.Move(head, gun, body);
+        base.Move(head, gun, body);                   //<-- POLYMORPHISM adding code to Move() method that inherits from character class 
 
 
  
@@ -86,7 +88,8 @@ public class PlayerController : Character
     }
 
 
-
+   // | ABSTRACTION
+  //  V
     private void attackAndCameraManagmentOnInput()
     {
         if (Input.GetButtonDown("Fire1") && Time.time > nextFire)
@@ -110,11 +113,11 @@ public class PlayerController : Character
 
         if (Input.GetButtonDown("SpeedUp"))
         {
-            currentSpeed = runSpeed;
+            CurrentSpeed = runSpeed;
         }
         if (Input.GetButtonUp("SpeedUp"))
         {
-            currentSpeed = speed;
+            CurrentSpeed = _speed;
         }
     }
 

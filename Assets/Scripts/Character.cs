@@ -1,4 +1,5 @@
-//Character is a Parent class 
+//INHERITANCE-Character is a Parent class PlayerrController and enemy cs Inherits from this class 
+// ENCAPSULATION - Of players CurrentSpeed 
 //contains health,take damage , heal, move and dead dellay 
 // sets the basics for (inheritance) characters controller like playerController, enemy 
 //>> Here you can set after what time dead dellay (game object gets destroyed from scene
@@ -10,10 +11,34 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Character : MonoBehaviour
-{                                                            // | setting mouse sensityfity multiplication    |
-                                                            //  v                                             v
-    public float currentSpeed , speed = 5f , runSpeed = 15f,    mouseSensityvityX = 10f, mouseSensityvityY = 10f  ;
+{
+    // speed is a holder for standard players speed         
+    //Current speed is total speed so if player holds...
+    //..the run button the run speed adds to it 
+    // Run speed is the holder for runing speed                // | Setting mouse sensityfity multiplication    |
+    //to understand it better check it in PlayerController cs //  v                                             v
+    public float _speed = 7f, runSpeed = 15f, mouseSensityvityX = 10f, mouseSensityvityY = 10f;
     public GameObject head, gun, body;
+
+                   // ENCAPSULATION |
+                   //               v
+    [SerializeField] private float _currentSpeed { get; set; }
+
+   public float CurrentSpeed
+    {
+        get { return _currentSpeed; }
+        set
+        {
+            if (value < 0.0f)
+            {
+                Debug.LogError("You cannot set as standart speed of the player to negative! ");
+            }
+            else
+            {
+                _currentSpeed = value;
+            }
+        }
+    }
 
     public bool isDead = false;
 
@@ -26,7 +51,7 @@ public class Character : MonoBehaviour
 
     private void Awake()
     {
-        currentSpeed = speed;
+        CurrentSpeed = _speed;
    
     }
 
@@ -48,7 +73,8 @@ public class Character : MonoBehaviour
     }
 
   
-
+// | ABSTRACTION
+// V
   protected virtual void Move(GameObject head ,GameObject gun, GameObject body)             //<-- here only rotate as it might be used for tank or other character
     {
                              
